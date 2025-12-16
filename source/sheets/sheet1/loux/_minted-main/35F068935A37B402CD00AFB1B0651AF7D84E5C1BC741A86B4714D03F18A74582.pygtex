@@ -1,0 +1,56 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+      \PYG{c+c1}{\PYGZsh{} / ... imports ... /}
+
+      \PYG{n}{num\PYGZus{}cells} \PYG{o}{=} \PYG{l+m+mi}{100}
+
+      \PYG{c+c1}{\PYGZsh{} configuration with which the}
+      \PYG{c+c1}{\PYGZsh{} simulation is compiled}
+      \PYG{n}{config} \PYG{o}{=} \PYG{n}{SimulationConfig}\PYG{p}{(}
+          \PYG{n}{geometry} \PYG{o}{=} \PYG{n}{CARTESIAN}\PYG{p}{,}
+          \PYG{n}{dimensionality} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{,}
+          \PYG{n}{box\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mf}{1.0}\PYG{p}{,}
+          \PYG{n}{num\PYGZus{}cells} \PYG{o}{=} \PYG{n}{num\PYGZus{}cells}\PYG{p}{,}
+          \PYG{c+c1}{\PYGZsh{} further options like choice of}
+          \PYG{c+c1}{\PYGZsh{} riemann solver, limiter, boundary}
+          \PYG{c+c1}{\PYGZsh{} conditions, ...}
+      \PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} params with which the}
+      \PYG{c+c1}{\PYGZsh{} simulation is run}
+      \PYG{n}{params} \PYG{o}{=} \PYG{n}{SimulationParams}\PYG{p}{(}
+          \PYG{n}{t\PYGZus{}end} \PYG{o}{=} \PYG{l+m+mf}{0.2}\PYG{p}{,}
+      \PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} helper data like cell centers}
+      \PYG{n}{helper\PYGZus{}data} \PYG{o}{=} \PYG{n}{get\PYGZus{}helper\PYGZus{}data}\PYG{p}{(}\PYG{n}{config}\PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} variable registry, specifying where in the state}
+      \PYG{c+c1}{\PYGZsh{} vector which fluid variable is stored}
+      \PYG{n}{registered\PYGZus{}variables} \PYG{o}{=} \PYG{n}{get\PYGZus{}registered\PYGZus{}variables}\PYG{p}{(}\PYG{n}{config}\PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} shock tube setup}
+      \PYG{n}{x} \PYG{o}{=} \PYG{n}{helper\PYGZus{}data}\PYG{o}{.}\PYG{n}{geometric\PYGZus{}centers}
+      \PYG{n}{rho} \PYG{o}{=} \PYG{n}{jnp}\PYG{o}{.}\PYG{n}{where}\PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{0.125}\PYG{p}{)}
+      \PYG{n}{u} \PYG{o}{=} \PYG{n}{jnp}\PYG{o}{.}\PYG{n}{zeros\PYGZus{}like}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+      \PYG{n}{p} \PYG{o}{=} \PYG{n}{jnp}\PYG{o}{.}\PYG{n}{where}\PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} construct the initial state array}
+      \PYG{c+c1}{\PYGZsh{} number of fluid variables x num\PYGZus{}cells}
+      \PYG{n}{initial\PYGZus{}state} \PYG{o}{=} \PYG{n}{construct\PYGZus{}primitive\PYGZus{}state}\PYG{p}{(}
+          \PYG{n}{config} \PYG{o}{=} \PYG{n}{config}\PYG{p}{,}
+          \PYG{n}{registered\PYGZus{}variables} \PYG{o}{=} \PYG{n}{registered\PYGZus{}variables}\PYG{p}{,}
+          \PYG{n}{density} \PYG{o}{=} \PYG{n}{rho}\PYG{p}{,}
+          \PYG{n}{velocity\PYGZus{}x} \PYG{o}{=} \PYG{n}{u}\PYG{p}{,}
+          \PYG{n}{gas\PYGZus{}pressure} \PYG{o}{=} \PYG{n}{p}\PYG{p}{,}
+      \PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} finalize and check the configuration, set the}
+      \PYG{c+c1}{\PYGZsh{} grid spacing, ...}
+      \PYG{n}{config} \PYG{o}{=} \PYG{n}{finalize\PYGZus{}config}\PYG{p}{(}\PYG{n}{config}\PYG{p}{,} \PYG{n}{initial\PYGZus{}state}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+
+      \PYG{c+c1}{\PYGZsh{} run the simulation}
+      \PYG{n}{final\PYGZus{}state} \PYG{o}{=} \PYG{n}{time\PYGZus{}integration}\PYG{p}{(}
+          \PYG{n}{initial\PYGZus{}state}\PYG{p}{,} \PYG{n}{config}\PYG{p}{,} \PYG{n}{params}\PYG{p}{,}
+          \PYG{n}{helper\PYGZus{}data}\PYG{p}{,} \PYG{n}{registered\PYGZus{}variables}
+      \PYG{p}{)}
+\end{Verbatim}
