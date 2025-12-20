@@ -1,6 +1,104 @@
 \section{Introduction}
 \thispagestyle{plain}
 
+From the Gaussian integral $\int_a^b \exp{(-x^2)} \, dx$ 
+and the motion of three bodies to fluid dynamics
+and weather prediction, many problems from 
+mathematics, science and engineering don't have
+\textit{nice analytical solutions}, i.e. compact
+expressions comprised of elementary functions.
 
+The ability of computers to rapidly perform
+simple arithmetic operations opens new angles
+of attack for such problems.\footnote{For reference,
+the ENIAC computer developed in the Second World War could
+perform around $500$ simple operations per second while a modern
+GPU can perform more than $10^{12}$ of such \textit{floating-point operations} 
+per second.} Let us approximate the Gaussian integral only using
+elementary arithmetic operations. We can approximate
+the exponential function with a truncated power series
+
+\begin{equation}
+    \exp(x) = \sum_{k=0}^{\infty} \frac{x^k}{k!} \approx \sum_{k=0}^{N_\text{order}} \frac{x^k}{k!}
+\end{equation}
+
+and the integral with
+
+\begin{equation}
+    \int_a^b f(x) \, dx \approx \sum_{i = 1}^{N_\text{eval}} f(x_i) \Delta x, \quad \Delta x = \frac{b - a}{N_\text{eval}}, \quad x_i = a + i \, \Delta x
+\end{equation}
+
+The approximation of the integral is illustrated in Fig. \ref{fig:integral_approx}, \texttt{Python} code on the example
+is given in Code-Snipped \ref{code:integral_approx}.
+
+\begin{figure}[!htb]
+ \centering
+ \includesvg[width=1.0\textwidth]{figures/integral_approx.svg}\hfill
+ \caption{Approximation of the integral $\int_a^b \exp{(-x^2)} \, dx$.}
+ \label{fig:integral_approx}
+\end{figure}
+
+\begin{codebox}
+    \begin{minted}{python3}
+        import math
+        import numpy as np
+
+        def exp_series(x, n_terms=20):
+            """
+            Approximate exp(x) by a truncated series.
+            """
+            result = 1.0
+            term = 1.0
+
+            for k in range(1, n_terms):
+                term = term * x / k
+                result = result + term
+
+            return result
+
+        def integrate(func, a, b, n_points=10_000):
+            """
+            Simple integral approximation, function 
+            evaluated at left interval edges.
+            """
+
+            dx = (b - a) / n_points
+            x = a + dx * np.arange(n_points)
+
+            return np.sum(func(x) * dx)
+
+        # approximate the integral of exp(-x^2)
+        # from a to b
+        func = lambda x: exp_series(-x ** 2)
+        a, b = 0.0, 1.0
+        approx = integrate(func, a, b)
+    \end{minted}
+    \caption{Python code for approximating $\int_a^b \exp{(-x^2)} \, dx$.}
+    \label{code:integral_approx}
+\end{codebox}
+
+\bluebox{\textbf{Question to the reader:} How can we control the accuracy of our approximation to $\int_a^b \exp{(-x^2)} \, dx$?}
+
+However, numerical algorithms and computation 
+are not without caveats. For example, the precision with which
+we can handle real numbers is limited by storage and compute. This
+has very profound implications all through numerics, e.g. bounds derived
+under exact arithmetic might not hold under approximate arithmetic on the
+computer.
+
+Our plan for the course is as follows:
+
+\begin{enumerate}
+    \item we will introduce how numbers are represented digitally and raise awareness for the finite precision of floating point operations
+    \item we will discuss how linear systems can be solved numerically
+    \item we will introduce finite difference approximations to derivatives, discuss truncation 
+    errors, hint at powerful applications of finite differencing to differential 
+    equations and will give an outlook to automatic differentiation, the backbone of machine learning
+    \item we will discuss numerical solutions to non-linear equations and optimization problems
+    \item we will go through methods for numerical integration
+\end{enumerate}
+
+The methods you will learn in this course can empower you to solve a wide range of problems - and
+we're excited to see what you will use them on :)
 
 \pagebreak
