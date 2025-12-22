@@ -1,120 +1,182 @@
 \section{Solving Linear Systems}
 \thispagestyle{plain}
 
-\textbf{Relevance of solving linear equations for simulations}: Implicit schemes lead to linear systems of equations which we have to solve,
-examples already covered are implicit Euler applied to a linear ODE in sec. \ref{sssec:implicit_euler_linear},
-or to a non-linear one (the linear equation then follows from doing the implicit step
-by Newton-Raphson where the Jacobian is to be inverted (sec. \ref{sssec:implicit_euler_nonlinear})),
-or just recently in the diffusion equation (based on method of lines and implicit Euler or Crank-Nicolson).
+Solving linear systems $\mat{A}\vec{x} = \vec{b}$ (invertible $\mat{A} \in \mathbb{R}^{n \times n}, \vec{x} \in \mathbb{R}^{n}, \vec{b} \in \mathbb{R}^{n}$) is important throughout scientific computing and
+at the core of many numerical algorithms.
 
-Another example of a linear system we care about is solving a discretized Poisson equation.
-
-\bluebox{Direct inversion or LU or QU decomposition of our linear system (the matrix describing it)
-are often too costly, so iterative methods - methods where we construct a sequence
-of approximate solutions that hopefully converge to the exact solution - are used.}
-
-\bluebox{In the multigrid-technique, linear equations are solved using a hierarchy of discretizations.}
-
-\subsection{Motivational Example 1: From the Poisson equation we can get a possibly big linear system}
-Let us discretize the 1D Poisson equation
-\begin{equation}
-    \begin{gathered}
-        \partial_x^2 \phi = 4\pi G \rho \rightarrow (\partial_x^2\phi) \approxeq \frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h^2}  \approxeq  4\pi G \rho_i \\
-        i = 1,\dots,N, \quad \text{spacing } h
-    \end{gathered}
-\end{equation}
-We write this as a matrix equation
-\begin{equation}
-    \mat{A} \vec{\phi} = \vec{b}, \quad \vec{\phi} = \left( \begin{array}{c} \phi_1 \\ \phi_2 \\ \vdots \\ \phi_N \end{array} \right), \quad \vec{b} = 4\pi G \vec{\rho}, \vec{\rho} = \left( \begin{array}{c} \rho_1 \\ \rho_2 \\ \vdots \\ \rho_N \end{array} \right)
-\end{equation}
-with in the case of periodic boundary conditions
-\begin{equation}
-    \mat{A} = \frac{1}{h^2} \left( \begin{array}{cccccc}
-            -2 & 1 & 0 & \dots & 0 & 1 \\
-            1 & -2 & 1 & 0 & \dots &  \\
-            0 & 1 & -2 & 1 & 0 & \dots \\
-            0 & 0 & \ddots & \ddots & \ddots & 0 \\
-            0 & \dots &  & 1 & -2 & 1 \\
-            1 & 0 & 0 & \dots & 1 & -2
-        \end{array} \right)
-\end{equation}
-
-\problem{LU-decomposition or Gauss elimination with pivoting are generally $\mathcal{O}(N^3)$ (for such a sparse matrix we can do better though).
-Imagine a discretization in 3D, then for $1000$ grid points per dimension $\mat{A}$ would be $10^9 \times 10^9$ (mind the discretization in 3D is not \textit{as} simple as in 1D).}
-
-\subsection{Poisson equation and solving a tridiagonal system}
-\subsubsection{1D heat Diffusion equation with Dirichlet boundaries in matrix form}
-Consider simple heat diffusion with constant heating rate $\epsilon$.
+\subsection{Example application of solving linear systems - linear regression}
+Given $N$ measurements of $p$ different \textit{features} $x_{i1},...,x_{ip}$ (these might for
+instance be concentrations of different drugs administered to a patient) and outputs $y_i^{\text{data}}$ 
+(for instance the concentration of pathogens one day after drug administration), we want
+to find parameters $\beta_0,...,\beta_p$ in the linear relation
 
 \begin{equation}
-    -D \partial_x^2 T = \epsilon
+    y_i^{\text{predicted}} = \beta_0 + \sum_{k=1}^{p} \beta_k x_{ik}
 \end{equation}
 
-so a 1D Poisson equation with constant source term $\epsilon$.
+such that $\sum_{i=1}^{N} ||y_i^{\text{predicted}} - y_i^{\text{data}}||^2$ is minimized.
 
-Discretized we get as before
+In matrix notation with
 
 \begin{equation}
-    \frac{T_{i+1}-2T_i + T_{i-1}}{\delta^2} \approxeq -\frac{\epsilon}{D}
+ \begin{gathered}
+    \vec{y}=\left(\begin{array}{c}
+        y_1 \\
+        \vdots \\
+        y_i \\
+        \vdots \\
+        y_N
+        \end{array}\right), \quad \mat{X}=\left[\begin{array}{cccc}
+        1 & x_{11} & \cdots & x_{1 p} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & x_{N 1} & \cdots & x_{N p}
+    \end{array}\right] \in \mathbb{R}^{N \times p} \\
+    \mat{X} \text{ with 1 column to allow for constant offset } \beta_0
+ \end{gathered}
 \end{equation}
 
-So for a state vector
+we can write our model as
 
 \begin{equation}
-    \vec{T} = \left( \begin{array}{c} T_1 \\ T_2 \\ \vdots \\ T_N \end{array} \right)
+    \vec{y}^{\text{predicted}} = \mat{X} \vec{\beta}
 \end{equation}
 
-with Dirichlet boundary conditions $T_1 = T_N := T_0$ we get the matrix equation
+We can therefore estimate the \textit{optimal} parameters with
 
 \begin{equation}
-    \mat{A} \vec{T} = \vec{b}, \quad \vec{b} = \left( \begin{array}{c} T_0 \\ -\frac{\delta^2 \epsilon}{D} \\ \vdots \\ -\frac{\delta^2 \epsilon}{D} \\ T_0 \end{array} \right), \quad \mat{A} = \frac{1}{h^2} \left( \begin{array}{cccccc}
-        1 & 0 & 0 & \dots & 0 & 0 \\
-        1 & -2 & 1 & 0 & \dots &  \\
-        0 & 1 & -2 & 1 & 0 & \dots \\
-        0 & 0 & \ddots & \ddots & \ddots & 0 \\
-        0 & \dots &  & 1 & -2 & 1 \\
-        0 & 0 & 0 & \dots & 0 & 1
-    \end{array} \right)
+    \hat{\vec{\beta}} = \argmin_{\vec{\beta}}{||\vec{y}^{\text{data}} - \mat{X} \vec{\beta}||_2^2}
 \end{equation}
 
-\greenbox{So for a 1D Poisson problem with Dirichlet (constant) boundary conditions we get a tridiagonal matrix.}
+so
 
-\subsubsection{Forward elimination backward substitution method for solving a tridiagonal system}
-Consider the general tridiagonal matrix
 \begin{equation}
-    \mat{A} = \left( \begin{array}{cccccc}
-        d_1 & u_1 & 0 & \dots & 0 & 0 \\
-        l_1 & d_2 & u_2 & 0 & \dots &  \\
-        0 & l_2 & d_3 & u_3 & 0 & \dots \\
-        0 & 0 & \ddots & \ddots & \ddots & 0 \\
-        0 & \dots &  & l_{N-2} & d_{N-1} & u_{N-1} \\
-        0 & 0 & \dots & 0 & l_{N-1} & d_N
-    \end{array} \right)
+    \partial_{\vec{\beta}} ||\vec{y}^{\text{data}} - \mat{X} \vec{\beta}||_2^2 = -2 \mat{X}^T(\vec{Y}-\mat{X} \vec{\beta}) \underbracket{=}_{!} 0
 \end{equation}
-where we want to solve
-\begin{equation}
-    \mat{A} \vec{x} = \vec{b}
-\end{equation}
-for $\vec{x}$.
-We use elementary operations $\mat{E}_i$ to add multiples of rows in $\mat{A}$ to other rows in $\mat{A}$.
-\begin{enumerate}
-    \item (\textcolor{blue1}{Forward elimination}) Using those operations, we succesively (top-down) eliminate the
-    lower diagonal $\vec{l}$ of $\mat{A}$.
-    \begin{equation}
-        \mat{E}_1 \mat{E}_2 \dots \mat{E}_{N-1} \mat{A} \vec{x} = \left( \begin{array}{cccccc}
-            d_1 & u_1 & 0 & \dots & 0 & 0 \\
-            0 & \tilde{d}_2 & u_2 & 0 & \dots &  \\
-            0 & 0 & \tilde{d}_3 & u_3 & 0 & \dots \\
-            0 & 0 & \ddots & \ddots & \ddots & 0 \\
-            0 & \dots &  & 0 & \tilde{d}_{N-1} & u_{N-1} \\
-            0 & 0 & \dots & 0 & 0 & \tilde{d}_N
-        \end{array} \right) \vec{x} = \mat{E}_1 \mat{E}_2 \dots \mat{E}_{N-1} \vec{b}
-    \end{equation}
-    with $\tilde{d}_2 = d_2 - \frac{l_1}{d_1} u_1$ and $\tilde{d}_i = d_i - \frac{l_{i-1}}{\tilde{d}_{i-1}} u_{i-1}$ for $i=3,\dots,N$.
-    \item (\textcolor{blue1}{Backward substitution}) We can now solve the system starting from the last row.
-\end{enumerate}
 
-\subsection{Classical Exact Solution: LU-decomposition\skipthis}
+and written as a linear system
+
+\begin{equation}
+   \mat{X}^T \mat{X} \vec{\beta} = \mat{X}^T \vec{Y}
+\end{equation}
+
+\subsection{Gaussian Elimination}
+
+Go through practical example of Gaussian elimination, formulate the general principle.
+
+% \textbf{Relevance of solving linear equations for simulations}: Implicit schemes lead to linear systems of equations which we have to solve,
+% examples already covered are implicit Euler applied to a linear ODE in sec. \ref{sssec:implicit_euler_linear},
+% or to a non-linear one (the linear equation then follows from doing the implicit step
+% by Newton-Raphson where the Jacobian is to be inverted (sec. \ref{sssec:implicit_euler_nonlinear})),
+% or just recently in the diffusion equation (based on method of lines and implicit Euler or Crank-Nicolson).
+
+% Another example of a linear system we care about is solving a discretized Poisson equation.
+
+% \bluebox{Direct inversion or LU or QU decomposition of our linear system (the matrix describing it)
+% are often too costly, so iterative methods - methods where we construct a sequence
+% of approximate solutions that hopefully converge to the exact solution - are used.}
+
+% \bluebox{In the multigrid-technique, linear equations are solved using a hierarchy of discretizations.}
+
+% \subsection{Motivational Example 1: From the Poisson equation we can get a possibly big linear system}
+% Let us discretize the 1D Poisson equation
+% \begin{equation}
+%     \begin{gathered}
+%         \partial_x^2 \phi = 4\pi G \rho \rightarrow (\partial_x^2\phi) \approxeq \frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h^2}  \approxeq  4\pi G \rho_i \\
+%         i = 1,\dots,N, \quad \text{spacing } h
+%     \end{gathered}
+% \end{equation}
+% We write this as a matrix equation
+% \begin{equation}
+%     \mat{A} \vec{\phi} = \vec{b}, \quad \vec{\phi} = \left( \begin{array}{c} \phi_1 \\ \phi_2 \\ \vdots \\ \phi_N \end{array} \right), \quad \vec{b} = 4\pi G \vec{\rho}, \vec{\rho} = \left( \begin{array}{c} \rho_1 \\ \rho_2 \\ \vdots \\ \rho_N \end{array} \right)
+% \end{equation}
+% with in the case of periodic boundary conditions
+% \begin{equation}
+%     \mat{A} = \frac{1}{h^2} \left( \begin{array}{cccccc}
+%             -2 & 1 & 0 & \dots & 0 & 1 \\
+%             1 & -2 & 1 & 0 & \dots &  \\
+%             0 & 1 & -2 & 1 & 0 & \dots \\
+%             0 & 0 & \ddots & \ddots & \ddots & 0 \\
+%             0 & \dots &  & 1 & -2 & 1 \\
+%             1 & 0 & 0 & \dots & 1 & -2
+%         \end{array} \right)
+% \end{equation}
+
+% \problem{LU-decomposition or Gauss elimination with pivoting are generally $\mathcal{O}(N^3)$ (for such a sparse matrix we can do better though).
+% Imagine a discretization in 3D, then for $1000$ grid points per dimension $\mat{A}$ would be $10^9 \times 10^9$ (mind the discretization in 3D is not \textit{as} simple as in 1D).}
+
+% \subsection{Poisson equation and solving a tridiagonal system}
+% \subsubsection{1D heat Diffusion equation with Dirichlet boundaries in matrix form}
+% Consider simple heat diffusion with constant heating rate $\epsilon$.
+
+% \begin{equation}
+%     -D \partial_x^2 T = \epsilon
+% \end{equation}
+
+% so a 1D Poisson equation with constant source term $\epsilon$.
+
+% Discretized we get as before
+
+% \begin{equation}
+%     \frac{T_{i+1}-2T_i + T_{i-1}}{\delta^2} \approxeq -\frac{\epsilon}{D}
+% \end{equation}
+
+% So for a state vector
+
+% \begin{equation}
+%     \vec{T} = \left( \begin{array}{c} T_1 \\ T_2 \\ \vdots \\ T_N \end{array} \right)
+% \end{equation}
+
+% with Dirichlet boundary conditions $T_1 = T_N := T_0$ we get the matrix equation
+
+% \begin{equation}
+%     \mat{A} \vec{T} = \vec{b}, \quad \vec{b} = \left( \begin{array}{c} T_0 \\ -\frac{\delta^2 \epsilon}{D} \\ \vdots \\ -\frac{\delta^2 \epsilon}{D} \\ T_0 \end{array} \right), \quad \mat{A} = \frac{1}{h^2} \left( \begin{array}{cccccc}
+%         1 & 0 & 0 & \dots & 0 & 0 \\
+%         1 & -2 & 1 & 0 & \dots &  \\
+%         0 & 1 & -2 & 1 & 0 & \dots \\
+%         0 & 0 & \ddots & \ddots & \ddots & 0 \\
+%         0 & \dots &  & 1 & -2 & 1 \\
+%         0 & 0 & 0 & \dots & 0 & 1
+%     \end{array} \right)
+% \end{equation}
+
+% \greenbox{So for a 1D Poisson problem with Dirichlet (constant) boundary conditions we get a tridiagonal matrix.}
+
+% \subsubsection{Forward elimination backward substitution method for solving a tridiagonal system}
+% Consider the general tridiagonal matrix
+% \begin{equation}
+%     \mat{A} = \left( \begin{array}{cccccc}
+%         d_1 & u_1 & 0 & \dots & 0 & 0 \\
+%         l_1 & d_2 & u_2 & 0 & \dots &  \\
+%         0 & l_2 & d_3 & u_3 & 0 & \dots \\
+%         0 & 0 & \ddots & \ddots & \ddots & 0 \\
+%         0 & \dots &  & l_{N-2} & d_{N-1} & u_{N-1} \\
+%         0 & 0 & \dots & 0 & l_{N-1} & d_N
+%     \end{array} \right)
+% \end{equation}
+% where we want to solve
+% \begin{equation}
+%     \mat{A} \vec{x} = \vec{b}
+% \end{equation}
+% for $\vec{x}$.
+% We use elementary operations $\mat{E}_i$ to add multiples of rows in $\mat{A}$ to other rows in $\mat{A}$.
+% \begin{enumerate}
+%     \item (\textcolor{blue1}{Forward elimination}) Using those operations, we succesively (top-down) eliminate the
+%     lower diagonal $\vec{l}$ of $\mat{A}$.
+%     \begin{equation}
+%         \mat{E}_1 \mat{E}_2 \dots \mat{E}_{N-1} \mat{A} \vec{x} = \left( \begin{array}{cccccc}
+%             d_1 & u_1 & 0 & \dots & 0 & 0 \\
+%             0 & \tilde{d}_2 & u_2 & 0 & \dots &  \\
+%             0 & 0 & \tilde{d}_3 & u_3 & 0 & \dots \\
+%             0 & 0 & \ddots & \ddots & \ddots & 0 \\
+%             0 & \dots &  & 0 & \tilde{d}_{N-1} & u_{N-1} \\
+%             0 & 0 & \dots & 0 & 0 & \tilde{d}_N
+%         \end{array} \right) \vec{x} = \mat{E}_1 \mat{E}_2 \dots \mat{E}_{N-1} \vec{b}
+%     \end{equation}
+%     with $\tilde{d}_2 = d_2 - \frac{l_1}{d_1} u_1$ and $\tilde{d}_i = d_i - \frac{l_{i-1}}{\tilde{d}_{i-1}} u_{i-1}$ for $i=3,\dots,N$.
+%     \item (\textcolor{blue1}{Backward substitution}) We can now solve the system starting from the last row.
+% \end{enumerate}
+
+\subsection{Classical Exact Solution: LU-decomposition}
 \bluebox{\textbf{Why is it not a good idea to numerically
 invert the matrix?: } While $\mat{A} \in \mathbb{R}^{N\times N}$ 
 might often be sparse (e.g. a sparse Jacobian), $\mat{A}^{-1}$ is 

@@ -102,15 +102,15 @@ Some common integer types with respective minimum sizes are given in table \ref{
 \problem{Using unsigned can come with unexpected results, when being cast from a negative number. E.g. \mintinline{C}{unsigned int x = -1;} will result in $2^{32} - 1$ in a 32-bit system (the two's complement is read as if an unsigned representation).
 More deviously, $-1 < 0U$ will evaluate to false, as all integers in a comparison are cast to unsigned, when one of them is unsigned.}
 
-\subsubsection{Byte Ordering in Storage: Big and Little Endian}
-Bytes of e.g. a multi-byte integer can be stored from most significant byte to least significant byte (big endian) or vice versa (little endian), see figure \ref{fig:endian}.
+% \subsubsection{Byte Ordering in Storage: Big and Little Endian}
+% Bytes of e.g. a multi-byte integer can be stored from most significant byte to least significant byte (big endian) or vice versa (little endian), see figure \ref{fig:endian}.
 
-\begin{figure}[!htb]
- \centering
- \includesvg[width=0.9\textwidth]{figures/endian.svg}\hfill
- \caption{Big and Little Endian.}
- \label{fig:endian}
-\end{figure}
+% \begin{figure}[!htb]
+%  \centering
+%  \includesvg[width=0.9\textwidth]{figures/endian.svg}\hfill
+%  \caption{Big and Little Endian.}
+%  \label{fig:endian}
+% \end{figure}
 
 \subsubsection{Properties and Caveats of Integer Arithmetic}
 Typical problems in integer arithmetic are overflow, integer division, the modulo operation and implicit type conversion.
