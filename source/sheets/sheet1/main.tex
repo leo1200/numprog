@@ -426,10 +426,20 @@
 \renewcommand{\labelenumi}{\theenumi}
 \renewcommand{\theenumii}{\roman{enumii}}
 
-% toggle all solutions with \showsolutionstrue / \showsolutionsfalse
+\usepackage{comment}
 \newif\ifshowsolutions
-\showsolutionstrue % set to true to display solutions
-\NewEnviron{solutionblock}{\ifshowsolutions\solution\BODY\fi}
+\showsolutionstrue % or \showsolutionsfalse
+\ifshowsolutions
+  % SHOW solutions
+  \newenvironment{solutionblock}
+    {%
+      \solution
+    }
+    {}
+\else
+  % HIDE solutions (verbatim-safe)
+  \excludecomment{solutionblock}
+\fi
 
 %\pagestyle{headings}  % Abschnitt/Kapitel links oben, Seitenzahlen rechts/außen oben
 
@@ -508,7 +518,9 @@
 
 % ====== Tasks ======
 
-\import{tasks/}{1-integers.tex}
+\import{tasks/}{1-shorts.tex}
+\import{tasks/}{2-basler.tex}
+\import{tasks/}{3-cancellation.tex}
 
 % ====================
 

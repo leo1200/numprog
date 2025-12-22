@@ -1,0 +1,58 @@
+\problem{Basler Problem}
+    Consider the famous series
+    \begin{equation}
+        \sum_{k=1}^\infty k^{-2} = \frac{\pi^2}{6}
+    \end{equation}
+    known as the Basler problem. We would like to approximate 
+    this series by finitely many summands.
+    \begin{enumerate}
+        \item For a given finite expression $1 + \frac{1}{2^2} + \dots + \frac{1}{n^2}$ will it make a difference if we sum the number from small to large or from large to small on the computer at finite precision?
+        \item Implement both the summation from large to small and small to large in single precision (use np.float32) and compare the results to the ground truth, $\frac{\pi^2}{6}$.
+    \end{enumerate}
+\begin{solutionblock}
+    \part
+    If we sum the terms just as the formula suggests 
+    from large to small, at some point, the small changes 
+    will not be resolved anymore - so better
+    sum up from small to large.
+    \part
+    See Code-Snippet \ref{code:basel}.
+
+    \begin{codebox}
+        \begin{minted}{python3}
+        import numpy as np
+        import math
+
+        def basel_sum_small_to_large_f32(n):
+            s = np.float32(0.0)
+            for k in range(n, 0, -1):
+                s += np.float32(1.0) / np.float32(k * k)
+            return s
+
+        def basel_sum_large_to_small_f32(n):
+            s = np.float32(0.0)
+            for k in range(1, n + 1):
+                s += np.float32(1.0) / np.float32(k * k)
+            return s
+
+        # Ground truth (double precision)
+        exact = math.pi**2 / 6
+
+        for n in [10**3, 10**4, 10**5, 10**6]:
+            s_sl = basel_sum_small_to_large_f32(n)
+            s_ls = basel_sum_large_to_small_f32(n)
+
+            err_sl = abs(float(s_sl) - exact)
+            err_ls = abs(float(s_ls) - exact)
+
+            print(f"n = {n:>7}")
+            print(f"  small -> large (float32): {s_sl:.7f}, error = {err_sl:.3e}")
+            print(f"  large -> small (float32): {s_ls:.7f}, error = {err_ls:.3e}")
+            print()
+        \end{minted}
+        \caption{Python code for approximating $\sum_{k=1}^\infty k^{-2}$ using $n$ summands. Summation from
+        large to small and from small to large in finite precision are compared.}
+        \label{code:basel}
+    \end{codebox}
+    
+\end{solutionblock}

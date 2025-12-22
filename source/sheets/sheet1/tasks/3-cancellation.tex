@@ -1,0 +1,91 @@
+\problem{Rewriting expressions to avoid cancellation}
+    Consider the limit of $x \to 0$ of the function
+    \begin{equation}
+        f(x) = \frac{x + e^{-x} - 1}{x^2}, \quad x > 0
+    \end{equation}
+
+    \begin{enumerate}
+        \item What is the analytical limit?
+        \item Write a program which plots $f(x)$ for $10^{-11} < x < 10^{-1}$. You should observe problematic behavior. 
+        Below which upper limit do you observe this problematic behavior? For very small $x$, the function evaluates
+        to zero in finite precision. Why is that?
+        \item Provide a suitable fix.
+    \end{enumerate}
+
+\begin{solutionblock}
+    \part
+     Taylor expand $e^{-x}$ around $x=0$ or use L'Hopital's rule to find that the limit is $1/2$, e.g. with the expansion of $e^{-x} = 1 - x + \frac{x^2}{2} + \mathcal{O}(x^3)$ (with Landau notation) we have
+    \begin{equation}
+        f(x) = \frac{x + \left(1 - x + \frac{x^2}{2} + \mathcal{O}(x^3)\right) - 1}{x^2} = \frac{\frac{x^2}{2} + \mathcal{O}(x^3)}{x^2} = \frac{1}{2} + \mathcal{O}(x)
+    \end{equation}
+    \part
+    The code is given in Code-Snippet \ref{code:fail} and the plot in Fig. \ref{fig:fail}.
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            import numpy as np
+            import matplotlib.pyplot as plt
+
+            x = np.logspace(-1, -12, num=1000)
+            fx = (x + np.exp(-x) - 1) / x**2
+            plt.plot(x, fx)
+            plt.xscale('log')
+            plt.xlabel('x')
+            plt.ylabel('f(x)')
+            plt.title('Unsafe implementation')
+        \end{minted}
+        \caption{Plotting $f(x) = \frac{x + e^{-x} - 1}{x^2}$.}
+        \label{code:fail}
+    \end{codebox}
+
+    \begin{figure}[!htb]
+     \centering
+     \includesvg[width=1.0\textwidth]{figures/f_plot.svg}\hfill
+     \caption{Plot of $f(x) = \frac{x + e^{-x} - 1}{x^2}$.}
+     \label{fig:fail}
+    \end{figure}
+
+    Consider the exponential is calculated via the power series expansion. 
+    For very small $x$, the $x^2/2$ term in $1 - x + x^2/2 + \mathcal{O}(x^3)$ cannot be 
+    resolved faithfully against $1$, remember $a+b$ evaluates to $a$ typically for $|b| < \epsilon_{\text{mach}} |a|$. 
+    In double precision, this is the case for $x = 10^{-8}$ and for $x = 10^{-7}$ accuracy of $x^2/2$ is already poor.
+
+    \part
+    We define
+    \begin{equation}
+        f_{\text{safe}}(x) = \begin{cases}
+            f(x), &x > 10^{-5} \\
+            \frac{1}{2} + \frac{1}{6} x + \frac{1}{24} x^2, &x \leq 10^{-5}
+        \end{cases}
+    \end{equation}
+
+    The code is given in Code-Snippet \ref{code:safe} and the plot in Fig. \ref{fig:safe}.
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            import numpy as np
+            import matplotlib.pyplot as plt
+
+            x = np.logspace(-1, -12, num=1000)
+            fx = (x + np.exp(-x) - 1) / x**2
+            plt.plot(x, fx)
+            plt.xscale('log')
+            plt.xlabel('x')
+            plt.ylabel('f(x)')
+            plt.title('Safe implementation')
+        \end{minted}
+        \caption{Safe version of $f(x) = \frac{x + e^{-x} - 1}{x^2}$ for finite precision.}
+        \label{code:safe}
+    \end{codebox}
+
+    \begin{figure}[!htb]
+     \centering
+     \includesvg[width=1.0\textwidth]{figures/f_safe_plot.svg}\hfill
+     \caption{Plot corresponding to Code-Snippet \ref{code:safe}}
+     \label{fig:safe}
+    \end{figure}
+
+    For general settings where $\exp{-x} - 1$ occurs, many numerical toolboxes like \texttt{numpy}
+    provide a function \texttt{expm1} such that we do not have to resolve the higher order terms against $1$.
+    
+\end{solutionblock}

@@ -1,0 +1,30 @@
+\problem{Short questions}
+  \begin{enumerate}
+    \item What is the largest number you can represent with a 2-byte \textbf{unsigned} integer (expressed in decimal)?
+    \item What is the largest number you can represent with a 2-byte \textbf{signed} integer (expressed in decimal)?
+    \item When running \mintinline{C}{char c = 100 * 4;} in C, $-112$ is stored. Why does this happen? Note a char is a single byte.
+    \item What is the meaning of the machine precision $\epsilon$?
+    \item When is $a + b$ typically equal to $a$ in limited precision floating point arithmetic?
+    \item Can $0.1$ be exactly represented as a (base-$2$) floating-point number?
+  \end{enumerate}
+\begin{solutionblock}
+  \part
+    $n = 2$ bytes are $8n = 16$ bits, with which we can encode $2^{8n}$ states, so as we start 
+    counting from $0$, the largest number is $2^{8n} - 1 = 2^{16} - 1 = 65535$.
+  \part
+    We need one bit for the sign, so generally $2^{8n-1} - 1$ is the largest number we 
+    can represent, so for $n = 2$ bytes $2^{16 - 1} - 1 = 32767$.
+  \part
+    In \mintinline{C}{char c = 100 * 4; // range -128 to 127} the result is $-112$ as 
+    $400$ in bits is $0001 1001 0000$ where a cut-off to one byte 
+    means $1001 0000$ so $-2^7+2^4 = -128 + 16 = -112$ (two's complement).
+  \part
+    The smallest increment in the mantissa, in $1 + \frac{M}{2^p}$, is the \textbf{machine precision}.
+  \part
+    $a+b=a$ typically for $|b| < \epsilon_{\text{mach}} |a|$, i.e. when $b$ 
+    cannot be resolved by the mantissa of $a$.
+  \part
+    We can only exactly represent numbers which can be written in the form $V = x \cdot 2^y$, 
+    with integers $x,y \in \mathbb{Z}$. This is not possible for 
+    $0.1$ ($0.1_{10} = 1.10011[0011]\dots_2 \cdot 2^{-4}$).
+\end{solutionblock}
