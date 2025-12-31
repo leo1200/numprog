@@ -1,3 +1,519 @@
 \appendix
 \section{Appendices}
 \thispagestyle{plain}
+
+\subsection{Vector and matrix norms}
+
+A \textbf{vector norm} is a function $||\cdot||: \mathbb{C}^n \rightarrow \mathbb{R}$
+satisfying
+
+\begin{itemize}
+    \item $\|\vec{x}\| \ge 0$ with equality if and only if $\vec{x}=0$ (nonnegativity),
+    \item $\|\alpha \vec{x}\| =|\alpha| \|\vec{x}\|$ for all $\alpha\in\mathbb{C}, \vec{x}\in\mathbb{C}^n$ (homogeneity),
+    \item $\|\vec{x}+\vec{y}\| \le \|\vec{x}\|+\|\vec{y}\|$ for all $\vec{x},\vec{y}\in\mathbb{C}^n$ (the triangle inequality)
+\end{itemize}
+
+Hölder $p$-norms form an important class of norms given by
+
+\begin{equation}
+    ||\vec{x}||_p = \left(\sum_{i=1}^{n} |x_i|^p\right)^{1/p}, \quad p \geq 1
+\end{equation}
+
+e.g. the Manhattan norm $||\vec{x}||_1$, the Euclidian norm $||\vec{x}||_2$ or the
+$\infty$-norm $||\vec{x}||_\infty = \lim_{p \to \infty} ||\vec{x}||_p = \max_{1 \leq i \leq n} |x_i|$.
+
+Similarly, \textbf{matrix norms} are 
+functions $||\cdot||: \mathbb{C}^{m\times n} \rightarrow \mathbb{R}$ fulfilling
+nonnegativity, homogeneity and the triangle inequality. A vector norm on $\mathbb{C}^n$
+induces a corresponding subordinate matrix norm on $\mathbb{C}^{m\times n}$ with
+
+\begin{equation}
+    \|\mat{A}\| = \displaystyle\max_{\vec{x}\ne0} \frac{ \|\mat{A}\vec{x}\| }{ \|\vec{x}\| }, 
+\end{equation}
+
+for instance
+
+\begin{equation}
+    \begin{aligned}
+        ||\mat{A}||_1 &= \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}| \\
+        ||\mat{A}||_\infty &= \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}| \\
+        ||\mat{A}||_2 &= \text{maximum singular value of} \, \mat{A} \\
+    \end{aligned}
+\end{equation}
+
+\subsection{Krylow subspace methods}
+\label{app:krylov}
+Our aim still is to solve a linear system $\mat{A}\vec{x} = \vec{b}$.
+
+\problem{LU-decomposition has cubic runtime ($\sim \frac{2}{3} n^3$) and the previously discussed iterative methods might
+also not always be optimal or straight infeasible if $\mat{A}$ cannot be stored explicitly.}
+
+\subsubsection{Motivation for the need of Krylow subspace methods in the context of non-linear root-finding of big systems\skipthis}
+Consider a non-linear equation
+\begin{equation}
+    \vec{0} = \vec{g}(\vec{\xi})
+\end{equation}
+which we want to solve for $\vec{\xi}$.\footnote{For instance an implicit Euler
+step can be formulated as such a root finding problem.
+\begin{equation}
+    \begin{gathered}
+        \text{implicit step } \vec{y}^{(n+1)}=\vec{y}^{(n)}+\Delta t \vec{f}\left(\vec{y}^{(n+1)}\right) \\
+        \rightarrow \quad \text{root-finding-problem } \vec{0}=\mathcolor{green1}{\vec{y}^{(n+1)}}-\vec{y}^{(n)}-\Delta t \vec{f}\left(\mathcolor{green1}{\vec{y}^{(n+1)}}\right)=: \vec{g}(\mathcolor{green1}{\vec{\xi}})
+    \end{gathered}
+\end{equation}}
+A common root-finding approach is Newton-Iteration\footnote{Which has quadratic convergence - as the method converges on the root, the difference between the root and the approximation is squared in each step.}
+\begin{equation}
+    \vec{\xi}_{k+1} = \vec{\xi}_{k} - \mat{J}_{\vec{g}}^{-1} (\vec{\xi}_k) \vec{g}(\vec{\xi}_k), \quad \text{Jacobian } \mat{J}_g
+\end{equation}
+where at the lowest level we have to solve the linear equation
+\begin{equation}
+    \vec{b} := \vec{g}(\vec{\xi}_k) = \mat{J}_\vec{g} \mathcolor{green1}{(\vec{\xi}_k - \vec{\xi}_{k+1})} = \mat{J}_\vec{g} \mathcolor{green1}{\vec{a}}
+\end{equation}
+for $\mathcolor{green1}{\vec{a}}$.
+\problem{But what if the resulting Jacobian is too large to be stored?}
+\idea{A directional derivative (a Jacobian vector product\footnote{\begin{equation}\begin{gathered}
+    \mat{J} \vec{v}=(\vec{\nabla} \cdot \vec{g}) \vec{v}=\lim _{h \rightarrow 0} \frac{g(\vec{x}+\vec{v} h)-g(\vec{x})}{h} \\
+    \left(\text{as } (\mat{J} \vec{v})_i=\sum_{j=1}^n\left(\mat{J}_g\right)_{i j} v_j=\sum_{j=1}^n \frac{\partial g_i}{\partial x_j} v_j=((\vec{\nabla} \cdot \vec{g}) \vec{v})_i\right)
+    \end{gathered}\end{equation}}) can be calculated in one (forward) automatic differentiation pass - cheaply and storage efficient. So what if
+we could solve $\mat{J}\vec{a} = \vec{b}$ only based on Jacobian vector products?}
+
+\subsubsection{Motivation | solving a system of linear equations using a gradient method}
+Consider $\mat{A} \in \mathbb{R}^{N \times N}$ symmetric ($\mat{A}^T = \mat{A}$) and positive definite, so $\vec{x}^T \mat{A} \vec{x} > 0 \forall \vec{x}\in \mathbb{K}^N \setminus \{\vec{0}\}$ (only positive eigenvalues).
+Then the following holds
+\begin{equation}
+    \mat{A}\vec{x} = \vec{b} \leftrightarrow \text{quadratic form } f(x) := \frac{1}{2} \vec{x}^T \mat{A} \vec{x} - \vec{x}^T \vec{b} \text{ is minimal}
+\end{equation}
+(intuitively as the quadratic form for a positive definite matrix if parabolic) where we can now apply standard gradient descent (\textbf{steepest descent method})
+\begin{equation}
+    \vec{x}^{(n+1)} = \vec{x}^{(n)} + \alpha^{(n)} \vec{p}^{(n)}, \quad \vec{p}^{(n)} = - \vec{\nabla} f(x^{(n)}) = - (\vec{b} - \mat{A} \vec{x}^{(n)})
+\end{equation}
+so we take steps along the steepest descent with some \textit{learning rate } $\alpha^{(n)}$
+
+\note{Quadratic forms for different kinds of matrices are illustrated in Fig. \ref{fig:quad_form}. For an indifinite matrix
+the steepest descent method or the later-introduces conjugate gradient method will fail, because the solution is a saddle point.
+For the more general case of even non-symmetric matrices, GMRES can be used.}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/quad_forms.svg}
+    \caption{Quadratic forms for different kinds of matrices.}
+    \label{fig:quad_form}
+\end{figure}
+
+\problem{Steepest descent often takes steps in directions already taken. Steepest descent is good if our
+parabolic quadratic form $f$ is nearly circular but the more elliptic $f$ is, the more problematic
+steepest descent becomes, see Fig. \ref{fig:steepest_descent}.}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/steepest_descent.svg}
+    \caption{Steepest descent for soling a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
+    \label{fig:steepest_descent}
+\end{figure}
+
+\idea{Is there maybe a smarter way to choose directions $\vec{p}^{(n)}$ so that we do not go into the same direction multiple times and still find the solution?}
+
+\greenbox{We will introduce the conjugate gradient method, which takes at most $N$ (size of the linear system) steps to converge to the solution, see Fig. \ref{fig:conjugate_gradient}.}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/conjugate_gradients.svg}
+    \caption{Conjugate gradient method for soling a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
+    \label{fig:conjugate_gradient}
+\end{figure}
+
+\subsubsection{Krylov subspace and construction of iterative methods for solving $\mat{A}\vec{x} = \vec{b}$}
+\greenbox{Consider the simple fixed-point iteration
+\begin{equation}
+    (\mat{A}+\mat{1}-\mat{1})\vec{x} = b \rightarrow \vec{x}^{(n+1)} = (\mat{1}-\mat{A})x^{(n)} + \vec{b}
+\end{equation}
+then for $x^{(0)} = \vec{b}$
+\begin{equation}
+    \vec{x}^{(1)} = 2\vec{b}-\mat{A}b, \quad \vec{x}^{(2)} = 3\vec{b}-3\mat{A}\vec{b}+\mat{A}^2\vec{b},\quad \dots
+\end{equation}
+- it is only based on simple matrix vector products.
+}
+The Krylov subspace of order $r$ is based on
+\begin{equation}
+    \vec{b}, \mat{A}\vec{b}, \mat{A}^2\vec{b}, \dots, \mat{A}^{r-1}\vec{b}
+\end{equation}
+forming a linear vector space
+\begin{equation}
+    \mathcal{K}_r := \mathcal{K}_r(\mat{A},\vec{b}) = \text{span} {(\vec{b}, \mat{A}\vec{b}, \mat{A}^2\vec{b}, \dots, \mat{A}^{r-1}\vec{b})}
+\end{equation}
+note that
+\begin{itemize}
+    \item $\mat{A}^i \vec{b}$ can be calculated by $i$ matrix-vector products (very efficient)
+    \item $\mat{A}^i \vec{b}$ are linearly independent for each $i < N$, the dimension of $\mathcal{K}_r$ increases with $r$ up to $N$, the dimension of $\mat{A}$
+\end{itemize}
+How can we smartly (smarter than in the simple scheme above) choose $\vec{x}^{(n)} \in \mathcal{K}_n$ in an iterative scheme for solving $\mat{A}\vec{x} = \vec{b}$?
+\begin{itemize}
+    \item so that the residual $\vec{r}^{(n)} = \vec{b} - \mat{A}\vec{x}^{(n)}$ is orthogonal to $\mathcal{K}_n$ (so $\in \mathcal{K}_{n+1}$) (\textbf{conjugate gradients})
+    \item so that the residual has minimum norm for $\vec{x}^{(n)} \in \mathcal{K}_n$ (GMRES)
+    \item ...
+\end{itemize}
+\note{The best basis for the Krylov subspace $\mathcal{K}_r$ is orthonormal and can be computed using Arnoldi's method (essentialy Gram-Schmidt).
+Since $\vec{r}^{(n)} \perp \mathcal{K}_n$ it will be a scaled version of the last orthonormal base vector, one needs to get from $\mathcal{K}_n$ to $\mathcal{K}_{n+1}$}
+
+\subsubsection{Conjugate gradients method}
+The sequence
+\begin{equation}
+    \vec{x}^{(n+1)} = \vec{x}^{(n)} + \alpha^{(n)}\vec{p}^{(n)}, \quad \text{residual } \vec{r}^{(n)} = \vec{b} - \mat{A}\vec{x}^{(n)}
+\end{equation}
+with (without proof)
+\begin{equation}
+    \vec{p}^{(n)}=\vec{r}^{(n)}+\frac{\vec{r}^{(n)} \cdot \vec{r}^{(n)}}{\vec{r}^{(n-1)} \vec{r}^{(n-1)}} \vec{p}^{(n-1)}
+\end{equation}
+and \textit{learning rate}\footnote{This follows simply from $\left. \partial_x f \right|_{\vec{x}^{(n)} + \alpha^{(n)}\vec{p}^{(n)}} \underset{!}{=} 0$, where $f$ is the quadratic form of $\mat{A}\vec{x} = \vec{b}$.}
+\begin{equation}
+    \alpha^{(n)} = -\frac{\left(\vec{p}^{(n)} \right)^T \vec{r}^{(n)}}{\left(\vec{p}^{(n)} \right)^T \mat{A} \vec{p}^{(n)}}
+\end{equation}
+solves $\mat{A}\vec{x} = \vec{b}, \mat{A} \in \mathbb{R}^{N \times N}$, $\mat{A}$ symmetric
+and positive definite, in at most $N$ steps, so $\vec{r}^{(N)} = \vec{0}$ (here stated without proof).
+
+The directions taken are constructed so that
+\begin{itemize}
+    \item the residuals are orthogonal, $\vec{r}^{(i)} \cdot \vec{r}^{(j)} = 0$ for $i \ne j$
+    \item the step-directions are conjugate, $\left(\vec{p}^{(j)} \right)^T \mat{A} \vec{p}^{(j)} = 0$ for $i \ne j$
+    \item the residuals and step-directions are mutually orthogonal, $\vec{p}^{(i)} \cdot \vec{r}^{(j)} = 0$ for $i \ne j$
+\end{itemize}
+
+\subsection{Multigrid techniques}
+\label{app:multigrid}
+
+We have now gained an understanding of iteratively
+solving a linear equation as a relaxation problem.
+\note{In each update step information travels as given by
+the stencil, for the Poisson equation only between 
+nearest neighbors. This also limits the largest
+possible \textit{timestep} to the CFL criterion.}
+
+\problem{As only cells in the stencil (often only 
+neighboring cells) communicate per step
+in Jacobi and Gauss-Seidel iteration, we have to make a
+compromise between speed of convergence and resolution:
+\begin{itemize}
+    \item On a coarse grid, information travels quicker through space (in less steps) but the resolution is bad
+    \item On a fine grid, resolution is good, but long range interactions take lots of computational steps and long-wavelength errors (in the error vector $\vec{e}$) die out only very slowly
+\end{itemize}
+}
+
+\idea{Start on a coarse grid, where information travels quickly, long range correlations are taken care of and we have fast convergence, then get the information onto a fine grid and resolve the details.}
+
+\begin{enumerate}
+    \item But how can we map from a coarser to a finer grid and vice versa?
+    \item How can we solve $\mat{A}\vec{x} = \vec{b}$ on the coarser grid?
+\end{enumerate}
+
+\note{Coarse-to-fine is called prolongation, fine-to-coarse restriction (see Fig. \ref{fig:pro_res_grids}).}
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/pro_res.svg}
+    \caption{Grids of different resolution.}
+    \label{fig:pro_res_grids}
+\end{figure}
+
+\subsubsection{Getting finer and coarser | prolongation and restriction}
+
+\note{In the following we will only consider the case of a 1D grid (not 2D as illustrated before).}
+
+Consider meshes
+\begin{enumerate}
+    \item Let $\Omega^{(h)}$ denote a 1D mesh with $N$ cells $i=1,\dots,N$ with spacing $h$.
+    \item Let $\Omega^{(2h)}$ denote a 1D mesh with $N/2$ cells $i=1,\dots,N/2$ with spacing $2h$.
+\end{enumerate}
+and let
+\begin{enumerate}
+    \item $\vec{x}^{(h)}_i \in \mathbb{R}^{N}$ denote the solution on $\Omega^{(h)}$, so $x^{(h)}_i$ is the solution on cell $i$ of $\Omega^{(h)}$ (e.g. a density $\rho^{(h)}_i$).
+    \item $\vec{x}^{(2h)}_i \in \mathbb{R}^{N/2}$ denote the solution on $\Omega^{(2h)}$, so $x^{(2h)}_i$ is the solution on cell $i$ of $\Omega^{(2h)}$.
+\end{enumerate}
+
+Restriction and prolongation in 1D are illustrated in Fig. \ref{fig:pro_res_ill}.
+
+Prolongation and restriction are linear operators written as matrices $\mat{I}_{\text{from this spacing}}^{\text{to this spacing}}$.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.5\textwidth]{figures/pro_res_ill.svg}
+    \caption{Illustration of restriction and prolongation.}
+    \label{fig:pro_res_ill}
+\end{figure}
+
+\subsubsubsection{Coarse-to-fine | interpolation called prolongation}
+We map from coarse to fine using
+\begin{equation}
+    \mat{I}_{2h}^h \vec{x}^{(2h)} = \vec{x}^{(h)}
+\end{equation}
+for instance by
+\begin{equation}
+    \mat{I}_{2h}^h \in \mathbb{R}^{N \times \frac{N}{2}}: \text{for } 0 \leq i < \frac{N}{2}: x_{2i}^{(h)} = x_i^{(2h)}, \quad x_{2i+1}^{(h)} = \frac{1}{2} \left( x_i^{(2h)} + x_{i+1}^{(2h)} \right)
+\end{equation}
+as shown in Fig. \ref{fig:pro_res_ill} and furthermore in Fig. \ref{fig:prolongation}.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/prolongation.svg}
+    \caption{1D-Prolongation from coarse to fine grid.}
+    \label{fig:prolongation}
+\end{figure}
+
+\subsubsubsection{Fine-to-coarse | restriction}
+We now convert
+\begin{equation}
+    \mat{I}_{h}^{2h} \vec{x}^{(h)} = \vec{x}^{(2h)}
+\end{equation}
+with a simple example being
+\begin{equation}
+    \mat{I}_{h}^{2h} \in \mathbb{R}^{\frac{N}{2} \times N}: \text{for } 0 \leq i < \frac{N}{2}: x_i^{(2h)} = \frac{x_{2i-1}^{(h)} + 2x_{2i}^{(h)} + x_{2i+1}^{(h)}}{4}
+\end{equation}
+
+\subsubsubsection{Relation of restriction and prolongation}
+Prolongation and restriction matrices are oftentimes constructed to be
+scaled transposes of each other, so
+\begin{equation}
+    \mat{I}_h^{2h} = c[\mat{I}_{2h}^{h}]^T
+\end{equation}
+
+Consider for instance
+
+\begin{equation}
+    \begin{gathered}
+        \text{prolongation: } \mat{I}_{2h}^{h} = \frac{1}{2}\left(\begin{array}{lll}
+            1 & & \\
+            2 & & \\
+            1 & 1 & \\
+            & 2 & \\
+            & 1 & 1 \\
+            & & 2 \\
+            & & 1
+            \end{array}\right) \\ \text{restriction: } \mat{I}_{h}^{2h} = \frac{1}{2} \left( \mat{I}_{2h}^{h} \right)^T = \frac{1}{4} \left(\begin{array}{lllllll}
+                1 & 2 & 1 & & & & \\
+                & & 1 & 2 & 1 & & \\
+                & & & & 1 & 2 & 1
+                \end{array}\right)
+    \end{gathered}
+\end{equation}
+
+so the application of \textbf{prolongation} means
+
+\begin{equation}
+    \frac{1}{2}\left(\begin{array}{lll}
+    1 & & \\
+    2 & & \\
+    1 & 1 & \\
+    & 2 & \\
+    & 1 & 1 \\
+    & & 2 \\
+    & & 1
+    \end{array}\right)\left(\begin{array}{l}
+    x^{(2h)}_1 \\
+    x^{(2h)}_2 \\
+    x^{(2h)}_3
+    \end{array}\right)=\left(\begin{array}{l}
+    x^{(2h)}_1 / 2 \\
+    x^{(2h)}_1 \\
+    x^{(2h)}_1 / 2+x^{(2h)}_2 / 2 \\
+    x^{(2h)}_2 \\
+    x^{(2h)}_2 / 2+x^{(2h)}_3 / 2 \\
+    x^{(2h)}_3 \\
+    x^{(2h)}_3 / 2
+    \end{array}\right)=\left(\begin{array}{l}
+    x^{(h)}_1 \\
+    x^{(h)}_2 \\
+    x^{(h)}_3 \\
+    x^{(h)}_4 \\
+    x^{(h)}_5 \\
+    x^{(h)}_6 \\
+    x^{(h)}_7
+    \end{array}\right)
+\end{equation}
+
+and \textbf{restriction}
+
+\begin{equation}
+    \frac{1}{4}\left(\begin{array}{lllllll}
+    1 & 2 & 1 & & & & \\
+    & & 1 & 2 & 1 & & \\
+    & & & & 1 & 2 & 1
+    \end{array}\right)\left(\begin{array}{l}
+    x^{(h)}_1 \\
+    x^{(h)}_2 \\
+    x^{(h)}_3 \\
+    x^{(h)}_4 \\
+    x^{(h)}_5 \\
+    x^{(h)}_6 \\
+    x^{(h)}_7
+    \end{array}\right)=\left(\begin{array}{l}
+    x^{(2h)}_1 \\
+    x^{(2h)}_2 \\
+    x^{(2h)}_3
+    \end{array}\right)
+\end{equation}
+
+Both are illustrated in Fig. \ref{fig:sinprores}, also illustrating that with respect to 
+the grid index, low-frequency errors on the fine grid have double (so higher) frequency on the coarse grid.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/sinprores.pdf}
+    \caption{Prolongation and restriction of a sine wave (figure by Gilbert Strang).}
+    \label{fig:sinprores}
+\end{figure}
+
+\note{Taking prolongation and restriction as transposes of each others breaks at the boundaries, if we do not
+as in Fig. \ref{fig:sinprores} have zeroes on the boundaries.}
+
+\subsubsubsection{Short-hand stencil notation}
+
+Short-hand notations for prolongation and restriction are
+given in table \ref{tab:pro_res_short}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+        \hline
+        \textbf{Prolongation} & \textbf{Restriction} \\
+        \hline
+        We can write prolongation as
+        \begin{equation}
+            \text{1D prolongation: } \mat{I}_{2h}^{h}: \left] \begin{array}{lll} \frac{1}{2} & 1 & \frac{1}{2} \end{array} \right[
+        \end{equation}
+        meaning that every coarse point is added to three fine points with these respective weights (see previous example). &
+        We can write restriction as
+        \begin{equation}
+            \text{1D restriction: } \mat{I}_{h}^{2h}: \left[ \begin{array}{lll} \frac{1}{4} & \frac{1}{2} & \frac{1}{4} \end{array} \right]
+        \end{equation}
+        - the coarse point is the weighted sum of the three fine points. \\
+        \hline
+    \end{tabular}
+    \caption{Short-hand notations for prolongation and restriction.}
+    \label{tab:pro_res_short}
+\end{table}
+
+Similar short-hand notations can be devised for 2D and 3D.
+
+\subsubsection{Multigrid V-cycle}
+Our aim is still to solve $\mat{A}\vec{x} = \vec{b}$ smartly, by - in the view
+of a relaxation problem - doing the rough large-scale work quickly on a coarse
+and the fine details on a fine grid afterwards. We still have to anwer
+\begin{itemize}
+    \item How can such a procedure look like?
+    \item How do we convert $\mat{A}$ to coarser grids?
+\end{itemize}
+
+\subsubsubsection{Initial definitions}
+The error is defined as
+\begin{equation}
+    \vec{e} \equiv \vec{x}_{\text{exact}} - \vec{\tilde{x}}, \quad \text{current approximate solution } \vec{\tilde{x}}
+\end{equation}
+
+\note{The residual is the error in the solution, not $\vec{x}$. The error and residual are related linearly by $\mat{A}$.
+\begin{equation}
+    \mat{A} \vec{x}_{\text{exact}} = \vec{b} \quad \rightarrow \quad \mat{A} (\vec{e} + \vec{\tilde{x}}) = \vec{b} \quad \rightarrow \quad \mat{A} \vec{e} = \vec{r}
+\end{equation}}
+
+\idea{Consider we have an initial guess $\vec{\tilde{x}}$ on the fine grid. We can easily calculate the residual $\vec{r}$.
+We can then restrict $\vec{r}$ to a coarse grid, solve for the error there ($\mat{A} \vec{e} = \vec{r}$) (given we can transform $\mat{A}$ to the coarse grid)
+and then prolong the error to the fine grid and make the correction $\vec{x}_{\text{exact}} = \vec{\tilde{x}} + \vec{e}$.}
+
+Let us formalize this idea.
+
+\subsubsubsection{Coarse-grid correction scheme}
+\bluebox{We use the error calculated on the coarse grid to correct on the fine grid.}
+Let us start with a (fine-grid) guess $\vec{\tilde{x}}^{(h)}$ for the problem
+\begin{equation}
+    \mat{A}^{(h)} \vec{x}^{(h)} = \vec{b}^{(h)}
+\end{equation}
+and we want to obtain an improvement $\vec{\tilde{x}'}^{(h)} = CG(\vec{\tilde{x}}^{(h)}, \vec{b}^{(h)})$.
+
+$CG$ consists of the following steps
+\begin{enumerate}
+    \item Perform \textcolor{blue1}{one iterative \textit{relaxation}} step on the current grid $h$, e.g. Jacobi or Gauss-Seidel
+    \item \textcolor{blue1}{Compute the residual}
+    \begin{equation}
+        \vec{r}^{(h)} = \vec{b} - \mat{A}\vec{\tilde{x}}^{(h)}
+    \end{equation}
+    \item \textcolor{blue1}{Restrict the residual} to the coarser mesh
+    \begin{equation}
+        \vec{r}^{(2h)} = \mat{I}_{h}^{2h}\vec{r}^{(h)}
+    \end{equation}
+    \item \textcolor{blue1}{Solve for the error on the coarser mesh}
+    \begin{equation}
+        \mat{A}^{(2h)}\vec{e}^{(2h)} = \vec{r}^{(2h)}, \quad \text{starting guess } \vec{\tilde{e}}^{(2h)} = \vec{0}
+    \end{equation}
+    \item \textcolor{blue1}{Correct $\vec{\tilde{x}}^{(h)}$ on the finer mesh} using the prolonged error
+    $\vec{e}^{(h)} = \mat{I}_{2h}^{h} \vec{e}^{2h}$
+    \begin{equation}
+        \vec{\tilde{x}'}^{(h)} = \vec{\tilde{x}}^{(h)} + \vec{e}^{(h)}
+    \end{equation}
+    \item \textcolor{blue1}{Further iterative \textit{relaxation}} step on the fine mesh
+\end{enumerate}
+
+\bluebox{\textbf{How to solve for the error on the coarse mesh?: } Step 4 can be performed by 
+recursively calling $CG(\vec{\tilde{x}}^{(2^ih)}, \vec{b}^{(2^ih)}), i\geq 1$ until 
+a coarseness is reached where one can easily exactly solve or solve by multiple relaxation
+steps.}
+
+\bluebox{\textbf{How to find $\mat{A}^{(2h)}$ on the coarse mesh?: } Generally
+in the \textbf{Galerkin coarse grid approximation} one defines
+\begin{equation}
+    \mat{A}^{(2h)} = \mat{I}_h^{2h} \mat{A}^{(h)} \mat{I}_{2h}^{h}
+\end{equation}
+which is an \textcolor{red1}{additional matrix operation that might enlarge the stencil (and so the computational cost), 
+depending on the interpolation operator}. 
+
+When $\mat{A}$ was brought forth by formulating a discretization in matrix form, we can
+use the same discrete equations as one the fine grid (\textbf{direct method}). In other words, the same
+stencil (\textit{Schablone}) is used to go over the points and collect for the linear relations,
+e.g. for the 2D-Poisson - no matter the coarseness - we would construct $\mat{A}$ based on eq. \ref{eq:2dpoisson_disc}.}
+
+\subsubsubsection{V-cycle}
+The 6-step iteration process with a recursion call in step 4 leads to a cycle as
+illustrated in Fig. \ref{fig:vcycle}.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.9\textwidth]{figures/vcycle2.svg}
+    \caption{V-cycle.}
+    \label{fig:vcycle}
+\end{figure}
+
+The V-cycle for the Poisson equation has the same cost as FFT-based methods but
+requires less thread communication when parallelized.
+
+\bluebox{\textbf{Computational costs}
+\begin{equation}
+    \begin{gathered}
+        \text{computational cost per V-cycle:} \mathcal{O}(N_{\text{grid}}) \\
+        \text{computational cost until convergence to machine error (mult. cycles) } \mathcal{O}(N_{\text{grid}} \log{N_{\text{grid}}}) \\
+        \text{with } N_{\text{grid}} \text{ being the number of grid-cells on the fine grid} \\
+    \end{gathered}
+\end{equation}
+}
+
+\subsubsubsection{Full multigrid method}
+\problem{How to make a good initial guess $\vec{\tilde{x}}^{(h)}$ (if not available e.g. by taking the result from
+the last time-step in a simulation)?}
+\idea{First solve on the coarsest grid, then interpolate up to get a good initial guess. Based on this
+idea, the \textcolor{blue1}{full multigrid cycle} is constructed.}
+
+The multigrid cycle is illustrated in Fig. \ref{fig:full_multigrid}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/multigrid_cycle.png}
+    \caption{Full multigrid cycle.}
+    \label{fig:full_multigrid}
+\end{figure}
+
+The steps are
+\begin{enumerate}
+    \item Initialize the righthand side on all grid levels $\vec{b}^{(h)}, \vec{b}^{(2h)}, \vec{b}^{(H)}$.
+    \item Solve $A^{(H)} \vec{x}^{(H)} = \vec{b}^{(H)}$ exactly on the coarsest level $H$.
+    \item Obtain an initial guess for a finer grid by interpolating the solution from the next coarser level below, i.e. $\vec{\tilde{x}}^{(h)} = \mat{I}_{2h}^{h} \vec{\tilde{x}}^{(2h)}$
+    \item Solve the problem in the finer level using this starting guess $\vec{\tilde{x}}^{(h)}$ and \textcolor{blue1}{one v-cycle}.
+    \item repeat step 3 until finest level is reached
+\end{enumerate}
+
+\bluebox{\textbf{Computational cost of one multigrid cycle: } As the V-cycle it has $\mathcal{O}(N_\text{grid})$ as $N_\text{grid}$ is large compared to the cost of the V-cycle hierarchy.}

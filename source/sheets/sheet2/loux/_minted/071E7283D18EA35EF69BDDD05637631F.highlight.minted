@@ -1,0 +1,20 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+          \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+          \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{scipy.linalg}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{lu\PYGZus{}factor}\PYG{p}{,} \PYG{n}{lu\PYGZus{}solve}
+
+          \PYG{c+c1}{\PYGZsh{} Define a small linear system A x = b}
+          \PYG{n}{A} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([[}\PYG{l+m+mf}{3.0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{],}
+                      \PYG{p}{[}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{]])}
+          \PYG{n}{b} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{9.0}\PYG{p}{,} \PYG{l+m+mf}{8.0}\PYG{p}{])}
+
+          \PYG{c+c1}{\PYGZsh{} LU factorization with partial pivoting}
+          \PYG{n}{lu}\PYG{p}{,} \PYG{n}{piv} \PYG{o}{=} \PYG{n}{lu\PYGZus{}factor}\PYG{p}{(}\PYG{n}{A}\PYG{p}{)}
+
+          \PYG{c+c1}{\PYGZsh{} Solve the system using the LU factors}
+          \PYG{n}{x} \PYG{o}{=} \PYG{n}{lu\PYGZus{}solve}\PYG{p}{((}\PYG{n}{lu}\PYG{p}{,} \PYG{n}{piv}\PYG{p}{),} \PYG{n}{b}\PYG{p}{)}
+
+          \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Solution x:\PYGZdq{}}\PYG{p}{,} \PYG{n}{x}\PYG{p}{)}
+
+          \PYG{c+c1}{\PYGZsh{} Optional: check the result}
+          \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}A @ x:\PYGZdq{}}\PYG{p}{,} \PYG{n}{A} \PYG{o}{@} \PYG{n}{x}\PYG{p}{)}
+\end{MintedVerbatim}

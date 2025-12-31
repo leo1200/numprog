@@ -1,0 +1,131 @@
+\problem{Tridiagonal solver} \label{problem:tridiag}
+    In this task we want to practice the principle of 
+    Gaussian elimination on a simplified setup. Consider
+    the invertible tridiagonal matrix
+    \begin{equation}
+        \mat{A} = \left( \begin{array}{cccccc}
+            d_0 & u_0 & 0 & \dots & 0 & 0 \\
+            l_1 & d_1 & u_1 & 0 & \dots &  \\
+            0 & l_2 & d_2 & u_2 & 0 & \dots \\
+            0 & 0 & \ddots & \ddots & \ddots & 0 \\
+            0 & \dots &  & l_{N-2} & d_{N-2} & u_{N-2} \\
+            0 & 0 & \dots & 0 & l_{N-1} & d_{N-1}
+        \end{array} \right)
+    \end{equation}
+    (by convention $l_0 = 0, u_{N-1} = 0$) where we want to solve
+    \begin{equation}
+        \mat{A} \vec{x} = \vec{b}
+    \end{equation}
+    for $\vec{x}$.
+    \begin{enumerate}
+        \item Write the system in the form $(\mat{A}|\vec{b})$. Find the row operations which eliminate the lower diagonal, starting
+        with $l_1$. \textit{Hint}: You start by subtracting a multiple of the first row from the second such that $l_1 = 0$ and continue downward.
+        \item Once the lower diagonal is eliminated, the system can be solved bottom-up. Given the transformed system
+        with eliminated lower diagonal, find an expression for the solution vector. \textit{Hint}: Start by finding an expression for 
+        the last entry $x_{N-1}$ in $\vec{x} = (x_0, x_1, ..., x_{N-2}, x_{N-1})^T$, continue with $x_{N-2}$ and so on.
+        \item Implement the tridiagonal solver in Python. The signature of the function as well as the 
+        implementation of a matrix-vector product are given in Code-Snippets \ref{code:tridiag_task1} to \ref{code:tridiag_task3}. What is the
+        scaling of your algorithm? Compare to $\mathcal{O}(N^3)$ of standard LU factorization.
+    \end{enumerate}
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            """
+            The tridiagonal matrix is given by
+            [u_0, u_{N-2}], [d_0, d_{N-1}], [l_1, l{N-1}].
+            By convention all arrays are of size N, with
+            u_{N-1} = 0, l_0 = 0. This way the
+            (l_i, d_i, u_i) are the values 
+            from the i-th row.
+            """
+            import numpy as np
+            import matplotlib.pyplot as plt
+            from scipy.linalg import lu_factor, lu_solve
+
+            def tri_vector_product(l, d, u, x):
+                """
+                Compute Ax where A is a tridiagonal
+                matrix defined by l, d, u.
+                """
+                return x * d + np.roll(x, 1) * l + np.roll(x, -1) * u
+
+            def tri_to_matrix(l, d, u):
+                """
+                Convert a tridiagonal matrix to a
+                full matrix.
+                """
+                N = d.shape[0]
+                return np.diag(d) + np.diag(l[1:], -1) + np.diag(u[:-1], 1)
+        \end{minted}
+        \caption{Python code for a matrix-vector product $\mat{A}\vec{x}$ where $\mat{A}$ is tridiagonal
+        and signature for a tridiagonal solve of $\mat{A}\vec{x} = \vec{b}$. Continued in Code-Snippet \ref{code:tridiag_task2}.}
+        \label{code:tridiag_task1}
+    \end{codebox}
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            def tri_solve(l, d, u, b):
+                """
+                Solve Ax = b where A is a tridiagonal
+                matrix defined by l, d, u.
+
+                Args:
+                    l, d, u: arrays of size N
+                    b: array of size N
+
+                Returns:
+                    Solution to Ax = b of size N
+                """
+                N = diag.shape[0]
+
+                # backward elimination of 
+                # the lower diagonal
+                for i in range(0, N - 1):
+                    # TODO
+
+                # forward substitution
+                x = np.zeros_like(diag)
+                x[-1] = # TODO
+
+                for i in range(N - 2, -1, -1):
+                    # TODO
+                
+                return x
+        \end{minted}
+        \caption{Continuation of Code-Snippet \ref{code:tridiag_task1}. Continued in Code-Snippet \ref{code:tridiag_task3}}
+        \label{code:tridiag_task2}
+    \end{codebox}
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            # test setup
+            l = np.array([0.0, 2.0, 4.0, 6.0, 2.0, 6.0])
+            d = np.array([7.0, 9.0, 10.0, 15.0, 9.0, 7.0])
+            u = np.array([4.0, 6.0, 5.0, 8.0, 7.0, 0.0])
+
+            # predefined solution
+            x = np.array([5.0, 7.0, 8.0, 9.0, 5.0, 1.0])
+
+            # tridiagonal representation to full matrix
+            A = tri_to_matrix(l, d, u)
+
+            # matrix vector product
+            assert np.allclose(A @ x, tri_vector_product(l, d, u, x))
+            b = tri_vector_product(l, d, u, x)
+
+            # tridiagonal solve
+            x_tilde = tri_solve(l, d, u, b)
+            assert np.allclose(x, x_tilde)
+        \end{minted}
+        \caption{Continuation of Code-Snippet \ref{code:tridiag_task2}.}
+        \label{code:tridiag_task3}
+    \end{codebox}
+
+\begin{solutionblock}
+    \part
+    TODO
+    \part
+    TODO
+    \part
+    TODO
+\end{solutionblock}

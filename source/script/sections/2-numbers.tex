@@ -1,20 +1,37 @@
 \section{Digital Representation of Numbers}
 \thispagestyle{plain}
 
-In C, \mintinline{C}{int x = 100 * 200 * 300 * 400;} will surprisingly yield $-1894967296$ (for a 32-bit integer
-representation) (\textit{overflow}), \mintinline{C}{float f1 = (2.3 + 1e20) - 1e20;} yields $0.0$ (\textit{round-off-error}) but
+% write about why binary
+% use simpler model to describe basic floating point problems
+
+We want to operate on numbers on a computer where storage is finite, and 
+fixed-size representations in terms of discrete states are sought for efficient operations. However,
+the natural numbers are a countably infinite set and the real numbers 
+are an uncountably infinite set. There is simply no finite-size encoding
+which could exactly represent every number, let's say every real between 
+$0$ and $1$ - a fundamental error source of numerics. These restrictions
+result in caveats.
+
+In C, \mintinline{C}{int x = 100 * 200 * 300 * 400;} will surprisingly 
+yield $-1894967296$ (for a 32-bit integer representation) (\textit{overflow}), 
+\mintinline{C}{float f1 = (2.3 + 1e20) - 1e20;} yields $0.0$ (\textit{round-off-error}) but
 \mintinline{C}{float f2 = 2.3 + (1e20 - 1e20);} correctly gives $2.3$.
 
-We want to understand and mitigate such caveats of arithmetic on computers, where we want quick calculations while also
-using as little storage as possible - simulations can quickly become big in storage (e.g. lots of particles).
+We want to understand and mitigate such caveats of arithmetic on computers, 
+where we want quick calculations while also
+using as little storage as possible.
 
 Further details can be found in \cite{higham02} and \cite{bryant2011computer}.
 
 \subsection{Integer Arithmetic}
 
-In C, integers ($\in \mathbb{Z}$) are stored as fixed-size bit-sequences. The respective size
-dictates a range. C provides both unsigned and signed integer types, with negative numbers
-in the signed case represented using \textit{two's-complements}.
+In C, integers ($\in \mathbb{Z}$) are stored as fixed-size bit-sequences. While for us humans
+with commonly $10$ fingers a base-10 number system is natural, two-state systems are physically
+easier to construct and reliably operate on (e.g. a transistor conducts or not) (also see \cite[Sec. 2.7]{higham02}). Therefore,
+we are dealing with binary (base-2) representations throughout this chapter.
+
+The respective size of the bit-sequence dictates a range. C provides both unsigned and signed 
+integer types, with negative numbers in the signed case represented using \textit{two's-complements}.
 
 \subsubsection{Unsigned integers}
 For a bit-vector $\vec{x} = [x_{\omega-1},x_{\omega-2},\dots,x_0]$ the unsigned conversion is
@@ -23,8 +40,8 @@ For a bit-vector $\vec{x} = [x_{\omega-1},x_{\omega-2},\dots,x_0]$ the unsigned 
     B2U_{\omega} := \sum_{i=0}^{\omega-1} x_i 2^i
 \end{equation}
 
-(illustrated in figure \ref{fig:unchar}) and the range is $0,\dots,2^\omega - 1$. In case of overflow in operations, the overflow is truncated
-in the most significant bits (see figure \ref{fig:uncharadd}). As $B2U_{\omega}[x_{\omega-1},x_{\omega-2},\dots,x_0] \mod 2^k = 
+(illustrated in Fig. \ref{fig:unchar}) and the range is $0,\dots,2^\omega - 1$. In case of overflow in operations, the overflow is truncated
+in the most significant bits (see Fig. \ref{fig:uncharadd}). As $B2U_{\omega}[x_{\omega-1},x_{\omega-2},\dots,x_0] \mod 2^k = 
 B2U_{\omega}[x_{k-1},x_{k-2},\dots,x_0]$ we effectively store $\text{arithmetic result}\mod 2^\omega$.
 
 $x_{\omega-1}$ is called most significant bit (MSB) and $x_0$ least significant bit (LSB).
@@ -62,13 +79,18 @@ having a weighting factor $-2^{\omega-1}$
     B2T_\omega(\vec{x}) := -x_{\omega-1} 2^{\omega-1} + \sum_{i=0}^{\omega-2} x_i 2^i
 \end{equation}
 Carry-on to the $\omega$-th bit in addition is again ignored. As we really just have to add positive numbers in bits
-$x_0$ to $x_{\omega-2}$ with correct sign-switch by carry-on, no special handling is necessary (see figure \ref{fig:tcompl}). The range is $-2^{\omega-1} \dots 2^{\omega-1} - 1$.
+$x_0$ to $x_{\omega-2}$ with correct sign-switch by carry-on, no special handling is necessary (see Fig. \ref{fig:tcompl}). The range is $-2^{\omega-1} \dots 2^{\omega-1} - 1$.
 }
 From an unsigned int to the two's complement and vice versa we can get by
 \begin{enumerate}
     \item invert all bits
-    \item add $+1$ to the result\footnote{These rules intuitively follow from the constraint, that bitwise addition with carry-on of $-u$ and $u$ should result in an all-zero bitvector. Adding a bitvector to its inverted self results in an all-1 bitvector, adding one more then results in all zeros, as the last carry-on is discarded.}
+    \item add $+1$ to the result
 \end{enumerate}
+These rules intuitively follow from the constraint, that bitwise addition with 
+carry-on of $-u$ and $u$ should result in an all-zero bitvector. Adding a bitvector 
+to its inverted self results in an all-1 bitvector, adding one more then results in 
+all zeros, as the last carry-on is discarded.
+
 If we want $\vec{x}$ with $B2T_\omega(\vec{x}) = -u$ then the bits following the MSB must encode $k$ with $-u = -2^{\omega-1} + k$,
 so the encoded unsigned number must be $B2T_\omega(\vec{x}) = \explain{2^{\omega-1}}{\text{sign bit}} + k = 2^{\omega} - u$ - a \textit{two's complement}.
 
@@ -78,7 +100,6 @@ so the encoded unsigned number must be $B2T_\omega(\vec{x}) = \explain{2^{\omega
  \caption{Illustration of the defining feature of the two's complement - addition is simple.}
  \label{fig:tcompl}
 \end{figure}
-
 
 \subsubsection{Integer types in C}
 
@@ -103,7 +124,7 @@ Some common integer types with respective minimum sizes are given in table \ref{
 More deviously, $-1 < 0U$ will evaluate to false, as all integers in a comparison are cast to unsigned, when one of them is unsigned.}
 
 % \subsubsection{Byte Ordering in Storage: Big and Little Endian}
-% Bytes of e.g. a multi-byte integer can be stored from most significant byte to least significant byte (big endian) or vice versa (little endian), see figure \ref{fig:endian}.
+% Bytes of e.g. a multi-byte integer can be stored from most significant byte to least significant byte (big endian) or vice versa (little endian), see Fig. \ref{fig:endian}.
 
 % \begin{figure}[!htb]
 %  \centering
@@ -194,6 +215,27 @@ Note that in this notation (in the form $V = x \cdot 2^y$) we cannot exactly rep
 \end{equation}
 \yellowbox{\textbf{Disastrous historic example:} In the first Gulf War (more specifically on 25th February 1991), a Patriot missile defense battery failed to intercept an incoming Iraqi Scud missile, because it used an internal clock counting up in tenths of a second represented by a 23-bit sequence. Future missile positions are predicted by extrapolating from past position with constant velocity. The Patriot system mixed both this inaccurate internal clock and a more accurate one, leading to the failed interception and 28 deaths among soldiers.}
 
+\subsubsection{An intuition for limited precision in fixed-size scientific notation}
+Consider we want to design a fixed-size representation of real numbers, let's say we can store six decimal digits and two signs.
+We choose our format to be
+
+\begin{equation}
+    \pm d_1.d_2 d_3 d_4 \cdot 10^{\pm d_5 d_6}, \quad \text{e.g.} \, +9.821 \cdot 10^{-12}
+\end{equation}
+
+\greybox{\textbf{Task to the reader:} Think about the range of this representation and the number closest to $0$ we can represent.}
+
+The tiniest number ($\neq 0$) we can represent is
+
+\begin{equation}
+    +0.001 \cdot 10^{-99}
+\end{equation}
+
+However, consider we have stored $1$ then the smallest increment 
+we can resolve in the mantissa is $0.001$ - \textbf{our precision is limited and relative!}
+
+Let us now go from my naive example to a proper floating point representation.
+
 \subsubsection{IEEE 754 Floating Point Standard}
 Based on the representation in scientific notation, we can store a floating point number in a bit-vector with
 \begin{itemize}
@@ -228,7 +270,7 @@ where based on the exponent we differentiate between
 
 \greenbox{\textbf{Why is the exponent stored in a biased way, not two's complement?:} In a two's complement representation of the exponent to compare two numbers, we have to compare the exponents and mantissas separately and the exponent-comparison is a bit more complicated than comparing biased representations. In the biased exponent representation we can just compare the bitvectors of exponent followed by mantissa interpreted as integers (also mind the sign).}
 
-The cases are illustrated in figure \ref{fig:float_cases}, with a specific example in figure \ref{fig:523float}.
+The cases are illustrated in Fig. \ref{fig:float_cases}, with a specific example in Fig. \ref{fig:523float}.
 
 \begin{figure}[!htb]
     \centering
@@ -273,6 +315,30 @@ so their relative difference is bound by
     \frac{V_2 - V_1}{V_2} = \frac{\frac{1}{2^p} \cdot 2^{E - b}}{\left(1 + \frac{M + 1}{2^p}\right) \cdot 2^{E - b}} \leq \epsilon_{\text{mach}}
 \end{equation}
 
+\bluebox{\textbf{Finite floating point precision is one of the fundamental error sources in numerics.}}
+
+Given $x$ is in the range of representable floating point numbers, then the floating point representation
+
+\begin{equation}
+    fl(x) = x \cdot (1+\delta), \quad |\delta| \leq \epsilon_{\text{mach}}
+\end{equation}
+
+\citep[Theorem 2.2]{higham02}. The modified formulation
+
+\begin{equation}
+    fl(x) = \frac{1}{1+\delta}, \quad |\delta| \leq \epsilon_{\text{mach}}
+\end{equation}
+
+also holds \citep[Theorem 2.2]{higham02}. For multiple floating point operations
+the following result can be helpful \citep[Lemma 3.1]{higham02}: If $|\delta_i| \leq \epsilon_{\text{mach}}$
+and $\rho_i \in \{+1,-1 \}$ for $i = 1,...,l$ and $l \epsilon_{\text{mach}} < 1$
+then
+
+\begin{equation}
+    \label{eq:mult_float_bound}
+    \prod_{i=1}^{l} (1+\delta_i)^{\rho_i} = 1 + \theta_l, \quad |\theta_l| \leq \frac{l \epsilon_{\text{mach}}}{1 - l \epsilon_{\text{mach}}} =: \gamma_l
+\end{equation}
+
 \subsubsection{Rounding and Pitfalls of Floating Point Arithmetic}
 In the IEEE standard, results of addition, subtraction, multiplication and division must equal to
 one where the arithmetic operations are assumed to be exact and then there is rounding to the nearest
@@ -309,7 +375,7 @@ To avoid cancellation we can rewrite using $\cos x = \cos^2 \frac{x}{2} - \sin^2
 \begin{equation}
     f(x) = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}} \right)^2
 \end{equation}
-A comparison of both versions in python can be found in figure \ref{fig:cancellation_ex}, at some point (roughly below $10^{-8})$, $\cos x$ is too close to $1$ to be resolved by the mantissa, so the total result is $0$, above that the magnified error is visible.
+A comparison of both versions in python can be found in Fig. \ref{fig:cancellation_ex}, at some point (roughly below $10^{-8})$, $\cos x$ is too close to $1$ to be resolved by the mantissa, so the total result is $0$, above that the magnified error is visible.
 
 \begin{figure}[!htb]
     \centering
@@ -367,7 +433,7 @@ Consider we approximate $y=f(x)$ as $\hat{y}$ in an arithmetic of limited precis
     \item \textbf{Backward error:} The backward error is the smallest $\Delta x$ (in the input space) so that $f(x+\Delta x) = \hat{y}$, so the smallest perturbation where the exact function gives our approximate result.
 \end{itemize}
 If this $\Delta x$ is sufficiently small, e.g. as small as the uncertainty in the data in the first place, we speak
-of backward stability. A weaker formulation is the mixed forward-backward error
+of \textbf{backward stability}. A weaker formulation is the mixed forward-backward error
 \begin{equation}
     \hat{y} + \Delta y = f(x + \Delta x), \quad |\Delta y| \leq \epsilon |y|, \quad |\Delta x| \leq \eta |x|
 \end{equation}
@@ -392,7 +458,8 @@ As a rule of thumb
 \begin{equation}
     \text{forward error } \lesssim \text{condition number } \cdot \text{ backward error}
 \end{equation}
-so ill-conditioned problems can have large forward errors.
+so ill-conditioned problems can have large forward errors. Note that the condition number is inherent to the problem
+not the numerical implementation.
 
 \textbf{Application on Matrices}\par
 Consider the linear system $\mat{A}\vec{y}=\vec{x}, \vec{y} = \mat{A}^{-1}\vec{x}, \vec{\hat{y}} = \mat{A}^{-1}(\vec{x} + \vec{\Delta x})$. The condition number follows as
@@ -406,4 +473,5 @@ Consider the linear system $\mat{A}\vec{y}=\vec{x}, \vec{y} = \mat{A}^{-1}\vec{x
 \end{equation}
 where we used the definition of the matrix norm $||\mat{A}|| = \max_{\vec{x} \ne 0} \frac{||\mat{A}\vec{x}||}{||\vec{x}||}$. For large condition numbers, small perturbations in the input $\vec{x}$ lead to
 large changes in the solution $\vec{y}$.
-    
+
+\pagebreak

@@ -1,0 +1,20 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+          \PYG{c+c1}{\PYGZsh{} test setup}
+          \PYG{n}{l} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.0}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{l+m+mf}{6.0}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{l+m+mf}{6.0}\PYG{p}{])}
+          \PYG{n}{d} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{7.0}\PYG{p}{,} \PYG{l+m+mf}{9.0}\PYG{p}{,} \PYG{l+m+mf}{10.0}\PYG{p}{,} \PYG{l+m+mf}{15.0}\PYG{p}{,} \PYG{l+m+mf}{9.0}\PYG{p}{,} \PYG{l+m+mf}{7.0}\PYG{p}{])}
+          \PYG{n}{u} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{l+m+mf}{6.0}\PYG{p}{,} \PYG{l+m+mf}{5.0}\PYG{p}{,} \PYG{l+m+mf}{8.0}\PYG{p}{,} \PYG{l+m+mf}{7.0}\PYG{p}{,} \PYG{l+m+mf}{0.0}\PYG{p}{])}
+
+          \PYG{c+c1}{\PYGZsh{} predefined solution}
+          \PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{5.0}\PYG{p}{,} \PYG{l+m+mf}{7.0}\PYG{p}{,} \PYG{l+m+mf}{8.0}\PYG{p}{,} \PYG{l+m+mf}{9.0}\PYG{p}{,} \PYG{l+m+mf}{5.0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{])}
+
+          \PYG{c+c1}{\PYGZsh{} tridiagonal representation to full matrix}
+          \PYG{n}{A} \PYG{o}{=} \PYG{n}{tri\PYGZus{}to\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{u}\PYG{p}{)}
+
+          \PYG{c+c1}{\PYGZsh{} matrix vector product}
+          \PYG{k}{assert} \PYG{n}{np}\PYG{o}{.}\PYG{n}{allclose}\PYG{p}{(}\PYG{n}{A} \PYG{o}{@} \PYG{n}{x}\PYG{p}{,} \PYG{n}{tri\PYGZus{}vector\PYGZus{}product}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{x}\PYG{p}{))}
+          \PYG{n}{b} \PYG{o}{=} \PYG{n}{tri\PYGZus{}vector\PYGZus{}product}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{x}\PYG{p}{)}
+
+          \PYG{c+c1}{\PYGZsh{} tridiagonal solve}
+          \PYG{n}{x\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{tri\PYGZus{}solve}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{b}\PYG{p}{)}
+          \PYG{k}{assert} \PYG{n}{np}\PYG{o}{.}\PYG{n}{allclose}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x\PYGZus{}tilde}\PYG{p}{)}
+\end{MintedVerbatim}

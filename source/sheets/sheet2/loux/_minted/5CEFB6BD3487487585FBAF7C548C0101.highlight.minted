@@ -1,0 +1,29 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+          \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{tri\PYGZus{}solve}\PYG{p}{(}\PYG{n}{l}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{b}\PYG{p}{):}
+\PYG{+w}{              }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{              Solve Ax = b where A is a tridiagonal}
+\PYG{l+s+sd}{              matrix defined by l, d, u.}
+
+\PYG{l+s+sd}{              Args:}
+\PYG{l+s+sd}{                  l, d, u: arrays of size N}
+\PYG{l+s+sd}{                  b: array of size N}
+
+\PYG{l+s+sd}{              Returns:}
+\PYG{l+s+sd}{                  Solution to Ax = b of size N}
+\PYG{l+s+sd}{              \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+              \PYG{n}{N} \PYG{o}{=} \PYG{n}{diag}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+              \PYG{c+c1}{\PYGZsh{} backward elimination of}
+              \PYG{c+c1}{\PYGZsh{} the lower diagonal}
+              \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{):}
+                  \PYG{c+c1}{\PYGZsh{} TODO}
+
+              \PYG{c+c1}{\PYGZsh{} forward substitution}
+              \PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros\PYGZus{}like}\PYG{p}{(}\PYG{n}{diag}\PYG{p}{)}
+              \PYG{n}{x}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{c+c1}{\PYGZsh{} TODO}
+
+              \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{):}
+                  \PYG{c+c1}{\PYGZsh{} TODO}
+
+              \PYG{k}{return} \PYG{n}{x}
+\end{MintedVerbatim}

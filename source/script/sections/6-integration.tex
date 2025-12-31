@@ -76,7 +76,7 @@ different estimates is
  \begin{equation}
     \boxed{\sigma_{\hat{I}_N} = V \sqrt{\frac{\sigma_g^2}{N}} \propto \frac{1}{\sqrt{N}}}
  \end{equation}
-which is illustrated in figure \ref{fig:mcint}. This follows directly from the basic properties of the variance
+which is illustrated in Fig. \ref{fig:mcint}. This follows directly from the basic properties of the variance
 \begin{equation}
     \text{for } X,Y \text{ independent} \quad \Var[X+Y] = \Var[X] + \Var[Y], \quad \Var[aX] = a^2 \Var[X]
 \end{equation}
@@ -171,7 +171,7 @@ Our Monte Carlo estimator for this integral is given by
 \begin{equation}
     \hat{I}_N = \frac{1}{N} \sum_{i=1}^{N} g(x_i), \quad x_i \sim \mathcal{U}(0, 1)
 \end{equation}
-which is illustrated in figure \ref{fig:mcint}. The higher the number of sampled points $N$ the lower the variance of our estimator; the lower the variance of $g$ along the $y$ axis, the lower the variance of our estimator.
+which is illustrated in Fig. \ref{fig:mcint}. The higher the number of sampled points $N$ the lower the variance of our estimator; the lower the variance of $g$ along the $y$ axis, the lower the variance of our estimator.
 
 \begin{figure}[!htb]
  \centering
@@ -198,7 +198,7 @@ Monte Carlo Integration's error will reduce more quickly if we increase $N$ the 
 
 \paragraph{Intuition for the better scaling} One intuition for this advantage of Monte Carlo is that the
 higher the dimension, the more evenly pairs of random points are spread with respect to their pair-wise distance
-- normally known as the curse of dimensionality, illustrated in figure \ref{fig:curse}.
+- normally known as the curse of dimensionality, illustrated in Fig. \ref{fig:curse}.
 
 \begin{figure}[!htb]
  \centering
@@ -242,7 +242,7 @@ Consider the integral
 \begin{equation}
     I = \int_{0}^{2} \frac{1}{1 + x^2} dx \explain{=}{\text{exact solution}} \arctan(2) \approx 1.107149
 \end{equation}
-Estimates based on the standard Monte Carlo estimator and the antithetic estimator are given in table \ref{tab:antithetic} and illustrated in figure \ref{fig:mc_antithetic}. A relative reduction in standard deviation of roughly 80\% is achieved using the antithetic estimator.
+Estimates based on the standard Monte Carlo estimator and the antithetic estimator are given in table \ref{tab:antithetic} and illustrated in Fig. \ref{fig:mc_antithetic}. A relative reduction in standard deviation of roughly 80\% is achieved using the antithetic estimator.
 
 % make table for results with N = 100 and seed = 1234 for results
 % MC: est, std, conf. int: 1.09562114 0.01677497 [1.06274280 1.12849948]
@@ -299,10 +299,10 @@ using the importance sampling function $f(x) = \frac{4 - 2x}{3}$ on $0 \leq x \l
 from $f(x)$ using the inverse transform method using the CDF $F(x) = \frac{4x - x^2}{3}$ (with $F(1) = 1$ as we want) so $F^{-1}(u) = 2 - \sqrt{4 - 3u}$. We can then
 simply use equation \ref{eq:importance_sampling} to obtain an estimate.
 
-The importance sampling approach compared to the standard Monte Carlo approach is illustrated in figure \ref{fig:mc_impA} and \ref{fig:mc_impB}. There it is easy to see how
+The importance sampling approach compared to the standard Monte Carlo approach is illustrated in Fig. \ref{fig:mc_impA} and \ref{fig:mc_impB}. There it is easy to see how
 effectively integrating a flatter function is to our advantage.
 
-\greenbox{\textbf{Advantage of Importance Sampling}: As we can see in figure \ref{fig:mc_impA} the flatter $h(x) := \frac{g(x)}{f(x)}$ (best $h \propto g$ as achievable in lattice Monte Carlo) (mind the different naming in the figure) the sharper
+\greenbox{\textbf{Advantage of Importance Sampling}: As we can see in Fig. \ref{fig:mc_impA} the flatter $h(x) := \frac{g(x)}{f(x)}$ (best $h \propto g$ as achievable in lattice Monte Carlo) (mind the different naming in the figure) the sharper
 the probability distribution $p(h)$ (a limited range of $h$ values with higher probabilities), the smaller the Monte Carlo error $\sigma_{\hat{I}_N} = \sqrt{\frac{\sigma_h^2}{N}}$.}
 
 \begin{figure}[!htb]

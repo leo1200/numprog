@@ -1,0 +1,59 @@
+\problem{\textit{(Bonus)} Polynomial regression}
+    Given the data
+    \begin{equation}
+    \begin{aligned}
+    \vec{x} &=
+    \begin{pmatrix}
+    -3.00,-2.85,-2.70,-2.55,-2.40,-2.25,-2.10,-1.95, \\
+    -1.80,-1.65,-1.50,-1.35,-1.20,-1.05,-0.90,-0.75, \\
+    -0.60,-0.45,-0.30,-0.15,0.00,0.15,0.30,0.45, \\
+    0.60,0.75,0.90,1.05,1.20,1.35,1.50,1.65, \\
+    1.80,1.95,2.10,2.25,2.40,2.55,2.70,2.85,
+    \end{pmatrix} \in \mathbb{R}^{40},
+    \\[1ex]
+    \vec{y}^{\text{data}} &=
+    \begin{pmatrix}
+    -6.74,-6.01,-4.83,-4.37,-4.01,-2.94,-1.90,-1.56, \\
+    -1.92,-1.77,-1.07,-0.41,-1.30,0.01,-0.28,0.16 \\
+    0.41,0.64,1.10,1.48,0.94,1.70,0.69,1.17, \\
+    1.41,0.96,0.48,0.31,0.46,0.71,0.01,0.31, \\
+    0.24,0.50,0.25,0.24,-0.34,-0.15,0.26,0.57,
+    \end{pmatrix}  \in \mathbb{R}^{40}
+    \end{aligned}
+    \end{equation}
+    we would like to find parameters $\vec{\beta} \in \mathbb{R}^p$ in the relation
+    \begin{equation}
+        y_i(\vec{\beta}) = \beta_0 + \beta_1 x_i + \beta_2 i^2 + ... + \beta_{p-1} x^{p-1}
+    \end{equation}
+    such that $||\vec{y}^{\text{data}} - \vec{y}(\vec{\beta})||_2^2$ is minimized. Note 
+    that $y_i(\vec{\beta})$ is linear in $\vec{\beta}$, polynomial regression \textit{is}
+    a linear regression.
+
+    Given the data matrix (here $N = 40$)
+
+    \begin{equation}
+        \mat{X} = \left[\begin{array}{ccccc}
+        1 & x_{1} & x_{1}^2 & \cdots & x_{1}^{p-1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & x_{N} & x_{N}^2 & \cdots & x_{N}^{p-1}
+    \end{array}\right] \in \mathbb{R}^{N \times p}
+    \end{equation}
+
+    The parameters of interest are given by
+
+    \begin{equation}
+        \vec{\hat{\beta}} = \argmin_{\vec{\beta}} ||\vec{y}^{\text{data}} - \vec{y}(\vec{\beta})||_2^2 \iff \mat{X}^T \mat{X} \vec{\hat{\beta}} = \mat{X}^T \vec{y}^{\text{data}}
+    \end{equation}
+
+    i.e. a linear system.
+
+    \begin{enumerate}
+        \item Show that $\mat{X}^T \mat{X}$ is invertible for $p<N$.
+        \item Write Python functions to construct the data matrix $\mat{X}$ and to evaluate $\vec{y}(\vec{\beta})$.
+        \item Solve for $\vec{\beta}$ for $p = 1, 2, 4, 12$. Plot the results and the data. Describe what you observe.
+    \end{enumerate}
+
+\begin{solutionblock}
+    \part
+     TODO
+\end{solutionblock}
