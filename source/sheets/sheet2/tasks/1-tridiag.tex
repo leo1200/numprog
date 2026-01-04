@@ -122,10 +122,81 @@
     \end{codebox}
 
 \begin{solutionblock}
+\part
+    To eliminate the lower diagonal $l_i$, we proceed from $i=1$ to $N-1$. For each row $i$, we subtract a multiple of the modified row $i-1$ from row $i$. Let the modified diagonal elements be $d'_i$ and the modified right-hand side elements be $b'_i$.
+    \begin{enumerate}
+        \item For the first row ($i=0$), the elements remain unchanged:
+            \begin{equation}
+                d'_0 = d_0, \quad b'_0 = b_0
+            \end{equation}
+        \item For $i = 1, \dots, N-1$, we calculate the multiplier $m_i = \frac{l_i}{d'_{i-1}}$. The row operations are:
+            \begin{itemize}
+                \item $d'_i = d_i - m_i u_{i-1}$
+                \item $b'_i = b_i - m_i b'_{i-1}$
+            \end{itemize}
+    \end{enumerate}
+    The upper diagonal $u_i$ remains unchanged because the element above it in the 
+    previous row's column is zero. After these operations, the matrix is upper bidiagonal.
     \part
-    TODO
+    After the lower diagonal is eliminated, the system is in upper triangular form:
+    \begin{equation}
+        \left( \begin{array}{ccccc|c}
+            d'_0 & u_0  &      &        &        & b'_0 \\
+                & d'_1 & u_1  &        &        & b'_1 \\
+                &      & \ddots & \ddots &        & \vdots \\
+                &      &      & d'_{N-2} & u_{N-2} & b'_{N-2} \\
+                &      &      &        & d'_{N-1} & b'_{N-1}
+        \end{array} \right)
+    \end{equation}
+    We solve this using back-substitution starting from the last row:
+    \begin{enumerate}
+        \item For the last entry: $x_{N-1} = \frac{b'_{N-1}}{d'_{N-1}}$
+        \item For $i = N-2, N-3, \dots, 0$:
+        \begin{equation}
+            d'_i x_i + u_i x_{i+1} = b'_i \implies x_i = \frac{b'_i - u_i x_{i+1}}{d'_i}
+        \end{equation}
+    \end{enumerate}
     \part
-    TODO
-    \part
-    TODO
+    The implementation of the Thomas algorithm (tridiagonal matrix solver) is given
+    in Code-Snippet \ref{code:tridiag_sol}.
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            def tri_solve(l, d, u, b):
+                N = d.shape[0]
+                # Copy to avoid modifying original arrays
+                d_copy = d.astype(float).copy()
+                b_copy = b.astype(float).copy()
+
+                # backward elimination of the lower diagonal (forward sweep)
+                for i in range(0, N - 1):
+                    m = l[i+1] / d_copy[i]
+                    d_copy[i+1] -= m * u[i]
+                    b_copy[i+1] -= m * b_copy[i]
+
+                # forward substitution (back substitution sweep)
+                x = np.zeros_like(d_copy)
+                x[-1] = b_copy[-1] / d_copy[-1]
+
+                for i in range(N - 2, -1, -1):
+                    x[i] = (b_copy[i] - u[i] * x[i+1]) / d_copy[i]
+                
+                return x
+        \end{minted}
+        \caption{Thomas algorithm (tridiagonal matrix solver).}
+        \label{code:tridiag_sol}
+    \end{codebox}
+
+\textbf{Scaling Analysis:}
+The algorithm consists of two loops, each iterating $N$ times. Inside each loop, 
+only a constant number of floating-point operations (additions, multiplications, divisions) 
+are performed. Therefore, the complexity is $\mathcal{O}(N)$. 
+
+Compared to the standard Gaussian elimination or LU factorization which 
+scales as $\mathcal{O}(N^3)$, this solver is significantly more efficient 
+for large tridiagonal systems, reducing both computation time and memory 
+requirements (since we only store vectors of size $N$ rather 
+than a matrix of size $N^2$).
 \end{solutionblock}
+
+\pagebreak
