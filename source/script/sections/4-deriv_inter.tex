@@ -183,18 +183,78 @@ so together with our spatial finite difference approximation, we obtain the expl
 which is started from some initial conditions $u_{ij}^{(0)} = u_{ij}(t = t_0)$.
 
 \subsection{Interpolation}
-Consider we have data points $f_i = f(x_i), i = 1,..,n$ and would like to 
-find a polynomial passing through those points. In fluid simulations, for instance,
+Consider we have data points $f_i = f(x_i), i = 0,..,m$ and would like to 
+find a polynomial $p \in \Pi_m$ passing through those points $p(x_i) = f(x_i)$.
+
+\bluebox{\textbf{Theorem of Polynomial Interpolation:} Let $(x_0, f_0),... , (x_m, f_m)$ be n points in the
+plane with distinct $x_i$. Then there exists one and only one polynomial $p$ of degree $m$ or
+less that satisfies $p(x_i) = f_i$ for $i = 0,...,m$. See \cite[Theorem 2.3]{sauer25}.}
+
+In fluid simulations, for instance,
 we might deal with cell-centered fluid quantities and would like to interpolate to the
 cell boundaries to calculate intercell fluxes.
 
-\subsubsection{Evaluating polynomials efficiently - Horner schema}
+\subsubsection{Evaluating polynomials efficiently - Horner scheme}
 
 Let us start with the efficient evaluation of polynomials.
 
+Consider $p \in \Pi_m$, so
+
+\begin{equation}
+    p(x) = b_0 + b_1 x + b_2 x^2 + ... + b_m x^m
+\end{equation}
+
+We could obtain all the powers $(x^2,...,x^m)$ by $m-1$ multiplications
+and could then evaluate $p(x)$ with another $m$ multiplications
+of the powers with the coefficients, in total $2m - 1$ multiplications
+(and $m$ computationally cheaper additions).
+
+We can rewrite polynomials to reduce the number of multiplications
+
+\begin{itemize}
+    \item $p(x) = b_0 + b_1 x + b_2 x^2 = b_0 + (b_1 + b_2 x) x$ ($m = 2$, $2$ multiplications, $2$ additions)
+    \item $p(x) = b_0 + b_1 x + b_2 x^2 + b_3 x^3 = b_0 + (b_1 + (b_2 + b_3 x) x) x$ ($m = 3$, $3$ multiplications, $3$ additions)
+    \item $\vdots$
+    \item $p(x) = (\dots (b_m x + b_{m-1})x + \dots )$ ($m$ multiplications, $m$ additions)
+\end{itemize}
+
+- only $m$ multiplication are necessary in the \textbf{Horner scheme}.
+
+The Horner scheme can be implemented in the recurrent form
+
+\begin{equation}
+    z_j = b_j + x z_{j+1}, z_m = b_m \quad \rightarrow \quad z_0 = p(x)
+\end{equation}
+
 \subsubsection{Langrange interpolation}
 
+The simplest interpolation scheme is obtained based on Lagrange
+polynomials
+
+\begin{equation}
+    l_j(x) = \prod_{k = 0, k \neq j}^{m} \frac{x-x_k}{x_j - x_k} \quad \rightarrow \quad l_j(x_i) = \delta_{ij} = \begin{cases}
+        1, &i = j, \\
+        0, &i \neq j
+    \end{cases}
+\end{equation}
+
+designed such that $l_j$ is $1$ on $x_j$ but zero on all other supporting points.
+
+The interpolation becomes trivial
+
+\begin{equation}
+    p(x) = f(x_0) l_0(x) + f(x_1) l_1(x) + \dots + f(x_m) l_m(x)
+\end{equation}
+
+\redbox{\textbf{Problems:} 
+\begin{itemize}
+    \item The computational cost of evaluating the Lagrange polynomial is $\mathcal{O}(m^2)$.
+    \item Cancellation problems in the evaluation of $l_j$.
+\end{itemize}}
+
 \subsubsection{Newton interpolation}
+
+
 
 \subsubsection{Outlook}
 

@@ -35,6 +35,6 @@ also use your development environment of choice.
 - sheet 1: essentially FOSM sheet 1 + some of my examples
 - sheet 2: implement triangular solve for diffusion, linear regression task, show that matrix is invertible (?), iterative methods(?), compare interpolation orders
 - sheet 3: check order of convergence for different finite difference schemes, application: PDE solve (take-away: we can
-already do a lot with finite differences)
+already do a lot with finite differences), interpolation: runge phenomenon, Chebyshev nodes
 - sheet 4: gradient descent, newton order comparison, problem of local minima, implicit methods for finite differencing
 - sheet 5: numerical integration comparison, Simpson - MC comparison
