@@ -57,7 +57,7 @@ where we used Landaus big-$\mathcal{O}$ notation.
 
 \greybox{\textbf{Landau notation}:
 \begin{itemize}
-    \item little $\mathcal{o}$: $f \in \mathcal{o}(g) \iff \lim_{x \to a} \left| \frac{f(x)}{g(x)} \right| = 0$ ($f$ grows slower than $g$)
+    \item little $o$: $f \in o(g) \iff \lim_{x \to a} \left| \frac{f(x)}{g(x)} \right| = 0$ ($f$ grows slower than $g$)
     \item big $\mathcal{O}$: $f \in \mathcal{O}(g) \iff \limsup_{x \to a} \left| \frac{f(x)}{g(x)} \right| < \infty$ ($f$ grows at most as fast as $g$)
 \end{itemize}
 }
@@ -325,7 +325,7 @@ where for $j<i$ we recursively define
 
 Consider we interpolate an $m+1$ times continuously 
 differentiable function $f$ on a closed interval $[a,b]$ ($f \in C^{m+1}[a,b]$)
-with an $m$-th order polynomial $p_m \in Pi_m$ on
+with an $m$-th order polynomial $p_m \in \Pi_m$ on
 $m + 1$ distinct points $x_0,...,x_m$
 (such that $p(x_i) = f(x_i)$).
 
