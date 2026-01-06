@@ -1,0 +1,3050 @@
+% To be filled, currently only examples :D
+
+% ======================= Articles ===================================
+
+@ARTICLE{weaver,
+       author = {{Weaver}, R. and {McCray}, R. and {Castor}, J. and {Shapiro}, P. and {Moore}, R.},
+        title = "{Interstellar bubbles. II. Structure and evolution.}",
+      journal = {The Astrophysical Journal},
+     keywords = {Interstellar Gas, Plasma Interactions, Stellar Winds, Adiabatic Flow, Bubbles, Conductive Heat Transfer, Early Stars, Energy Dissipation, Hydrodynamics, Ion Density (Concentration), Radiative Transfer, Stellar Motions, Astrophysics},
+         year = 1977,
+        month = dec,
+       volume = {218},
+        pages = {377-395},
+          doi = {10.1086/155692},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1977ApJ...218..377W},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{mullen21,
+doi = {10.3847/1538-4365/abcfbd},
+url = {https://dx.doi.org/10.3847/1538-4365/abcfbd},
+year = {2021},
+month = {feb},
+publisher = {The American Astronomical Society},
+volume = {252},
+number = {2},
+pages = {30},
+author = {Mullen, P. D. and Hanawa, Tomoyuki and Gammie, C. F.},
+title = {An Extension of the Athena++ Framework for Fully Conservative Self-gravitating Hydrodynamics},
+journal = {The Astrophysical Journal Supplement Series},
+abstract = {Numerical simulations of self-gravitating flows evolve a momentum equation and an energy equation that account for accelerations and gravitational energy releases due to a time-dependent gravitational potential. In this work, we implement a fully conservative numerical algorithm for self-gravitating flows, using source terms, in the astrophysical magnetohydrodynamics framework Athena++. We demonstrate that properly evaluated source terms are conservative when they are equivalent to the divergence of a corresponding “gravity flux” (i.e., a gravitational stress tensor or a gravitational energy flux). We provide test problems that demonstrate several advantages of the source-term-based algorithm, including second-order convergence and round-off error total momentum and total energy conservation. The fully conservative scheme suppresses anomalous accelerations that arise when applying a common numerical discretization of the gravitational stress tensor that does not guarantee curl-free gravity.}
+}
+
+@misc{zou21,
+      title={FFT-based free space Poisson solvers: why Vico-Greengard-Ferrando should replace Hockney-Eastwood}, 
+      author={Junyi Zou and Eugenia Kim and Antoine J. Cerfon},
+      year={2021},
+      eprint={2103.08531},
+      archivePrefix={arXiv},
+      primaryClass={physics.plasm-ph},
+      url={https://arxiv.org/abs/2103.08531}, 
+}
+
+@article{muller95,
+title = {Simulating self-gravitating hydrodynamic flows},
+journal = {Computer Physics Communications},
+volume = {89},
+number = {1},
+pages = {45-58},
+year = {1995},
+note = {Numerical Methods in Astrophysical Hydrodynamics},
+issn = {0010-4655},
+doi = {https://doi.org/10.1016/0010-4655(94)00185-5},
+url = {https://www.sciencedirect.com/science/article/pii/0010465594001855},
+author = {Ewald Müller and Matthias Steinmetz},
+abstract = {An efficient algorithm for solving Poisson's equation in two and three spatial dimensions is discussed. The algorithm, which is described in detail, is based on the integral form of Poisson's equation and utilizes spherical coordinates and an expansion into spherical harmonics. The solver can be applied to and works well for all problems for which the use of spherical coordinates is appropriate. We also briefly discuss the implementation of the algorithm into hydrodynamic codes which are based on a conservative finite-difference scheme.}
+}
+
+@ARTICLE{jiang13,
+       author = {{Jiang}, Yan-Fei and {Belyaev}, Mikhail and {Goodman}, Jeremy and {Stone}, J. M.},
+        title = "{A new way to conserve total energy for Eulerian hydrodynamic simulations with self-gravity}",
+      journal = {New Astronomy},
+     keywords = {Astrophysics - Instrumentation and Methods for Astrophysics, Physics - Computational Physics},
+         year = 2013,
+        month = feb,
+       volume = {19},
+        pages = {48-55},
+          doi = {10.1016/j.newast.2012.08.002},
+archivePrefix = {arXiv},
+       eprint = {1208.1795},
+ primaryClass = {astro-ph.IM},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2013NewA...19...48J},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{eastwood79,
+title = {Remarks on the solution of poisson's equation for isolated systems},
+journal = {Journal of Computational Physics},
+volume = {32},
+number = {1},
+pages = {24-38},
+year = {1979},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/0021-9991(79)90139-6},
+url = {https://www.sciencedirect.com/science/article/pii/0021999179901396},
+author = {J.W Eastwood and D.R.K Brownrigg},
+abstract = {A discussion of the solution by means of fast fourier transforms of the constant coefficient elliptic problem with isolated boundary conditions is presented. Concepts of filtering and sampling are used to show that the transform algorithm devised by Hockney [1] gives exact potential values in the computational box (c.f. remarks in [2]). The algorithm and performance of a three dimensional implementation of the transform algorithm is given. It is shown that interlaced meshes or mesh and submeshes may be employed to gain further computational economy.}
+}
+
+@ARTICLE{james77,
+       author = {{James}, R.~A.},
+        title = "{The Solution of Poisson's Equation for Isolated Source Distributions}",
+      journal = {Journal of Computational Physics},
+         year = 1977,
+        month = oct,
+       volume = {25},
+       number = {2},
+        pages = {71-93},
+          doi = {10.1016/0021-9991(77)90013-4},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1977JCoPh..25...71J},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{moon19,
+doi = {10.3847/1538-4365/ab09e9},
+url = {https://dx.doi.org/10.3847/1538-4365/ab09e9},
+year = {2019},
+month = {mar},
+publisher = {The American Astronomical Society},
+volume = {241},
+number = {2},
+pages = {24},
+author = {Moon, Sanghyuk and Kim, Woong-Tae and Ostriker, E. C.},
+title = {A Fast Poisson Solver of Second-order Accuracy for Isolated Systems in Three-dimensional Cartesian and Cylindrical Coordinates},
+journal = {The Astrophysical Journal Supplement Series},
+abstract = {We present an accurate and efficient method to calculate the gravitational potential of an isolated system in 3D Cartesian and cylindrical coordinates subject to vacuum (open) boundary conditions. Our method consists of two parts: an interior solver and a boundary solver. The interior solver adopts an eigenfunction expansion method together with a tridiagonal matrix solver to solve the Poisson equation subject to the zero boundary condition. The boundary solver employs James’s method to calculate the boundary potential due to the screening charges required to keep the zero boundary condition for the interior solver. A full computation of gravitational potential requires running the interior solver twice and the boundary solver once. We develop a method to compute the discrete Green’s function in cylindrical coordinates, which is an integral part of the James algorithm to maintain second-order accuracy. We implement our method in the Athena++ magnetohydrodynamics code and perform various tests to check that our solver is second-order accurate and exhibits good parallel performance.}
+}
+
+@article{brandt77,
+ ISSN = {00255718, 10886842},
+ URL = {http://www.jstor.org/stable/2006422},
+ abstract = {The boundary-value problem is discretized on several grids (or finite-element spaces) of widely different mesh sizes. Interactions between these levels enable us (i) to solve the possibly nonlinear system of $n$ discrete equations in $O(n)$ operations ($40n$ additions and shifts for Poisson problems); (ii) to conveniently adapt the discretization (the local mesh size, local order of approximation, etc.) to the evolving solution in a nearly optimal way, obtaining "$\infty$-order" approximations and low $n$, even when singularities are present. General theoretical analysis of the numerical process. Numerical experiments with linear and nonlinear, elliptic and mixed-type (transonic flow) problems--confirm theoretical predictions. Similar techniques for initial-value problems are briefly discussed.},
+ author = {Achi Brandt},
+ journal = {Mathematics of Computation},
+ number = {138},
+ pages = {333--390},
+ publisher = {American Mathematical Society},
+ title = {Multi-Level Adaptive Solutions to Boundary-Value Problems},
+ urldate = {2025-07-11},
+ volume = {31},
+ year = {1977}
+}
+
+@article{tomida23,
+   title={The Athena++ Adaptive Mesh Refinement Framework: Multigrid Solvers for Self-gravity},
+   volume={266},
+   ISSN={1538-4365},
+   url={http://dx.doi.org/10.3847/1538-4365/acc2c0},
+   DOI={10.3847/1538-4365/acc2c0},
+   number={1},
+   journal={The Astrophysical Journal Supplement Series},
+   publisher={American Astronomical Society},
+   author={Tomida, Kengo and Stone, J. M.},
+   year={2023},
+   month=apr, pages={7} }
+
+@inbook{Constantin2004,
+  title = {Euler Equations,  Navier-Stokes Equations and Turbulence},
+  ISBN = {9783540324546},
+  ISSN = {1617-9692},
+  url = {http://dx.doi.org/10.1007/11545989_1},
+  DOI = {10.1007/11545989_1},
+  booktitle = {Mathematical Foundation of Turbulent Viscous Flows},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Constantin,  Peter},
+  year = {2005},
+  month = nov,
+  pages = {1–43}
+}
+
+
+@misc{bosch20,
+  author       = {van den Bosch, Frank C.},
+  title        = {Astrophysical Flows},
+  howpublished = {Lecture notes, Yale University},
+  year         = {2020},
+  month        = {Spring},
+  url          = {http://www.astro.yale.edu/vdbosch/Astrophysical_Flows.pdf}
+}
+
+@misc{cheskidov24,
+      title={Dissipation anomaly and anomalous dissipation in incompressible fluid flows}, 
+      author={Alexey Cheskidov},
+      year={2024},
+      eprint={2311.04182},
+      archivePrefix={arXiv},
+      primaryClass={math.AP},
+      url={https://arxiv.org/abs/2311.04182}, 
+}
+
+@article{godunov1959,
+  title={Finite difference method for numerical computation of discontinuous solutions of the equations of fluid dynamics},
+  author={Godunov, Sergei K and Bohachevsky, Ihor},
+  journal={Matemati{\v{c}}eskij sbornik},
+  volume={47},
+  number={3},
+  pages={271--306},
+  year={1959}
+}
+
+@misc{baydin18,
+      title={Automatic differentiation in machine learning: a survey}, 
+      author={Atilim Gunes Baydin and Barak A. Pearlmutter and Alexey Andreyevich Radul and Jeffrey Mark Siskind},
+      year={2018},
+      eprint={1502.05767},
+      archivePrefix={arXiv},
+      primaryClass={cs.SC},
+      url={https://arxiv.org/abs/1502.05767}, 
+}
+
+@article{onsager,
+  title={Statistical hydrodynamics},
+  author={Onsager, Lars},
+  journal={Il Nuovo Cimento (1943-1954)},
+  volume={6},
+  number={Suppl 2},
+  pages={279--287},
+  year={1949},
+  publisher={Societ{\`a} Italiana di Fisica Bologna}
+}
+
+@article{eykin94,
+title = {Energy dissipation without viscosity in ideal hydrodynamics I. Fourier analysis and local energy transfer},
+journal = {Physica D: Nonlinear Phenomena},
+volume = {78},
+number = {3},
+pages = {222-240},
+year = {1994},
+issn = {0167-2789},
+doi = {https://doi.org/10.1016/0167-2789(94)90117-1},
+url = {https://www.sciencedirect.com/science/article/pii/0167278994901171},
+author = {Gregory L. Eyink},
+abstract = {We outline a proof and give a discussion at a physical level of an assertion of Onsager's: namely, that a solution of incompressible Euler equations with Hölder continuous velocity of order h >13 conserves kinetic energy, but not necessarily if h ≤ 13. We prove the result under a “∗-Hölder condition” which is somewhat stronger than usual Hölder continuity. Our argument establishes also the fundamental result that the instantaneous (sub-scale) energy transfer is dominated by local triadic interactions for a ∗-Hölder solution with exponenth in the range 0 < h < 1. However, we must use a “band-averaged” energy flux for the proof: as we explain, the ordinary definition of the flux fails to adequately measure transport in wavenumber space (scale), since it is insensitive to the distance through which energy is displaced by individual interactions. We discuss some connections of the results with phenomenological theories of fully-developed turbulence, the 1941 Kolmogorov theory and the “multifractal model” of Parisi and Frisch.}
+}
+
+@article{teyssier15,
+  title={Grid-based hydrodynamics in astrophysical fluid flows},
+  author={Teyssier, Romain},
+  journal={Annual Review of Astronomy and Astrophysics},
+  volume={53},
+  number={1},
+  pages={325--364},
+  year={2015},
+  publisher={Annual Reviews}
+}
+
+   @misc{hilbert19,
+  author       = {David Hilbert},
+  title        = {Mathematical Problems},
+  howpublished = {Lecture delivered at the International Congress of Mathematicians, Paris},
+  year         = {1900},
+  month        = aug,
+  day          = {8},
+  note         = {\url{https://www.aemea.org/math/Hilbert_23_Mathematical_Problems_1900.pdf}},
+  subtitle     = {Lecture delivered before the International Congress of Mathematicians at Paris in 1900},
+}
+
+@article{mandal23,
+   title={A Self-gravity Module for the PLUTO Code},
+   volume={268},
+   ISSN={1538-4365},
+   url={http://dx.doi.org/10.3847/1538-4365/aced0a},
+   DOI={10.3847/1538-4365/aced0a},
+   number={1},
+   journal={The Astrophysical Journal Supplement Series},
+   publisher={American Astronomical Society},
+   author={Mandal, Ankush and Mukherjee, Dipanjan and Mignone, Andrea},
+   year={2023},
+   month=sep, pages={40} }
+
+@InProceedings{marsch91,
+author="Marsch, E.",
+editor="Klare, Gerhard",
+title="Turbulence in the Solar Wind",
+booktitle="Reviews in Modern Astronomy",
+year="1991",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="145--156",
+abstract="The solar wind is, apparently, a turbulent medium permeated by fluctuations on a broad range of scales characterizing the plasma as a fluid and kinetic entity. Here we briefly review some recent developments and observations on MHD fluctuations in the frequency range between some 10−6 and 10−2 Hz. Spectral analysis reveals that solar wind fluctuations represent ongoing turbulence, often with high Alfv{\'e}nic correlations of coronal origin, which undergoes considerable spatial and spectral evolution in the radially expanding wind and is coupled to large-scale plasma structures and magnetic field inhomogeneities. Theoretical attempts to model the transport of magnetohydrodynamic fluctuations are discussed. Finally, the dissipation of turbulence and concurrent heating of the wind are addressed.",
+isbn="978-3-642-76750-0"
+}
+
+@article{helzel11,
+   title={An unstaggered constrained transport method for the 3D ideal magnetohydrodynamic equations},
+   volume={230},
+   ISSN={0021-9991},
+   url={http://dx.doi.org/10.1016/j.jcp.2011.02.009},
+   DOI={10.1016/j.jcp.2011.02.009},
+   number={10},
+   journal={Journal of Computational Physics},
+   publisher={Elsevier BV},
+   author={Helzel, Christiane and Rossmanith, James A. and Taetz, Bertram},
+   year={2011},
+   month=may, pages={3803–3829}
+}
+
+@techreport{clarke15,
+  title        = {A Primer on Magnetohydrodynamics},
+  author       = {Clarke, David A.},
+  institution  = {Saint Mary's University, Department of Astronomy and Physics},
+  type         = {Lecture Notes},
+  address      = {Halifax, Nova Scotia, Canada},
+  year         = {2015},
+  month        = feb,
+  url          = {https://www.ap.smu.ca/~dclarke/home/documents/byDAC/mhd_primer.pdf},
+  note         = {Copyright \textcopyright\ David A.\ Clarke, 2015},
+}
+
+@ARTICLE{caprioli15,
+       author = {{Caprioli}, Damiano and {Pop}, Ana-Roxana and {Spitkovsky}, Anatoly},
+        title = "{Simulations and Theory of Ion Injection at Non-relativistic Collisionless Shocks}",
+      journal = {The Astrophysical Journal Letters},
+     keywords = {acceleration of particles, cosmic rays, shock waves, Astrophysics - High Energy Astrophysical Phenomena},
+         year = 2015,
+        month = jan,
+       volume = {798},
+       number = {2},
+          eid = {L28},
+        pages = {L28},
+          doi = {10.1088/2041-8205/798/2/L28},
+archivePrefix = {arXiv},
+       eprint = {1409.8291},
+ primaryClass = {astro-ph.HE},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2015ApJ...798L..28C},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+@article{toth00,
+  title = {The $\nabla \cdot \mathbf{B} = 0$ Constraint in Shock-Capturing Magnetohydrodynamics Codes},
+  journal = {Journal of Computational Physics},
+  volume = {161},
+  number = {2},
+  pages = {605--652},
+  year = {2000},
+  issn = {0021-9991},
+  doi = {10.1006/jcph.2000.6519},
+  url = {https://www.sciencedirect.com/science/article/pii/S0021999100965197},
+  author = {G{\'a}bor T{\'o}th},
+  abstract = {Seven schemes to maintain the $\nabla \cdot \mathbf{B} = 0$ constraint numerically are compared. All these algorithms can be combined with shock-capturing Godunov type base schemes. They fall into three categories: the eight-wave formulation maintains the constraint to truncation error, the projection scheme enforces the constraint in some discretization by projecting the magnetic field, while the five different versions of the constrained transport/central difference type schemes conserve $\nabla \cdot \mathbf{B}$ to machine accuracy in some discretization for every grid cell. It is shown that the three constrained transport algorithms, which have been introduced recently, can be recast into pure finite volume schemes, and the staggered representation of the magnetic field is unnecessary. Another two new and simple central difference based algorithms are introduced. The properties of the projection scheme are discussed in some detail, and I prove that it has the same order of accuracy as the base scheme even for discontinuous solutions. I describe a flexible and efficient implementation of the projection scheme using conjugate gradient type iterative methods. Generalizations to resistive MHD, to axial symmetry, and to non-Cartesian grids are given for all schemes. The theoretical discussion is followed by numerical tests, where the robustness, accuracy, and efficiency of the seven schemes and the base scheme can be directly compared. All simulations are done with the Versatile Advection Code, in which several shock-capturing base schemes are implemented. Although the eight-wave formulation usually works correctly, one of the numerical tests demonstrates that its non-conservative nature can occasionally produce incorrect jumps across strong discontinuities. Based on a large number of tests, the projection scheme, one of the new central difference based schemes, and one of the constrained transport schemes are found to be the most accurate and reliable among the examined methods.}
+}
+
+
+@ARTICLE{evans88,
+       author = {{Evans}, Charles R. and {Hawley}, John F.},
+        title = "{Simulation of Magnetohydrodynamic Flows: A Constrained Transport Model}",
+      journal = {The Astrophysical Journal},
+     keywords = {Computational Astrophysics, Computerized Simulation, Magnetohydrodynamic Flow, Transport Theory, Active Galactic Nuclei, Adaptive Filters, Finite Difference Theory, Grid Generation (Mathematics), Astrophysics, BLACK HOLES, GALAXIES: NUCLEI, HYDROMAGNETICS},
+         year = 1988,
+        month = sep,
+       volume = {332},
+        pages = {659},
+          doi = {10.1086/166684},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1988ApJ...332..659E},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{powell99,
+title = {A Solution-Adaptive Upwind Scheme for Ideal Magnetohydrodynamics},
+journal = {Journal of Computational Physics},
+volume = {154},
+number = {2},
+pages = {284-309},
+year = {1999},
+issn = {0021-9991},
+doi = {https://doi.org/10.1006/jcph.1999.6299},
+url = {https://www.sciencedirect.com/science/article/pii/S002199919996299X},
+author = {Kenneth G. Powell and Philip L. Roe and Timur J. Linde and Tamas I. Gombosi and Darren L. {De Zeeuw}},
+abstract = {This paper presents a computational scheme for compressible magnetohydrodynamics (MHD). The scheme is based on the same elements that make up many modern compressible gas dynamics codes: a high-resolution upwinding based on an approximate Riemann solver for MHD and limited reconstruction; an optimally smoothing multi-stage time-stepping scheme; and solution-adaptive refinement and coarsening. In addition, a method for increasing the accuracy of the scheme by subtracting off an embedded steady magnetic field is presented. Each of the pieces of the scheme is described, and the scheme is validated and its accuracy assessed by comparison with exact solutions. Results are presented for two three-dimensional calculations representative of the interaction of the solar wind with a magenetized planet.}
+}
+
+@article{dedner02,
+title = {Hyperbolic Divergence Cleaning for the MHD Equations},
+journal = {Journal of Computational Physics},
+volume = {175},
+number = {2},
+pages = {645-673},
+year = {2002},
+issn = {0021-9991},
+doi = {https://doi.org/10.1006/jcph.2001.6961},
+url = {https://www.sciencedirect.com/science/article/pii/S002199910196961X},
+author = {A. Dedner and F. Kemm and D. Kröner and C.-D. Munz and T. Schnitzer and M. Wesenberg},
+abstract = {In simulations of magnetohydrodynamic (MHD) processes the violation of the divergence constraint causes severe stability problems. In this paper we develop and test a new approach to the stabilization of numerical schemes. Our technique can be easily implemented in any existing code since there is no need to modify the solver for the MHD equations. It is based on a modified system in which the divergence constraint is coupled with the conservation laws by introducing a generalized Lagrange multiplier. We suggest a formulation in which the divergence errors are transported to the domain boundaries with the maximal admissible speed and are damped at the same time. This corrected system is hyperbolic and the density, momentum, magnetic induction, and total energy density are still conserved. In comparison to results obtained without correction or with the standard “divergence source terms,” our approach seems to yield more robust schemes with significantly smaller divergence errors.}
+}
+
+@article{brackbill80,
+title = {The Effect of Nonzero ∇ · B on the numerical solution of the magnetohydrodynamic equations},
+journal = {Journal of Computational Physics},
+volume = {35},
+number = {3},
+pages = {426-430},
+year = {1980},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/0021-9991(80)90079-0},
+url = {https://www.sciencedirect.com/science/article/pii/0021999180900790},
+author = {J.U Brackbill and D.C Barnes}
+}
+
+@article{arepo_mhd,
+   title={Magnetohydrodynamics on an unstructured moving grid: MHD on an unstructured moving grid},
+   volume={418},
+   ISSN={0035-8711},
+   url={http://dx.doi.org/10.1111/j.1365-2966.2011.19591.x},
+   DOI={10.1111/j.1365-2966.2011.19591.x},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Pakmor, Ruediger and Bauer, Andreas and Springel, Volker},
+   year={2011},
+   month=sep, pages={1392–1401} }
+
+
+@misc{mhd_essentials,
+      title={Essential Magnetohydrodynamics for Astrophysics}, 
+      author={H. C. Spruit},
+      year={2016},
+      eprint={1301.5572},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/1301.5572}, 
+}
+
+  @article{hanawa25,
+  title={Toward Higher-order Accuracy in Self-gravitating Hydrodynamics},
+  volume={277},
+  ISSN={1538-4365},
+  url={http://dx.doi.org/10.3847/1538-4365/adb97b},
+  DOI={10.3847/1538-4365/adb97b},
+  number={2},
+  journal={The Astrophysical Journal Supplement Series},
+  publisher={American Astronomical Society},
+  author={Hanawa, Tomoyuki and Mullen, P. D.},
+  year={2025},
+  month=apr, pages={53} }
+
+@article{wang23,
+   title={Learning pair potentials using differentiable simulations},
+   volume={158},
+   ISSN={1089-7690},
+   url={http://dx.doi.org/10.1063/5.0126475},
+   DOI={10.1063/5.0126475},
+   number={4},
+   journal={The Journal of Chemical Physics},
+   publisher={AIP Publishing},
+   author={Wang, Wujie and Wu, Zhenghao and Dietschreit, Johannes C. B. and Gómez-Bombarelli, Rafael},
+   year={2023},
+   month=jan }
+
+
+@book{Toro2009,
+  title = {Riemann Solvers and Numerical Methods for Fluid Dynamics: A Practical Introduction},
+  ISBN = {9783540498346},
+  url = {http://dx.doi.org/10.1007/b79761},
+  DOI = {10.1007/b79761},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Toro,  Eleuterio F.},
+  year = {2009}
+}
+@article{euler_spherical,
+  title = {The impact of the form of the Euler equations for radial flow in cylindrical and spherical coordinates on numerical conservation and accuracy},
+  volume = {28},
+  ISSN = {1432-2153},
+  url = {http://dx.doi.org/10.1007/s00193-017-0784-y},
+  DOI = {10.1007/s00193-017-0784-y},
+  number = {4},
+  journal = {Shock Waves},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Crittenden,  P. E. and Balachandar,  S.},
+  year = {2018},
+  month = mar,
+  pages = {653–682}
+}
+
+@article{grudi21,
+   title={STARFORGE: Towards a comprehensive numerical model of star cluster formation and feedback},
+   volume={506},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1093/mnras/stab1347},
+   DOI={10.1093/mnras/stab1347},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Grudić, Michael Y and Guszejnov, Dávid and Hopkins, Philip F and Offner, Stella S R and Faucher-Giguère, Claude-André},
+   year={2021},
+   month=may, pages={2199–2231} }
+
+
+@misc{jouppi17,
+      title={In-Datacenter Performance Analysis of a Tensor Processing Unit}, 
+      author={Norman P. Jouppi and Cliff Young and Nishant Patil and David Patterson and Gaurav Agrawal and Raminder Bajwa and Sarah Bates and Suresh Bhatia and Nan Boden and Al Borchers and Rick Boyle and Pierre-luc Cantin and Clifford Chao and Chris Clark and Jeremy Coriell and Mike Daley and Matt Dau and Jeffrey Dean and Ben Gelb and Tara Vazir Ghaemmaghami and Rajendra Gottipati and William Gulland and Robert Hagmann and C. Richard Ho and Doug Hogberg and John Hu and Robert Hundt and Dan Hurt and Julian Ibarz and Aaron Jaffey and Alek Jaworski and Alexander Kaplan and Harshit Khaitan and Andy Koch and Naveen Kumar and Steve Lacy and James Laudon and James Law and Diemthu Le and Chris Leary and Zhuyuan Liu and Kyle Lucke and Alan Lundin and Gordon MacKean and Adriana Maggiore and Maire Mahony and Kieran Miller and Rahul Nagarajan and Ravi Narayanaswami and Ray Ni and Kathy Nix and Thomas Norrie and Mark Omernick and Narayana Penukonda and Andy Phelps and Jonathan Ross and Matt Ross and Amir Salek and Emad Samadiani and Chris Severn and Gregory Sizikov and Matthew Snelham and Jed Souter and Dan Steinberg and Andy Swing and Mercedes Tan and Gregory Thorson and Bo Tian and Horia Toma and Erick Tuttle and Vijay Vasudevan and Richard Walter and Walter Wang and Eric Wilcox and Doe Hyun Yoon},
+      year={2017},
+      eprint={1704.04760},
+      archivePrefix={arXiv},
+      primaryClass={cs.AR},
+      url={https://arxiv.org/abs/1704.04760}, 
+}
+
+@ARTICLE{leer18,
+       author = {{van Albada}, G.~D. and {van Leer}, B. and {Roberts}, Jr., W.~W.},
+        title = "{A comparative study of computational methods in cosmic gas dynamics}",
+      journal = {Astronomy and Astrophysics},
+     keywords = {Astronomical Models, Computational Fluid Dynamics, Gas Dynamics, Interstellar Gas, Magnetohydrodynamics, Algorithms, Comparison, Methodology, Root-Mean-Square Errors, Spiral Galaxies, Astrophysics},
+         year = 1982,
+        month = apr,
+       volume = {108},
+       number = {1},
+        pages = {76-84},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1982A&A...108...76V},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@misc{euler_spherical_dodgy,
+      title={High-order schemes for the Euler equations in cylindrical/spherical coordinates}, 
+      author={Sheng Wang and Eric Johnsen},
+      year={2017},
+      eprint={1701.04834},
+      archivePrefix={arXiv},
+      primaryClass={math.NA},
+      url={https://arxiv.org/abs/1701.04834}, 
+}
+
+@inproceedings{hogg24,
+author = {Hogg, David W. and Villar, Soledad},
+title = {Position: is machine learning good or bad for the natural sciences?},
+year = {2024},
+publisher = {JMLR.org},
+abstract = {Machine learning (ML) methods are having a huge impact across all of the sciences. However, ML has a strong ontology--in which only the data exist--and a strong epistemology--in which a model is considered good if it performs well on held-out training data. These philosophies are in strong conflict with both standard practices and key philosophies in the natural sciences. Here we identify some locations for ML in the natural sciences at which the ontology and epistemology are valuable. For example, when an expressive machine learning model is used in a causal inference to represent the effects of confounders, such as foregrounds, backgrounds, or instrument calibration parameters, the model capacity and loose philosophy of ML can make the results more trustworthy. We also show that there are contexts in which the introduction of ML introduces strong, unwanted statistical biases. For one, when ML models are used to emulate physical (or first-principles) simulations, they amplify confirmation biases. For another, when expressive regressions are used to label datasets, those labels cannot be used in downstream joint or ensemble analyses without taking on uncontrolled biases. The question in the title is being asked of all of the natural sciences; that is, we are calling on the scientific communities to take a step back and consider the role and value of ML in their fields; the (partial) answers we give here come from the particular perspective of physics.},
+booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+articleno = {741},
+numpages = {15},
+location = {Vienna, Austria},
+series = {ICML'24}
+}
+
+@ARTICLE{naab17,
+       author = {Naab, Thorsten and Ostriker, J. P.},
+        title = "{Theoretical Challenges in Galaxy Formation}",
+      journal = {Annual Review of Astronomy and Astrophysics},
+     keywords = {Astrophysics - Astrophysics of Galaxies},
+         year = 2017,
+        month = aug,
+       volume = {55},
+       number = {1},
+        pages = {59-109},
+          doi = {10.1146/annurev-astro-081913-040019},
+archivePrefix = {arXiv},
+       eprint = {1612.06891},
+ primaryClass = {astro-ph.GA},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2017ARA&A..55...59N},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+
+@article{fichtner24,
+   title={Connecting stellar and galactic scales: Energetic feedback from stellar wind bubbles to supernova remnants},
+   volume={690},
+   ISSN={1432-0746},
+   url={http://dx.doi.org/10.1051/0004-6361/202449638},
+   DOI={10.1051/0004-6361/202449638},
+   journal={Astronomy and Astrophysics},
+   publisher={EDP Sciences},
+   author={Fichtner, Yvonne A. and Mackey, Jonathan and Grassitelli, Luca and Romano-Díaz, Emilio and Porciani, Cristiano},
+   year={2024},
+   month=sep, pages={A72} }
+
+
+@article{haerer25,
+   title={Stellar-wind feedback and magnetic fields around young compact star clusters: 3D magnetohydrodynamics simulations},
+   volume={698},
+   ISSN={1432-0746},
+   url={http://dx.doi.org/10.1051/0004-6361/202554057},
+   DOI={10.1051/0004-6361/202554057},
+   journal={Astronomy and Astrophysics},
+   publisher={EDP Sciences},
+   author={Härer, L. and Vieu, T. and Reville, B.},
+   year={2025},
+   month=may, pages={A6} }
+
+
+@ARTICLE{fierlinger16,
+       author = {{Fierlinger}, Katharina M. and {Burkert}, Andreas and {Ntormousi}, Evangelia and {Fierlinger}, Peter and {Schartmann}, Marc and {Ballone}, Alessandro and {Krause}, Martin G.~H. and {Diehl}, Roland},
+        title = "{Stellar feedback efficiencies: supernovae versus stellar winds}",
+      journal = {Monthly Notices of the Royal Astronomical Society},
+     keywords = {hydrodynamics, methods: numerical, stars: massive, supernovae: general, stars: winds, outflows, ISM: bubbles, Astrophysics - Astrophysics of Galaxies},
+         year = 2016,
+        month = feb,
+       volume = {456},
+       number = {1},
+        pages = {710-730},
+          doi = {10.1093/mnras/stv2699},
+archivePrefix = {arXiv},
+       eprint = {1511.05151},
+ primaryClass = {astro-ph.GA},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2016MNRAS.456..710F},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+@article{Peron2024,
+  title = {The contribution of winds from star clusters to the Galactic cosmic-ray population},
+  volume = {8},
+  ISSN = {2397-3366},
+  url = {http://dx.doi.org/10.1038/s41550-023-02168-6},
+  DOI = {10.1038/s41550-023-02168-6},
+  number = {4},
+  journal = {Nature Astronomy},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Peron,  Giada and Casanova,  Sabrina and Gabici,  Stefano and Baghmanyan,  Vardan and Aharonian,  Felix},
+  year = {2024},
+  month = jan,
+  pages = {530–537}
+}
+
+@article{pittard21,
+   title={How to inflate a wind-blown bubble},
+   volume={508},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1093/mnras/stab2712},
+   DOI={10.1093/mnras/stab2712},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Pittard, J M and Wareing, C J and Kupilas, M M},
+   year={2021},
+   month=sep, pages={1768–1776} }
+
+@misc{zeghal22,
+      title={Neural Posterior Estimation with Differentiable Simulators}, 
+      author={Justine Zeghal and François Lanusse and Alexandre Boucaud and Benjamin Remy and Eric Aubourg},
+      year={2022},
+      eprint={2207.05636},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2207.05636}, 
+}
+
+
+@article{deep_smoothness_indicators,
+title = {Enhanced fifth order WENO shock-capturing schemes with deep learning},
+journal = {Results in Applied Mathematics},
+volume = {12},
+pages = {100201},
+year = {2021},
+issn = {2590-0374},
+doi = {https://doi.org/10.1016/j.rinam.2021.100201},
+url = {https://www.sciencedirect.com/science/article/pii/S2590037421000431},
+author = {Tatiana Kossaczká and Matthias Ehrhardt and Michael Günther},
+keywords = {Weighted essentially non-oscillatory method, Hyperbolic conservation laws, Smoothness indicators, Deep learning, Neural networks},
+abstract = {In this paper we enhance the well-known fifth order WENO shock-capturing scheme by using deep learning techniques. This fine-tuning of an existing algorithm is implemented by training a rather small neural network to modify the smoothness indicators of the WENO scheme in order to improve the numerical results especially at discontinuities. In our approach no further post-processing is needed to ensure the consistency of the method. Moreover, the formal order of accuracy of the resulting scheme can be proven. We demonstrate our findings with the inviscid Burgers’ equation, the Buckley–Leverett equation and the 1-D Euler equations of gas dynamics. Hereby we investigate the classical Sod problem and the Lax problem and show that our novel method outperforms the classical fifth order WENO schemes in simulations where the numerical solution is too diffusive or tends to overshoot at shocks. Finally, the straight-forward extension of the method to two-dimensional problems is included and illustrated using the 2D Burgers’ equation.}
+}
+
+@article{hirsch97,
+title = {Introduction to “Towards the Ultimate Conservative Difference Scheme. V. A Second-Order Sequel to Godunov's Method”},
+journal = {Journal of Computational Physics},
+volume = {135},
+number = {2},
+pages = {227-228},
+year = {1997},
+issn = {0021-9991},
+doi = {https://doi.org/10.1006/jcph.1997.5757},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999197957570},
+author = {Ch. Hirsch}
+}
+
+@article{Federrath2021,
+  title = {The sonic scale of interstellar turbulence},
+  volume = {5},
+  ISSN = {2397-3366},
+  url = {http://dx.doi.org/10.1038/s41550-020-01282-z},
+  DOI = {10.1038/s41550-020-01282-z},
+  number = {4},
+  journal = {Nature Astronomy},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Federrath,  Christoph and Klessen,  Ralf S. and Iapichino,  Luigi and Beattie,  James R.},
+  year = {2021},
+  month = jan,
+  pages = {365–371}
+}
+
+@misc{demichele24,
+      title={Finite-difference compatible entropy-conserving schemes for the compressible Euler equations}, 
+      author={Carlo De Michele and Ayaboe K. Edoh and Gennaro Coppola},
+      year={2024},
+      eprint={2411.16621},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn},
+      url={https://arxiv.org/abs/2411.16621}, 
+}
+
+@ARTICLE{agertz07,
+       author = {{Agertz}, Oscar and {Moore}, Ben and {Stadel}, Joachim and {Potter}, Doug and {Miniati}, Francesco and {Read}, Justin and {Mayer}, Lucio and {Gawryszczak}, Artur and {Kravtsov}, Andrey and {Nordlund}, {\r{A}}ke and {Pearce}, Frazer and {Quilis}, Vicent and {Rudd}, Douglas and {Springel}, Volker and {Stone}, J. M. and {Tasker}, Elizabeth and {Teyssier}, Romain and {Wadsley}, James and {Walder}, Rolf},
+        title = "{Fundamental differences between SPH and grid methods}",
+      journal = {Monthly Notices of the Royal Astronomical Society},
+     keywords = {hydrodynamics, instabilities, turbulence, methods: numerical, ISM: clouds, galaxies: evolution, galaxies: formation, galaxies: general, Astrophysics},
+         year = 2007,
+        month = sep,
+       volume = {380},
+       number = {3},
+        pages = {963-978},
+          doi = {10.1111/j.1365-2966.2007.12183.x},
+archivePrefix = {arXiv},
+       eprint = {astro-ph/0610051},
+ primaryClass = {astro-ph},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2007MNRAS.380..963A},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+@misc{price2011,
+      title={Smoothed Particle Hydrodynamics: Things I wish my mother taught me}, 
+      author={Daniel J. Price},
+      year={2011},
+      eprint={1111.1259},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/1111.1259}, 
+}
+
+
+@article{Hosono16,
+   title={A COMPARISON OF SPH ARTIFICIAL VISCOSITIES AND THEIR IMPACT ON THE KEPLERIAN DISK},
+   volume={224},
+   ISSN={1538-4365},
+   url={http://dx.doi.org/10.3847/0067-0049/224/2/32},
+   DOI={10.3847/0067-0049/224/2/32},
+   number={2},
+   journal={The Astrophysical Journal Supplement Series},
+   publisher={American Astronomical Society},
+   author={Hosono, Natsuki and Saitoh, Takayuki R. and Makino, Junichiro},
+   year={2016},
+   month=jun, pages={32} }
+
+@article{pinns,
+title = {Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations},
+journal = {Journal of Computational Physics},
+volume = {378},
+pages = {686-707},
+year = {2019},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2018.10.045},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999118307125},
+author = {M. Raissi and P. Perdikaris and G.E. Karniadakis},
+keywords = {Data-driven scientific computing, Machine learning, Predictive modeling, Runge–Kutta methods, Nonlinear dynamics},
+abstract = {We introduce physics-informed neural networks – neural networks that are trained to solve supervised learning tasks while respecting any given laws of physics described by general nonlinear partial differential equations. In this work, we present our developments in the context of solving two main classes of problems: data-driven solution and data-driven discovery of partial differential equations. Depending on the nature and arrangement of the available data, we devise two distinct types of algorithms, namely continuous time and discrete time models. The first type of models forms a new family of data-efficient spatio-temporal function approximators, while the latter type allows the use of arbitrarily accurate implicit Runge–Kutta time stepping schemes with unlimited number of stages. The effectiveness of the proposed framework is demonstrated through a collection of classical problems in fluids, quantum mechanics, reaction–diffusion systems, and the propagation of nonlinear shallow-water waves.}
+}
+
+@article{exactpack,
+title = {ExactPack: A python library of exact analytic solutions},
+journal = {SoftwareX},
+volume = {24},
+pages = {101560},
+year = {2023},
+issn = {2352-7110},
+doi = {https://doi.org/10.1016/j.softx.2023.101560},
+url = {https://www.sciencedirect.com/science/article/pii/S235271102300256X},
+author = {Jasper Thrussell and Jim Michael Ferguson},
+keywords = {Hydrodynamics, Analytic solution, Python, Verification},
+abstract = {Verification of multi-physics simulation software against problems with known analytic or semi-analytic solutions is an important aspect of research into a wide variety of fields involving the motion of fluids, shock physics and other dynamic material properties. Previous work comparing simulation results against analytic solutions has been ad-hoc, with developers frequently writing their own analytic solvers. This has resulted in a large amount of duplicated effort. The python library ExactPack has been developed as a collection of analytic and semi-analytic solvers to a variety of multi-physics problems, providing a consistent API to a set of well-tested solver implementations.}
+}
+
+
+@misc{kingma17,
+      title={Adam: A Method for Stochastic Optimization}, 
+      author={Diederik P. Kingma and Jimmy Ba},
+      year={2017},
+      eprint={1412.6980},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1412.6980}, 
+}
+
+@article{deep_flux_limiters,
+   title={Machine learning changes the rules for flux limiters},
+   volume={34},
+   ISSN={1089-7666},
+   url={http://dx.doi.org/10.1063/5.0102939},
+   DOI={10.1063/5.0102939},
+   number={8},
+   journal={Physics of Fluids},
+   publisher={AIP Publishing},
+   author={Nguyen-Fotiadis, Nga and McKerns, Michael and Sornborger, Andrew},
+   year={2022},
+   month=aug }
+
+   @article{Price2012,
+   title={Smoothed particle hydrodynamics and magnetohydrodynamics},
+   volume={231},
+   ISSN={0021-9991},
+   url={http://dx.doi.org/10.1016/j.jcp.2010.12.011},
+   DOI={10.1016/j.jcp.2010.12.011},
+   number={3},
+   journal={Journal of Computational Physics},
+   publisher={Elsevier BV},
+   author={Price, Daniel J.},
+   year={2012},
+   month=feb, pages={759–794} }
+
+@article{batten,
+  author = {Batten, P. and Clarke, N. and Lambert, C. and Causon, D. M.},
+  title = {On the Choice of Wavespeeds for the HLLC Riemann Solver},
+  journal = {SIAM Journal on Scientific Computing},
+  volume = {18},
+  number = {6},
+  pages = {1553-1570},
+  year = {1997},
+  doi = {10.1137/S1064827593260140},
+  URL = { 
+    https://doi.org/10.1137/S1064827593260140
+  },
+  eprint = { 
+    https://doi.org/10.1137/S1064827593260140
+  }
+}
+
+@article{strassen69,
+  title={Gaussian elimination is not optimal},
+  author={Strassen, Volker},
+  journal={Numerische mathematik},
+  volume={13},
+  number={4},
+  pages={354--356},
+  year={1969},
+  publisher={Springer}
+}
+
+@misc{holzschuh,
+      title={Flow Matching for Posterior Inference with Simulator Feedback}, 
+      author={Holzschuh, Benjamin and Thuerey, Nils},
+      year={2024},
+      eprint={2410.22573},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2410.22573}, 
+}
+
+@misc{zeghal22,
+      title={Neural Posterior Estimation with Differentiable Simulators}, 
+      author={Justine Zeghal and François Lanusse and Alexandre Boucaud and Benjamin Remy and Eric Aubourg},
+      year={2022},
+      eprint={2207.05636},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2207.05636}, 
+}
+
+@article{Teyssier2002,
+   title={Cosmological hydrodynamics with adaptive mesh refinement: A new high resolution code called RAMSES},
+   volume={385},
+   ISSN={1432-0746},
+   url={http://dx.doi.org/10.1051/0004-6361:20011817},
+   DOI={10.1051/0004-6361:20011817},
+   number={1},
+   journal={Astronomy and Astrophysics},
+   publisher={EDP Sciences},
+   author={Teyssier, R.},
+   year={2002},
+   month=apr, pages={337–364} }
+
+   @ARTICLE{lucy77,
+       author = {{Lucy}, L.~B.},
+        title = "{A numerical approach to the testing of the fission hypothesis.}",
+      journal = {Astrophysical Journal},
+     keywords = {Binary Stars, Hypotheses, Nuclear Fission, Numerical Analysis, Protostars, Stellar Evolution, Astronomical Models, Difference Equations, Gas Dynamics, Monte Carlo Method, Numerical Stability, Particle Motion, Stellar Rotation, Astrophysics},
+         year = 1977,
+        month = dec,
+       volume = {82},
+        pages = {1013-1024},
+          doi = {10.1086/112164},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1977AJ.....82.1013L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@misc{neuralsim,
+      title={NeuralSim: Augmenting Differentiable Simulators with Neural Networks}, 
+      author={Eric Heiden and David Millard and Erwin Coumans and Yizhou Sheng and Gaurav S. Sukhatme},
+      year={2021},
+      eprint={2011.04217},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2011.04217}, 
+}
+
+@incollection{pytorch,
+title = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
+author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+booktitle = {Advances in Neural Information Processing Systems 32},
+pages = {8024--8035},
+year = {2019},
+publisher = {Curran Associates, Inc.},
+url = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}
+}
+
+@misc{tinygrad2024,
+  title = {tinygrad: A Simple and Powerful Neural Network Framework},
+  author = {tinygrad},
+  howpublished = {\url{https://tinygrad.org}},
+  year = {2024},
+  note = {Accessed: 2024-09-08}
+}
+
+@article{weno_vs_godunov,
+title = {A quantitative comparison of numerical methods for the compressible Euler equations: fifth-order WENO and piecewise-linear Godunov},
+journal = {Journal of Computational Physics},
+volume = {196},
+number = {1},
+pages = {259-281},
+year = {2004},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2003.11.002},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999103005965},
+author = {J.A Greenough and W.J Rider},
+abstract = {A numerical study is undertaken comparing a fifth-order version of the weighted essentially non-oscillatory numerical (WENO5) method to a modern piecewise-linear, second-order, version of Godunov's (PLMDE) method for the compressible Euler equations. A series of one-dimensional test problems are examined beginning with classical linear problems and ending with complex shock interactions. The problems considered are: (1) linear advection of a Gaussian pulse in density, (2) Sod's shock tube problem, (3) the “peak” shock tube problem, (4) a version of the Shu and Osher shock entropy wave interaction and (5) the Woodward and Colella interacting shock wave problem. For each problem and method, run times, density error norms and convergence rates are reported for each method as produced from a common code test-bed. The linear problem exhibits the advertised convergence rate for both methods as well as the expected large disparity in overall error levels; WENO5 has the smaller errors and an enormous advantage in overall efficiency (in accuracy per unit CPU time). For the nonlinear problems with discontinuities, however, we generally see both first-order self-convergence of error as compared to an exact solution, or when an analytic solution is not available, a converged solution generated on an extremely fine grid. The overall comparison of error levels shows some variation from problem to problem. For Sod's shock tube, PLMDE has nearly half the error, while on the peak problem the errors are nearly the same. For the interacting blast wave problem the two methods again produce a similar level of error with a slight edge for the PLMDE. On the other hand, for the Shu–Osher problem, the errors are similar on the coarser grids, but favors WENO by a factor of nearly 1.5 on the finer grids used. In all cases holding mesh resolution constant though, PLMDE is less costly in terms of CPU time by approximately a factor of 6. If the CPU cost is taken as fixed, that is run times are equal for both numerical methods, then PLMDE uniformly produces lower errors than WENO for the fixed computation cost on the test problems considered here.}
+}
+
+@article{ias15,
+   title={ias15: a fast, adaptive, high-order integrator for gravitational dynamics, accurate to machine precision over a billion orbits},
+   volume={446},
+   ISSN={0035-8711},
+   url={http://dx.doi.org/10.1093/mnras/stu2164},
+   DOI={10.1093/mnras/stu2164},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Rein, Hanno and Spiegel, David S.},
+   year={2014},
+   month=nov, pages={1424–1437} }
+
+
+@misc{wang17,
+      title={High-order schemes for the Euler equations in cylindrical/spherical coordinates}, 
+      author={Sheng Wang and Eric Johnsen},
+      year={2017},
+      eprint={1701.04834},
+      archivePrefix={arXiv},
+      primaryClass={math.NA},
+      url={https://arxiv.org/abs/1701.04834}, 
+}
+
+@article{ataei2024xlb,
+  title={{XLB}: A differentiable massively parallel lattice {Boltzmann} library in {Python}},
+  author={Ataei, Mohammadmehdi and Salehipour, Hesam},
+  journal={Computer Physics Communications},
+  volume={300},
+  pages={109187},
+  year={2024},
+  publisher={Elsevier}
+}
+
+@inproceedings{vanLeer2003,
+  title = {Upwind and High-Resolution Methods for Compressible Flow: From Donor Cell to Residual-Distribution Schemes},
+  url = {http://dx.doi.org/10.2514/6.2003-3559},
+  DOI = {10.2514/6.2003-3559},
+  booktitle = {16th AIAA Computational Fluid Dynamics Conference},
+  publisher = {American Institute of Aeronautics and Astronautics},
+  author = {van Leer,  Bram},
+  year = {2003},
+  month = jun 
+}
+
+
+@ARTICLE{parthenon,
+       author = {{Grete}, Philipp and {Dolence}, Joshua C. and {Miller}, Jonah M. and {Brown}, Joshua and {Ryan}, Ben and {Gaspar}, Andrew and {Glines}, Forrest and {Swaminarayan}, Sriram and {Lippuner}, Jonas and {Solomon}, Clell J. and {Shipman}, Galen and {Junghans}, Christoph and {Holladay}, Daniel and {Stone}, J. M. and {Roberts}, Luke F.},
+        title = "{Parthenon -- a performance portable block-structured adaptive mesh refinement framework}",
+      journal = {arXiv e-prints},
+     keywords = {Computer Science - Distributed, Parallel, and Cluster Computing, Astrophysics - Instrumentation and Methods for Astrophysics},
+         year = 2022,
+        month = feb,
+          eid = {arXiv:2202.12309},
+        pages = {arXiv:2202.12309},
+          doi = {10.48550/arXiv.2202.12309},
+archivePrefix = {arXiv},
+       eprint = {2202.12309},
+ primaryClass = {cs.DC},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2022arXiv220212309G},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+
+@misc{jaxfluids2,
+      title={JAX-Fluids 2.0: Towards HPC for Differentiable CFD of Compressible Two-phase Flows}, 
+      author={Deniz A. Bezgin and Aaron B. Buhendwa and Nikolaus A. Adams},
+      year={2024},
+      eprint={2402.05193},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn},
+      url={https://arxiv.org/abs/2402.05193}, 
+}
+
+@article{jax_fluids,
+title = {JAX-Fluids: A fully-differentiable high-order computational fluid dynamics solver for compressible two-phase flows},
+journal = {Computer Physics Communications},
+volume = {282},
+pages = {108527},
+year = {2023},
+issn = {0010-4655},
+doi = {https://doi.org/10.1016/j.cpc.2022.108527},
+url = {https://www.sciencedirect.com/science/article/pii/S0010465522002466},
+author = {Deniz A. Bezgin and Aaron B. Buhendwa and Nikolaus A. Adams},
+}
+
+@misc{jax_sph,
+      title={JAX-SPH: A Differentiable Smoothed Particle Hydrodynamics Framework}, 
+      author={Artur P. Toshev and Harish Ramachandran and Jonas A. Erbesdobler and Gianluca Galletti and Johannes Brandstetter and Nikolaus A. Adams},
+      year={2024},
+      eprint={2403.04750},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn},
+      url={https://arxiv.org/abs/2403.04750}, 
+}
+
+@article{cr_full,
+    author = {Kang, Hyesung and Jones, T. W.},
+    title = "{Numerical studies of diffusive particle acceleration in supernova remnants}",
+    journal = {Monthly Notices of the Royal Astronomical Society},
+    volume = {249},
+    number = {3},
+    pages = {439-451},
+    year = {1991},
+    month = {04},
+    issn = {0035-8711},
+    doi = {10.1093/mnras/249.3.439},
+    url = {https://doi.org/10.1093/mnras/249.3.439},
+    eprint = {https://academic.oup.com/mnras/article-pdf/249/3/439/18160801/mnras249-0439.pdf},
+}
+
+@PROCEEDINGS{implicit_fluid,
+        title = "{An implicit finite-volume method for solving the Euler equations}",
+     keywords = {Airfoils, Computational Fluid Dynamics, Euler Equations Of Motion, Finite Volume Method, Supercritical Flow, Transonic Flow, Conservation Laws, Hyperbolic Functions, Numerical Stability, Run Time (Computers), Steady Flow, Unsteady Flow, Fluid Mechanics and Heat Transfer},
+    booktitle = {ONERA},
+         year = 1982,
+       editor = {{Lerat}, A. and {Sides}, J. and {Daru}, V.},
+       volume = {1982-59},
+        month = jan,
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1982mndf.conf.....L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{sbi,
+author = {Kyle Cranmer  and Johann Brehmer  and Gilles Louppe },
+title = {The frontier of simulation-based inference},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {117},
+number = {48},
+pages = {30055-30062},
+year = {2020},
+doi = {10.1073/pnas.1912789117},
+URL = {https://www.pnas.org/doi/abs/10.1073/pnas.1912789117},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1912789117},
+abstract = {Many domains of science have developed complex simulations to describe phenomena of interest. While these simulations provide high-fidelity models, they are poorly suited for inference and lead to challenging inverse problems. We review the rapidly developing field of simulation-based inference and identify the forces giving additional momentum to the field. Finally, we describe how the frontier is expanding so that a broad audience can appreciate the profound influence these developments may have on science.}}
+
+
+@misc{wilcox13,
+      title={Discretely exact derivatives for hyperbolic PDE-constrained optimization problems discretized by the discontinuous Galerkin method}, 
+      author={Lucas C. Wilcox and Georg Stadler and Tan Bui-Thanh and Omar Ghattas},
+      year={2013},
+      eprint={1311.6900},
+      archivePrefix={arXiv},
+      primaryClass={math.NA},
+      url={https://arxiv.org/abs/1311.6900}, 
+}
+
+@article{stumm10,
+  title={New algorithms for optimal online checkpointing},
+  author={Stumm, Philipp and Walther, Andrea},
+  journal={SIAM Journal on Scientific Computing},
+  volume={32},
+  number={2},
+  pages={836--854},
+  year={2010},
+  publisher={SIAM}
+}
+
+@article{GMRES,
+author = {Saad, Youcef and Schultz, Martin H.},
+title = {GMRES: A Generalized Minimal Residual Algorithm for Solving Nonsymmetric Linear Systems},
+journal = {SIAM Journal on Scientific and Statistical Computing},
+volume = {7},
+number = {3},
+pages = {856-869},
+year = {1986},
+doi = {10.1137/0907058},
+URL = {  
+        https://doi.org/10.1137/0907058
+},
+eprint = {   
+        https://doi.org/10.1137/0907058
+}
+}
+
+@software{rackauckas22,
+  author       = {Christopher Rackauckas and
+                  Sciemon and
+                  Jacob Vaverka and
+                  Bowen S. Zhu and
+                  Victor L. and
+                  Arno Strouwen and
+                  David P. Sanders and
+                  George Sterpu and
+                  Jerry Ling and
+                  Patrick Eli Catach and
+                  Pietro Monticone and
+                  Will Dey and
+                  Valentin Churavy and
+                  Alan Edelman and
+                  Alex Haslam and
+                  Alexander Lenail and
+                  Ayush Kaushal and
+                  Christian Laforte and
+                  Chunji Wang and
+                  Fernando Cucchietti and
+                  Krishna Bhogaonker and
+                  Lauren Milechin and
+                  Frames Catherine White and
+                  Mark Payne and
+                  Simeon Schaub and
+                  Stephanie Fu and
+                  Vincent Meijer and
+                  Wilhelm Kirchgässner and
+                  anand jain},
+  title        = {SciML/SciMLBook: v1.1},
+  month        = nov,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v1.1},
+  doi          = {10.5281/zenodo.7347643},
+  url          = {https://doi.org/10.5281/zenodo.7347643}
+}
+
+@misc{blondel22,
+      title={Efficient and Modular Implicit Differentiation}, 
+      author={Mathieu Blondel and Quentin Berthet and Marco Cuturi and Roy Frostig and Stephan Hoyer and Felipe Llinares-López and Fabian Pedregosa and Jean-Philippe Vert},
+      year={2022},
+      eprint={2105.15183},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2105.15183}, 
+}
+
+@misc{bradley24,
+  author       = {Andrew M. Bradley},
+  title        = {{PDE-constrained optimization and the adjoint method}},
+  year         = {2024},
+  note         = {Originally published November 16, 2010},
+  url          = {https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf},
+  howpublished = {\url{https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf}},
+}
+
+
+@article{cr_two_fluids,
+	author = {{Wagner, A. Y.} and {Falle, S. A. E. G.} and {Hartquist, T. W.} and {Pittard, J. M.}},
+	title = {Two-fluid models of cosmic ray modified radiative shocks},
+	DOI= "10.1051/0004-6361:20064885",
+	url= "https://doi.org/10.1051/0004-6361:20064885",
+	journal = {Astronomy and Astrophysics},
+	year = 2006,
+	volume = 452,
+	number = 3,
+	pages = "763-771",
+}
+
+@article{hmc,
+  title={The No-U-Turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo.},
+  author={Hoffman, Matthew D and Gelman, Andrew and others},
+  journal={J. Mach. Learn. Res.},
+  volume={15},
+  number={1},
+  pages={1593--1623},
+  year={2014}
+}
+
+
+
+@article{cr_simple,
+   title={Simulating cosmic ray physics on a moving mesh},
+   volume={465},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1093/mnras/stw2941},
+   DOI={10.1093/mnras/stw2941},
+   number={4},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Pfrommer, C. and Pakmor, R. and Schaal, K. and Simpson, C. M. and Springel, V.},
+   year={2016},
+   month=nov, pages={4500–4529} }
+
+@article{CFL,
+  title = {Über die partiellen Differenzengleichungen der mathematischen Physik},
+  volume = {100},
+  ISSN = {1432-1807},
+  url = {http://dx.doi.org/10.1007/BF01448839},
+  DOI = {10.1007/bf01448839},
+  number = {1},
+  journal = {Mathematische Annalen},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Courant,  R. and Friedrichs,  K. and Lewy,  H.},
+  year = {1928},
+  month = dec,
+  pages = {32–74}
+}
+
+
+
+@article{jax_fem,
+   title={JAX-FEM: A differentiable GPU-accelerated 3D finite element solver for automatic inverse design and mechanistic data science},
+   volume={291},
+   ISSN={0010-4655},
+   url={http://dx.doi.org/10.1016/j.cpc.2023.108802},
+   DOI={10.1016/j.cpc.2023.108802},
+   journal={Computer Physics Communications},
+   publisher={Elsevier BV},
+   author={Xue, Tianju and Liao, Shuheng and Gan, Zhengtao and Park, Chanwook and Xie, Xiaoyu and Liu, Wing Kam and Cao, Jian},
+   year={2023},
+   month=oct, pages={108802} }
+
+
+@phdthesis{diffrax,
+    title={{O}n {N}eural {D}ifferential {E}quations},
+    author={Patrick Kidger},
+    year={2021},
+    school={University of Oxford},
+}
+
+@article{jaxcosmo,
+   title={JAX-COSMO: An End-to-End Differentiable and GPU Accelerated Cosmology Library},
+   volume={6},
+   ISSN={2565-6120},
+   url={http://dx.doi.org/10.21105/astro.2302.05163},
+   DOI={10.21105/astro.2302.05163},
+   journal={The Open Journal of Astrophysics},
+   publisher={Maynooth University},
+   author={Campagne, Jean-Eric and Lanusse, François and Zuntz, Joe and Boucaud, Alexandre and Casas, Santiago and Karamanis, Minas and Kirkby, David and Lanzieri, Denise and Peel, Austin and Li, Yin},
+   year={2023},
+   month=apr }
+
+@article{liu19,
+title = {Simulating high-Mach-number compressible flows with shock waves via Hermite-expansion-based lattice Boltzmann method},
+journal = {Physica A: Statistical Mechanics and its Applications},
+volume = {533},
+pages = {122062},
+year = {2019},
+issn = {0378-4371},
+doi = {https://doi.org/10.1016/j.physa.2019.122062},
+url = {https://www.sciencedirect.com/science/article/pii/S0378437119311951},
+author = {Qing Liu and Xiang-Bo Feng and Cai-Wu Lu},
+keywords = {Lattice Boltzmann method, Hermite expansion approach, Compressible flows, High-Mach-number flows, Shock wave},
+abstract = {In this paper, high-Mach-number compressible flows with shock waves are successfully simulated by Hermite-expansion-based lattice Boltzmann (LB) method proposed in the framework of the double-distribution-function approach. In the method, the discrete equilibrium distribution functions are obtained from the Hermite expansions of the continuous equilibrium distribution functions, and the discrete velocity sets are obtained by choosing the abscissas of suitable Gauss–Hermite quadratures with sufficient accuracy. Numerical simulations are carried out for some high-Mach-number compressible flows with shock waves in one and two dimensions. The numerical results are found to be in good agreement with the analytical solutions and/or other numerical results reported in the literature. The complex flow structures such as the contact discontinuities and interactions between the shock waves are well captured by the Hermite-expansion-based LB method.}
+}
+
+
+@misc{pmwd,
+      title={pmwd: A Differentiable Cosmological Particle-Mesh $N$-body Library}, 
+      author={Yin Li and Libin Lu and Chirag Modi and Drew Jamieson and Yucheng Zhang and Yu Feng and Wenda Zhou and Ngai Pok Kwan and François Lanusse and Leslie Greengard},
+      year={2022},
+      eprint={2211.09958},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2211.09958}, 
+}
+
+@software{jax,
+  author = {James Bradbury and Roy Frostig and Peter Hawkins and Matthew James Johnson and Chris Leary and Dougal Maclaurin and George Necula and Adam Paszke and Jake Vander{P}las and Skye Wanderman-{M}ilne and Qiao Zhang},
+  title = {{JAX}: composable transformations of {P}ython+{N}um{P}y programs},
+  url = {http://github.com/google/jax},
+  version = {0.3.13},
+  year = {2018},
+}
+
+@article{kokkos,
+  author={Trott, Christian R. and Lebrun-Grandié, Damien and Arndt, Daniel and Ciesko, Jan and Dang, Vinh and Ellingwood, Nathan and Gayatri, Rahulkumar and Harvey, Evan and Hollman, Daisy S. and Ibanez, Dan and Liber, Nevin and Madsen, Jonathan and Miles, Jeff and Poliakoff, David and Powell, Amy and Rajamanickam, Sivasankaran and Simberg, Mikael and Sunderland, Dan and Turcksin, Bruno and Wilke, Jeremiah},
+  journal={IEEE Transactions on Parallel and Distributed Systems},
+  title={Kokkos 3: Programming Model Extensions for the Exascale Era},
+  year={2022},
+  volume={33},
+  number={4},
+  pages={805-817},
+  doi={10.1109/TPDS.2021.3097283}}
+
+@misc{cuda,
+  author={NVIDIA and Vingelmann, Péter and Fitzek, Frank H.P.},
+  title={CUDA, release: 10.2.89},
+  year={2020},
+  url={https://developer.nvidia.com/cuda-toolkit},
+}
+
+@misc{athenaK,
+      title={AthenaK: A Performance-Portable Version of the Athena++ AMR Framework}, 
+      author={Stone, J. M. and Mullen, P. D. and Fielding, Drummond and Grete, Philipp and Guo, Minghao and Kempski, Philipp and Most, E. R. and White, C. J. and Wong, G. N.},
+      year={2024},
+      eprint={2409.16053},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2409.16053}, 
+}
+
+@misc{grete20,
+      title={K-Athena: a performance portable structured grid finite volume magnetohydrodynamics code}, 
+      author={Philipp Grete and Forrest W. Glines and Brian W. O'Shea},
+      year={2020},
+      eprint={1905.04341},
+      archivePrefix={arXiv},
+      primaryClass={cs.DC},
+      url={https://arxiv.org/abs/1905.04341}, 
+}
+
+@misc{zier24,
+      title={Adapting AREPO-RT for Exascale Computing: GPU Acceleration and Efficient Communication}, 
+      author={Oliver Zier and Rahul Kannan and Aaron Smith and Mark Vogelsberger and Erkin Verbeek},
+      year={2024},
+      eprint={2404.17630},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2404.17630}, 
+}
+
+@article{Stone08,
+   title={Athena: A New Code for Astrophysical MHD},
+   volume={178},
+   ISSN={1538-4365},
+   url={http://dx.doi.org/10.1086/588755},
+   DOI={10.1086/588755},
+   number={1},
+   journal={The Astrophysical Journal Supplement Series},
+   publisher={American Astronomical Society},
+   author={Stone, J. M. and Gardiner, Thomas A. and Teuben, Peter and Hawley, John F. and Simon, Jacob B.},
+   year={2008},
+   month=sep, pages={137–177} }
+
+
+@article{Springel10,
+   title={E pur si muove:Galilean-invariant cosmological hydrodynamical simulations on a moving mesh},
+   volume={401},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1111/j.1365-2966.2009.15715.x},
+   DOI={10.1111/j.1365-2966.2009.15715.x},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Springel, Volker},
+   year={2010},
+   month=jan, pages={791–851} }
+
+@misc{krais19,
+      title={FLEXI: A high order discontinuous Galerkin framework for hyperbolic-parabolic conservation laws}, 
+      author={Nico Krais and Andrea Beck and Thomas Bolemann and Hannes Frank and David Flad and Gregor Gassner and Florian Hindenlang and Malte Hoffmann and Thomas Kuhn and Matthias Sonntag and Claus-Dieter Munz},
+      year={2019},
+      eprint={1910.02858},
+      archivePrefix={arXiv},
+      primaryClass={cs.CE},
+      url={https://arxiv.org/abs/1910.02858}, 
+}
+
+@inbook{Canuto1988,
+  title = {Introduction},
+  ISBN = {9783642841088},
+  url = {http://dx.doi.org/10.1007/978-3-642-84108-8_1},
+  DOI = {10.1007/978-3-642-84108-8_1},
+  booktitle = {Spectral Methods in Fluid Dynamics},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Canuto,  Claudio and Hussaini,  M. Yousuff and Quarteroni,  Alfio and Zang,  Thomas A.},
+  year = {1988},
+  pages = {1–30}
+}
+
+@article{tenet,
+   title={Astrophysical hydrodynamics with a high-order discontinuous Galerkin scheme and adaptive mesh refinement},
+   volume={453},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1093/mnras/stv1859},
+   DOI={10.1093/mnras/stv1859},
+   number={4},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Schaal, Kevin and Bauer, Andreas and Chandrashekar, Praveen and Pakmor, Rüdiger and Klingenberg, Christian and Springel, Volker},
+   year={2015},
+   month=sep, pages={4279–4301} }
+
+
+@article{barber,
+title = {Defining the unknowns of sonoluminescence},
+journal = {Physics Reports},
+volume = {281},
+number = {2},
+pages = {65-143},
+year = {1997},
+issn = {0370-1573},
+doi = {https://doi.org/10.1016/S0370-1573(96)00050-6},
+url = {https://www.sciencedirect.com/science/article/pii/S0370157396000506},
+author = {Bradley P. Barber and Robert A. Hiller and Ritva Löfstedt and Seth J. Putterman and Keith R. Weninger},
+keywords = {Sonoluminescence, Bubble dynamics, Bremsstrahlung},
+abstract = {As the intensity of a standing sound wave is increased the pulsations of a bubble of gas trapped at a velocity node attain sufficient amplitude so as to emit picosecond flashes of light with a broadband spectrum that increases into the ultraviolet. The acoustic resonator can be tuned so that the flashes of light occur with a clocklike regularity: one flash for each cycle of sound with a jitter in the time between flashes that is also measured in picoseconds. This phenomenon (sonoluminescence or “SL”) is remarkable because it is the only means of generating picosecond flashes of light that does not use a laser and the input acoustic energy density must be concentrated by twelve orders of magnitude in order to produce light. Light scattering measurements indicate that the bubble wall is collapsing at more than 4 times the ambient speed of sound in the gas just prior to the light emitting moment when the gas has been compressed to a density determined by its van der Waals hard core. Experiments indicate that the collapse is remarkably spherical, water is the best fluid for SL, some noble gas is essential for stable SL, and that the light intensity increases as the ambient temperature is lowered. In the extremely stable experimental configuration consisting of an air bubble in water, measurements indicate that the bubble chooses an ambient radius that is not explained by mass diffusion. Experiments have not yet been able to map out the complete spectrum because above 6 eV it is obscured by the cutoff imposed by water, and furthermore experiments have only determined an upper bound on the flash widths. In addition to the above puzzles, the theory for the light emitting mechanism is still open. The scenario of a supersonic bubble collapse launching an imploding shock wave which ionizes the bubble contents so as to cause it to emit Bremsstrahlung radiation is the best candidate theory but it has not been shown how to extract from it the richness of this phenomenon. Most exciting is the issue of whether SL is a classical effect or whether Planck's constant should be invoked to explain how energy which enters a medium at the macroscopic scale holds together and focuses so as to be emitted at the microscopic scale.}
+}
+
+@article{parker58,
+       author = {{Parker}, E.~N.},
+        title = "{Dynamics of the Interplanetary Gas and Magnetic Fields.}",
+      journal = {Astrophysical Journal},
+         year = 1958,
+        month = nov,
+       volume = {128},
+        pages = {664},
+          doi = {10.1086/146579},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1958ApJ...128..664P},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{lachlan24,
+doi = {10.3847/1538-4357/ad47f6},
+url = {https://dx.doi.org/10.3847/1538-4357/ad47f6},
+year = {2024},
+month = {jul},
+publisher = {The American Astronomical Society},
+volume = {970},
+number = {1},
+pages = {18},
+author = {Lancaster, Lachlan and Ostriker, Eve C. and Kim, Chang-Goo and Kim, Jeong-Gyu and Bryan, Greg L.},
+title = {Geometry, Dissipation, Cooling, and the Dynamical Evolution of Wind-blown Bubbles},
+journal = {The Astrophysical Journal},
+abstract = {Bubbles driven by energy and mass injection from small scales are ubiquitous in astrophysical fluid systems and essential to feedback across multiple scales. In particular, O stars in young clusters produce high-velocity winds that create hot bubbles in the surrounding gas. We demonstrate that the dynamical evolution of these bubbles is critically dependent upon the geometry of their interfaces with their surroundings and the nature of heat transport across these interfaces. These factors together determine the amount of energy that can be lost from the interior through cooling at the interface, which in turn determines the ability of the bubble to do work on its surroundings. We further demonstrate that the scales relevant to physical dissipation across this interface are extremely difficult to resolve in global numerical simulations of bubbles for parameter values of interest. This means the dissipation driving evolution of these bubbles in numerical simulations is often of a numerical nature. We describe the physical and numerical principles that determine the level of dissipation in these simulations; we use this, along with a fractal model for the geometry of the interfaces, to explain differences in convergence behavior between hydrodynamical and magnetohydrodynamical simulations presented here. We additionally derive an expression for momentum as a function of bubble radius expected when the relevant dissipative scales are resolved and show that it still results in efficiently cooled solutions, as postulated in previous work.}
+}
+
+@article{lachlan21a,
+doi = {10.3847/1538-4357/abf8ab},
+url = {https://dx.doi.org/10.3847/1538-4357/abf8ab},
+year = {2021},
+month = {jun},
+publisher = {The American Astronomical Society},
+volume = {914},
+number = {2},
+pages = {89},
+author = {Lancaster, Lachlan and Ostriker, Eve C. and Kim, Jeong-Gyu and Kim, Chang-Goo},
+title = {Efficiently Cooled Stellar Wind Bubbles in Turbulent Clouds. I. Fractal Theory and Application to Star-forming Clouds},
+journal = {The Astrophysical Journal},
+abstract = {Winds from massive stars have velocities of 1000 km s−1 or more and produce hot, high-pressure gas when they shock. We develop a theory for the evolution of bubbles driven by the collective winds from star clusters early in their lifetimes, which involves interaction with the turbulent, dense interstellar medium of the surrounding natal molecular cloud. A key feature is the fractal nature of the hot bubble’s surface. The large area of this interface with surrounding denser gas strongly enhances energy losses from the hot interior, enabled by turbulent mixing and subsequent cooling at temperatures T ∼ 104–105 K, where radiation is maximally efficient. Due to the extreme cooling, the bubble radius scales differently () from the classical Weaver et al. solution and has expansion velocity and momentum lower by factors of 10–102 at given , with pressure lower by factors of 102–103. Our theory explains the weak X-ray emission and low shell expansion velocities of observed sources. We discuss further implications of our theory for observations of the hot bubbles and cooled expanding shells created by stellar winds and for predictions of feedback-regulated star formation in a range of environments. In a companion paper, we validate our theory with a suite of hydrodynamic simulations.}
+}
+
+
+@article{lachlan21,
+doi = {10.3847/1538-4357/abf8ac},
+url = {https://dx.doi.org/10.3847/1538-4357/abf8ac},
+year = {2021},
+month = {jun},
+publisher = {The American Astronomical Society},
+volume = {914},
+number = {2},
+pages = {90},
+author = {Lancaster, Lachlan and Ostriker, E. C. and Kim, Jeong-Gyu and Kim, Chang-Goo},
+title = {Efficiently Cooled Stellar Wind Bubbles in Turbulent Clouds. II. Validation of Theory with Hydrodynamic Simulations},
+journal = {The Astrophysical Journal},
+abstract = {In a companion paper, we develop a theory for the evolution of stellar wind-driven bubbles in dense, turbulent clouds. This theory proposes that turbulent mixing at a fractal bubble/shell interface leads to highly efficient cooling, in which the vast majority of the input wind energy is radiated away. This energy loss renders the majority of the bubble evolution momentum driven rather than energy driven, with expansion velocities and pressures orders of magnitude lower than in the classical Weaver et al. solution. In this paper, we validate our theory with three-dimensional, hydrodynamic simulations. We show that extreme cooling is not only possible, but is generic to star formation in turbulent clouds over more than three orders of magnitude in density. We quantify the few free parameters in our theory, and show that the momentum exceeds the wind input rate by only a factor . We verify that the bubble/cloud interface is a fractal with dimension . The measured turbulent amplitude () in the hot gas near the interface is shown to be consistent with theoretical requirements for turbulent diffusion to efficiently mix and radiate away most of the wind energy. The fraction of energy remaining after cooling is only , decreasing with time, explaining observations that indicate low hot-gas content and weak dynamical effects of stellar winds.}
+}
+
+@article{townsend2009,
+doi = {10.1088/0067-0049/181/2/391},
+url = {https://dx.doi.org/10.1088/0067-0049/181/2/391},
+year = {2009},
+month = {mar},
+publisher = {The American Astronomical Society},
+volume = {181},
+number = {2},
+pages = {391},
+author = {Townsend, R. H. D.},
+title = {AN EXACT INTEGRATION SCHEME FOR RADIATIVE COOLING IN HYDRODYNAMICAL SIMULATIONS},
+journal = {The Astrophysical Journal Supplement Series},
+abstract = {A new scheme for incorporating radiative cooling in hydrodynamical codes is presented, centered around exact integration of the governing semidiscrete cooling equation. Using benchmark calculations based on the cooling downstream of a radiative shock, I demonstrate that the new scheme outperforms traditional explicit and implicit approaches in terms of accuracy, while remaining competitive in terms of execution speed.}
+}
+
+@article{schlottke21,
+  title={A purely hyperbolic discontinuous Galerkin approach for self-gravitating gas dynamics},
+  author={Schlottke-Lakemper, Michael and Winters, Andrew R and Ranocha, Hendrik and Gassner, Gregor J},
+  journal={Journal of Computational Physics},
+  volume={442},
+  pages={110467},
+  year={2021},
+  publisher={Elsevier}
+}
+
+@article{Marcowith2020,
+author={Marcowith, Alexandre
+and Ferrand, Gilles
+and Grech, Mickael
+and Meliani, Zakaria
+and Plotnikov, Illya
+and Walder, Rolf},
+title={Multi-scale simulations of particle acceleration in astrophysical systems},
+journal={Living Reviews in Computational Astrophysics},
+year={2020},
+month={Mar},
+day={23},
+volume={6},
+number={1},
+pages={1},
+abstract={This review aims at providing an up-to-date status and a general introduction to the subject of the numerical study of energetic particle acceleration and transport in turbulent astrophysical flows. The subject is also complemented by a short overview of recent progresses obtained in the domain of laser plasma experiments. We review the main physical processes at the heart of the production of a non-thermal distribution in both Newtonian and relativistic astrophysical flows, namely the first and second order Fermi acceleration processes. We also discuss shock drift and surfing acceleration, two processes important in the context of particle injection in shock acceleration. We analyze with some details the particle-in-cell (PIC) approach used to describe particle kinetics. We review the main results obtained with PIC simulations in the recent years concerning particle acceleration at shocks and in reconnection events. The review discusses the solution of Fokker--Planck problems with application to the study of particle acceleration at shocks but also in hot coronal plasmas surrounding compact objects. We continue by considering large scale physics. We describe recent developments in magnetohydrodynamic (MHD) simulations. We give a special emphasis on the way energetic particle dynamics can be coupled to MHD solutions either using a multi-fluid calculation or directly coupling kinetic and fluid calculations. This aspect is mandatory to investigate the acceleration of particles in the deep relativistic regimes to explain the highest cosmic ray energies.},
+issn={2365-0524},
+doi={10.1007/s41115-020-0007-6},
+url={https://doi.org/10.1007/s41115-020-0007-6}
+}
+
+
+
+
+@ARTICLE{oh_my_god,
+       author = {{Bird}, D.~J. and {Corbato}, S.~C. and {Dai}, H.~Y. and {Elbert}, J.~W. and {Green}, K.~D. and {Huang}, M.~A. and {Kieda}, D.~B. and {Ko}, S. and {Larsen}, C.~G. and {Loh}, E.~C. and {Luo}, M.~Z. and {Salamon}, M.~H. and {Smith}, J.~D. and {Sokolsky}, P. and {Sommers}, P. and {Tang}, J.~K.~K. and {Thomas}, S.~B.},
+        title = "{Detection of a Cosmic Ray with Measured Energy Well beyond the Expected Spectral Cutoff due to Cosmic Microwave Radiation}",
+      journal = {Astrophysical Journal},
+     keywords = {Background Radiation, Cosmic Rays, Elementary Particles, Energy Spectra, High Energy Interactions, Microwaves, Pion Beams, Radiation Detectors, Radiation Measuring Instruments, Radiation Sources, Statistical Analysis, Astronomy, COSMOLOGY: COSMIC MICROWAVE BACKGROUND, ELEMENTARY PARTICLES, ISM: COSMIC RAYS, RADIATION MECHANISMS: NONTHERMAL, Astrophysics},
+         year = 1995,
+        month = mar,
+       volume = {441},
+        pages = {144},
+          doi = {10.1086/175344},
+archivePrefix = {arXiv},
+       eprint = {astro-ph/9410067},
+ primaryClass = {astro-ph},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1995ApJ...441..144B},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{
+energetic_cosmic_ray,
+author = {{Telescope Array Collaboration} and R. U. Abbasi  and M. G. Allen  and R. Arimura  and J. W. Belz  and D. R. Bergman  and S. A. Blake  and B. K. Shin  and I. J. Buckland  and B. G. Cheon  and T. Fujii  and K. Fujisue  and K. Fujita  and M. Fukushima  and G. D. Furlich  and Z. R. Gerber  and N. Globus  and K. Hibino  and R. Higuchi  and K. Honda  and D. Ikeda  and H. Ito  and A. Iwasaki  and S. Jeong  and H. M. Jeong  and C. H. Jui  and K. Kadota  and F. Kakimoto  and O. E. Kalashev  and K. Kasahara  and K. Kawata  and I. Kharuk  and E. Kido  and S. W. Kim  and H. B. Kim  and J. H. Kim  and J. H. Kim  and I. Komae  and Y. Kubota  and M. Y. Kuznetsov  and K. H. Lee  and B. K. Lubsandorzhiev  and J. P. Lundquist  and J. N. Matthews  and S. Nagataki  and T. Nakamura  and A. Nakazawa  and T. Nonaka  and S. Ogio  and M. Ono  and H. Oshima  and I. H. Park  and M. Potts  and S. Pshirkov  and J. R. Remington  and D. C. Rodriguez  and C. Rott  and G. I. Rubtsov  and D. Ryu  and H. Sagawa  and N. Sakaki  and T. Sako  and N. Sakurai  and H. Shin  and J. D. Smith  and P. Sokolsky  and B. T. Stokes  and T. S. Stroman  and K. Takahashi  and M. Takeda  and A. Taketa  and Y. Tameda  and S. Thomas  and G. B. Thomson  and P. G. Tinyakov  and I. Tkachev  and T. Tomida  and S. V. Troitsky  and Y. Tsunesada  and S. Udo  and F. R. Urban  and T. Wong  and K. Yamazaki  and Y. Yuma  and Y. V. Zhezher  and Z. Zundel },
+title = {An extremely energetic cosmic ray observed by a surface detector array},
+journal = {Science},
+volume = {382},
+number = {6673},
+pages = {903-907},
+year = {2023},
+doi = {10.1126/science.abo5095},
+URL = {https://www.science.org/doi/abs/10.1126/science.abo5095},
+eprint = {https://www.science.org/doi/pdf/10.1126/science.abo5095},
+abstract = {Cosmic rays are energetic charged particles from extraterrestrial sources, with the highest-energy events thought to come from extragalactic sources. Their arrival is infrequent, so detection requires instruments with large collecting areas. In this work, we report the detection of an extremely energetic particle recorded by the surface detector array of the Telescope Array experiment. We calculate the particle’s energy as 244±29\&nbsp;stat.\&nbsp;−76+51syst.\&nbsp;exa–electron\&nbsp;volts (~40 joules). Its arrival direction points back to a void in the large-scale structure of the Universe. Possible explanations include a large deflection by the foreground magnetic field, an unidentified source in the local extragalactic neighborhood, or an incomplete knowledge of particle physics. Cosmic rays are charged particles from space. At low energies, they mostly originate from the Sun, whereas at high energies, they are expected to be emitted by nearby active galaxies. The Telescope Array Collaboration now reports the detection of a cosmic ray event with an energy of about 240 exa–electron volts, more than a million times higher than that achieved by artificial particle accelerators. Such high-energy particles should experience only small deflections by foreground magnetic fields, but tracing back the arrival direction shows no obvious source galaxy. The authors suggest that the foreground magnetic fields might be stronger than expected, or there could be unknown particle physics at high energies. —Keith T. Smith Detection of a highly energetic cosmic ray is traced back to its arrival direction, but no source galaxy is evident.}}
+
+
+
+@article{Hanasz2021,
+   title={Simulations of cosmic ray propagation},
+   volume={7},
+   ISSN={2365-0524},
+   url={http://dx.doi.org/10.1007/s41115-021-00011-1},
+   DOI={10.1007/s41115-021-00011-1},
+   number={1},
+   journal={Living Reviews in Computational Astrophysics},
+   publisher={Springer Science and Business Media LLC},
+   author={Hanasz, Michał and Strong, Andrew W. and Girichidis, Philipp},
+   year={2021},
+   month=jul}
+
+
+
+@Article{delis22,
+  AUTHOR = {Delis, Anargiros I. and Kazolea, Maria and Gaitani, Maria},
+  TITLE = {On the Numerical Solution of Sparse Linear Systems Emerging in Finite Volume Discretizations of 2D Boussinesq-Type Models on Unstructured Grids},
+  JOURNAL = {Water},
+  VOLUME = {14},
+  YEAR = {2022},
+  NUMBER = {21},
+  ARTICLE-NUMBER = {3584},
+  URL = {https://www.mdpi.com/2073-4441/14/21/3584},
+  ISSN = {2073-4441},
+  ABSTRACT = {This work aims to supplement the realization and validation of a higher-order well-balanced unstructured finite volume (FV) scheme, that has been relatively recently presented, for numerically simulating weakly non-linear weakly dispersive water waves over varying bathymetries. We investigate and develop solution strategies for the sparse linear system that appears during this FV discretisation of a set of extended Boussinesq-type equations on unstructured meshes. The resultant linear system of equations must be solved at each discrete time step as to recover the actual velocity field of the flow and advance in time. The system&rsquo;s coefficient matrix is sparse, un-symmetric and often ill-conditioned. Its characteristics are affected by physical quantities of the problem to be solved, such as the undisturbed water depth and the mesh topology. To this end, we investigate the application of different well-known iterative techniques, with and without the usage of preconditioners and reordering, for the solution of this sparse linear system. The iiterative methods considered are the GMRES and the BiCGSTAB, three preconditioning techniques, including different ILU factorizations and two different reordering techniques are implemented and discussed. An optimal strategy, in terms of computational efficiency and robustness, is finally proposed which combines the use of the BiCGSTAB method with the ILUT preconditioner and the Reverse Cuthill&ndash;McKee reordering.},
+  DOI = {10.3390/w14213584}
+}
+
+
+@article{chou07,
+  title={Numerical methods for stiff reaction-diffusion systems},
+  author={Chou, C and Zhang, Y and Zhao, Rui and Nie, Qing},
+  journal={DISCRETE AND CONTINUOUS DYNAMICAL SYSTEMS SERIES B},
+  volume={7},
+  number={3},
+  pages={515},
+  year={2007},
+  publisher={AIMS PRESS}
+}
+
+@article{rackauckas17,
+  title={Differentialequations.jl--a performant and feature-rich ecosystem for solving differential equations in julia},
+  author={Rackauckas, Christopher and Nie, Qing},
+  journal={Journal of Open Research Software},
+  volume={5},
+  number={1},
+  pages={15},
+  year={2017},
+  publisher={Ubiquity Press}
+}
+
+@article{lefever71,
+title = {Chemical instabilities and sustained oscillations},
+journal = {Journal of Theoretical Biology},
+volume = {30},
+number = {2},
+pages = {267-284},
+year = {1971},
+issn = {0022-5193},
+doi = {https://doi.org/10.1016/0022-5193(71)90054-3},
+url = {https://www.sciencedirect.com/science/article/pii/0022519371900543},
+author = {R. Lefever and G. Nicolis},
+abstract = {The temporal behaviour of a chemical system beyond a non-equilibrium unstable transition is analysed and compared to the behaviour of Volterra-Lotka type systems. The properties of certain types of biological rythmic phenomena are discussed within the framework of this comparison.}
+}
+
+@article{hairer03, title={Geometric numerical integration illustrated by the Störmer–Verlet method}, volume={12}, DOI={10.1017/S0962492902000144}, journal={Acta Numerica}, publisher={Cambridge University Press}, author={Hairer, Ernst and Lubich, Christian and Wanner, Gerhard}, year={2003}, pages={399–450}}
+
+@article{Hairer06b,
+  author = {Hairer, Ernst},
+  year = {2006},
+  month = {06},
+  pages = {},
+  title = {Long-time energy conservation of numerical integrators},
+  volume = {331},
+  isbn = {9780521681612},
+  journal = {Lecture Notes Ser. FoCM Santander 2005},
+  doi = {10.1017/CBO9780511721571.005}
+}
+
+@article{tsit11,
+title = {Runge–Kutta pairs of order 5(4) satisfying only the first column simplifying assumption},
+journal = {Computers and Mathematics with Applications},
+volume = {62},
+number = {2},
+pages = {770-775},
+year = {2011},
+issn = {0898-1221},
+doi = {https://doi.org/10.1016/j.camwa.2011.06.002},
+url = {https://www.sciencedirect.com/science/article/pii/S0898122111004706},
+author = {Ch. Tsitouras},
+keywords = {Runge–Kutta, Truncation error, Non-linear algebraic systems, Free parameters, Dense output},
+abstract = {Among the most popular methods for the solution of the Initial Value Problem are the Runge–Kutta pairs of orders 5 and 4. These methods can be derived solving a system of nonlinear equations for its coefficients. To achieve this, we usually admit various simplifying assumptions. The most common of them are the so-called row simplifying assumptions. Here we neglect them and present an algorithm for the construction of Runge–Kutta pairs of orders 5 and 4 based only in the first column simplifying assumption. The result is a pair that outperforms other known pairs in the bibliography when tested to the standard set of problems of DETEST. A cost free fourth order formula is also derived for handling dense output.}
+}
+
+@Article{Moser1978,
+    author={Moser, J{\"u}rgen},
+    title={Is the solar system stable?},
+    journal={The Mathematical Intelligencer},
+    year={1978},
+    day={01},
+    volume={1},
+    number={2},
+    pages={65-71},
+    issn={0343-6993},
+    doi={10.1007/BF03023062},
+    url={https://doi.org/10.1007/BF03023062}
+}
+
+@article{han18,
+    author = {Jiequn Han  and Arnulf Jentzen  and Weinan E },
+    title = {Solving high-dimensional partial differential equations using deep learning},
+    journal = {Proceedings of the National Academy of Sciences},
+    volume = {115},
+    number = {34},
+    pages = {8505-8510},
+    year = {2018},
+    doi = {10.1073/pnas.1718942115},
+    URL = {https://www.pnas.org/doi/abs/10.1073/pnas.1718942115},
+    eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1718942115},
+    abstract = {Developing algorithms for solving high-dimensional partial differential equations (PDEs) has been an exceedingly difficult task for a long time, due to the notoriously difficult problem known as the “curse of dimensionality.” This paper introduces a deep learning-based approach that can handle general high-dimensional parabolic PDEs. To this end, the PDEs are reformulated using backward stochastic differential equations and the gradient of the unknown solution is approximated by neural networks, very much in the spirit of deep reinforcement learning with the gradient acting as the policy function. Numerical results on examples including the nonlinear Black–Scholes equation, the Hamilton–Jacobi–Bellman equation, and the Allen–Cahn equation suggest that the proposed algorithm is quite effective in high dimensions, in terms of both accuracy and cost. This opens up possibilities in economics, finance, operational research, and physics, by considering all participating agents, assets, resources, or particles together at the same time, instead of making ad hoc assumptions on their interrelationships.}
+}
+
+@Article{Courant1928,
+author={Courant, R.
+and Friedrichs, K.
+and Lewy, H.},
+title={{\"U}ber die partiellen Differenzengleichungen der mathematischen Physik},
+journal={Mathematische Annalen},
+year={1928},
+month={Dec},
+day={01},
+volume={100},
+number={1},
+pages={32-74},
+issn={1432-1807},
+doi={10.1007/BF01448839},
+url={https://doi.org/10.1007/BF01448839}
+}
+
+
+@ARTICLE{Kochkov21,
+  title    = "Machine learning-accelerated computational fluid dynamics",
+  author   = "Kochkov, Dmitrii and Smith, Jamie A and Alieva, Ayya and Wang,
+              Qing and Brenner, Michael P and Hoyer, Stephan",
+  abstract = "Numerical simulation of fluids plays an essential role in
+              modeling many physical phenomena, such as weather, climate,
+              aerodynamics, and plasma physics. Fluids are well described by
+              the Navier-Stokes equations, but solving these equations at scale
+              remains daunting, limited by the computational cost of resolving
+              the smallest spatiotemporal features. This leads to unfavorable
+              trade-offs between accuracy and tractability. Here we use
+              end-to-end deep learning to improve approximations inside
+              computational fluid dynamics for modeling two-dimensional
+              turbulent flows. For both direct numerical simulation of
+              turbulence and large-eddy simulation, our results are as accurate
+              as baseline solvers with 8 to 10$\times$ finer resolution in each
+              spatial dimension, resulting in 40- to 80-fold computational
+              speedups. Our method remains stable during long simulations and
+              generalizes to forcing functions and Reynolds numbers outside of
+              the flows where it is trained, in contrast to black-box
+              machine-learning approaches. Our approach exemplifies how
+              scientific computing can leverage machine learning and hardware
+              accelerators to improve simulations without sacrificing accuracy
+              or generalization.",
+  journal  = "Proc Natl Acad Sci U S A",
+  volume   =  118,
+  number   =  21,
+  month    =  may,
+  year     =  2021,
+  address  = "United States",
+  keywords = "computational physics; machine learning; nonlinear partial
+              differential equations; turbulence",
+  language = "en"
+}
+
+@article{biamonte2017quantum,
+  title={Quantum machine learning},
+  author={Biamonte, Jacob and Wittek, Peter and Pancotti, Nicola and Rebentrost, Patrick and Wiebe, Nathan and Lloyd, Seth},
+  journal={Nature},
+  volume={549},
+  number={7671},
+  pages={195--202},
+  year={2017},
+  publisher={Nature Publishing Group UK London}
+}
+
+@article{Bagla02,
+   title={TreePM: A code for cosmological N-body simulations},
+   volume={23},
+   ISSN={0973-7758},
+   url={http://dx.doi.org/10.1007/BF02702282},
+   DOI={10.1007/bf02702282},
+   number={3–4},
+   journal={Journal of Astrophysics and Astronomy},
+   publisher={Springer Science and Business Media LLC},
+   author={Bagla, J. S.},
+   year={2002},
+   month=dec, pages={185–196} }
+
+@Article{Margolin2023,
+author={Margolin, L. G.
+and Lloyd-Ronning, N. M.},
+title={Artificial viscosity---then and now},
+journal={Meccanica},
+year={2023},
+month={Jun},
+day={01},
+volume={58},
+number={6},
+pages={1039-1052},
+abstract={In this paper, we recount the history of artificial viscosity, beginning with its origin in previously unpublished and unavailable documents, continuing on to current research and ending with recent work describing its physical basis that suggests new directions for improvement. This review is mainly about finite volume methods and the finite scale theory, We focus on the underlying ideas that recognize the finiteness of scale and of measurement.},
+issn={1572-9648},
+doi={10.1007/s11012-022-01541-5},
+url={https://doi.org/10.1007/s11012-022-01541-5}
+}
+
+@article{gould96,
+  title={An introduction to computer simulation methods: applications to physical systems},
+  author={Gould, Harvey and Tobochnik, Jan and Meredith, Dawn C and Koonin, Steven E and McKay, Susan R and Christian, Wolfgang},
+  journal={Computers in Physics},
+  volume={10},
+  number={4},
+  pages={349--349},
+  year={1996},
+  publisher={American Institute of Physics}
+}
+
+@misc{hirashima2023,
+      title={Surrogate Modeling for Computationally Expensive Simulations of Supernovae in High-Resolution Galaxy Simulations}, 
+      author={Keiya Hirashima and Kana Moriwaki and Michiko S. Fujii and Yutaka Hirai and Takayuki R. Saitoh and Junichiro Makino and Shirley Ho},
+      year={2023},
+      eprint={2311.08460},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.GA}
+}
+
+@article{particle2020,
+    author = {Particle-Data-Group and Zyla, P A and Barnett, R M and Beringer, J and Dahl, O and Dwyer, D A and Groom, D E and Lin, C -J and Lugovsky, K S and Pianori, E and Robinson, D J and Wohl, C G and Yao, W -M and Agashe, K and Aielli, G and Allanach, B C and Amsler, C and Antonelli, M and Aschenauer, E C and Asner, D M and Baer, H and Banerjee, Sw and Baudis, L and Bauer, C W and Beatty, J J and Belousov, V I and Bethke, S and Bettini, A and Biebel, O and Black, K M and Blucher, E and Buchmuller, O and Burkert, V and Bychkov, M A and Cahn, R N and Carena, M and Ceccucci, A and Cerri, A and Chakraborty, D and Chivukula, R Sekhar and Cowan, G and D'Ambrosio, G and Damour, T and de Florian, D and de Gouvêa, A and DeGrand, T and de Jong, P and Dissertori, G and Dobrescu, B A and D'Onofrio, M and Doser, M and Drees, M and Dreiner, H K and Eerola, P and Egede, U and Eidelman, S and Ellis, J and Erler, J and Ezhela, V V and Fetscher, W and Fields, B D and Foster, B and Freitas, A and Gallagher, H and Garren, L and Gerber, H -J and Gerbier, G and Gershon, T and Gershtein, Y and Gherghetta, T and Godizov, A A and Gonzalez-Garcia, M C and Goodman, M and Grab, C and Gritsan, A V and Grojean, C and Grünewald, M and Gurtu, A and Gutsche, T and Haber, H E and Hanhart, C and Hashimoto, S and Hayato, Y and Hebecker, A and Heinemeyer, S and Heltsley, B and Hernández-Rey, J J and Hikasa, K and Hisano, J and Höcker, A and Holder, J and Holtkamp, A and Huston, J and Hyodo, T and Johnson, K F and Kado, M and Karliner, M and Katz, U F and Kenzie, M and Khoze, V A and Klein, S R and Klempt, E and Kowalewski, R V and Krauss, F and Kreps, M and Krusche, B and Kwon, Y and Lahav, O and Laiho, J and Lellouch, L P and Lesgourgues, J and Liddle, A R and Ligeti, Z and Lippmann, C and Liss, T M and Littenberg, L and Lourengo, C and Lugovsky, S B and Lusiani, A and Makida, Y and Maltoni, F and Mannel, T and Manohar, A V and Marciano, W J and Masoni, A and Matthews, J and Meißner, U -G and Mikhasenko, M and Miller, D J and Milstead, D and Mitchell, R E and Mönig, K and Molaro, P and Moortgat, F and Moskovic, M and Nakamura, K and Narain, M and Nason, P and Navas, S and Neubert, M and Nevski, P and Nir, Y and Olive, K A and Patrignani, C and Peacock, J A and Petcov, S T and Petrov, V A and Pich, A and Piepke, A and Pomarol, A and Profumo, S and Quadt, A and Rabbertz, K and Rademacker, J and Raffelt, G and Ramani, H and Ramsey-Musolf, M and Ratcliff, B N and Richardson, P and Ringwald, A and Roesler, S and Rolli, S and Romaniouk, A and Rosenberg, L J and Rosner, J L and Rybka, G and Ryskin, M and Ryutin, R A and Sakai, Y and Salam, G P and Sarkar, S and Sauli, F and Schneider, O and Scholberg, K and Schwartz, A J and Schwiening, J and Scott, D and Sharma, V and Sharpe, S R and Shutt, T and Silari, M and Sjöstrand, T and Skands, P and Skwarnicki, T and Smoot, G F and Soffer, A and Sozzi, M S and Spanier, S and Spiering, C and Stahl, A and Stone, S L and Sumino, Y and Sumiyoshi, T and Syphers, M J and Takahashi, F and Tanabashi, M and Tanaka, J and Taševský, M and Terashi, K and Terning, J and Thoma, U and Thorne, R S and Tiator, L and Titov, M and Tkachenko, N P and Tovey, D R and Trabelsi, K and Urquijo, P and Valencia, G and Van de Water, R and Varelas, N and Venanzoni, G and Verde, L and Vincter, M G and Vogel, P and Vogelsang, W and Vogt, A and Vorobyev, V and Wakely, S P and Walkowiak, W and Walter, C W and Wands, D and Wascko, M O and Weinberg, D H and Weinberg, E J and White, M and Wiencke, L R and Willocq, S and Woody, C L and Workman, R L and Yokoyama, M and Yoshida, R and Zanderighi, G and Zeller, G P and Zenin, O V and Zhu, R -Y and Zhu, S -L and Zimmermann, F and Anderson, J and Basaglia, T and Lugovsky, V S and Schaffner, P and Zheng, W},
+    title = "{Review of Particle Physics}",
+    journal = {Progress of Theoretical and Experimental Physics},
+    volume = {2020},
+    number = {8},
+    pages = {083C01},
+    year = {2020},
+    month = {08},
+    abstract = "{The Review summarizes much of particle physics and cosmology. Using data from previous editions, plus 3,324 new measurements from 878 papers, we list, evaluate, and average measured properties of gauge bosons and the recently discovered Higgs boson, leptons, quarks, mesons, and baryons. We summarize searches for hypothetical particles such as supersymmetric particles, heavy bosons, axions, dark photons, etc. Particle properties and search limits are listed in Summary Tables. We give numerous tables, figures, formulae, and reviews of topics such as Higgs Boson Physics, Supersymmetry, Grand Unified Theories, Neutrino Mixing, Dark Energy, Dark Matter, Cosmology, Particle Detectors, Colliders, Probability and Statistics. Among the 120 reviews are many that are new or heavily revised, including a new review on High Energy Soft QCD and Diffraction and one on the Determination of CKM Angles from B Hadrons.The Review is divided into two volumes. Volume 1 includes the Summary Tables and 98 review articles. Volume 2 consists of the Particle Listings and contains also 22 reviews that address specific aspects of the data presented in the Listings.The complete Review (both volumes) is published online on the website of the Particle Data Group (pdg.lbl.gov) and in a journal. Volume 1 is available in print as the PDG Book. A Particle Physics Booklet with the Summary Tables and essential tables, figures, and equations from selected review articles is available in print and as a web version optimized for use on phones as well as an Android app.}",
+    issn = {2050-3911},
+    doi = {10.1093/ptep/ptaa104},
+    url = {https://doi.org/10.1093/ptep/ptaa104},
+    eprint = {https://academic.oup.com/ptep/article-pdf/2020/8/083C01/34673722/ptaa104.pdf},
+}
+
+@article{matsumoto98,
+  title={Mersenne twister: a 623-dimensionally equidistributed uniform pseudo-random number generator},
+  author={Matsumoto, Makoto and Nishimura, Takuji},
+  journal={ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  volume={8},
+  number={1},
+  pages={3--30},
+  year={1998},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{box58,
+author = {G. E. P. Box and Mervin E. Muller},
+title = {{A Note on the Generation of Random Normal Deviates}},
+volume = {29},
+journal = {The Annals of Mathematical Statistics},
+number = {2},
+publisher = {Institute of Mathematical Statistics},
+pages = {610 -- 611},
+year = {1958},
+doi = {10.1214/aoms/1177706645},
+URL = {https://doi.org/10.1214/aoms/1177706645}
+}
+
+@book{Efron1994,
+  title = {An Introduction to the Bootstrap},
+  ISBN = {9780429246593},
+  url = {http://dx.doi.org/10.1201/9780429246593},
+  DOI = {10.1201/9780429246593},
+  publisher = {Chapman and Hall/CRC},
+  author = {Efron,  Bradley and Tibshirani,  R.J.},
+  year = {1994},
+  month = may 
+}
+
+@article{ras95,
+  title={Gaussian processes for regression},
+  author={Williams, Christopher and Rasmussen, Carl},
+  journal={Advances in neural information processing systems},
+  volume={8},
+  year={1995}
+}
+
+@article{mat_inv,
+title = {A way to obtain Monte Carlo matrix inversion with minimal error},
+journal = {Applied Mathematics and Computation},
+volume = {191},
+number = {1},
+pages = {225-233},
+year = {2007},
+issn = {0096-3003},
+doi = {https://doi.org/10.1016/j.amc.2007.02.082},
+url = {https://www.sciencedirect.com/science/article/pii/S0096300307002494},
+author = {Behrouz {Fathi Vajargah}},
+keywords = {Monte Carlo, Markov chain, Matrix inversion, Minimal error},
+abstract = {In this paper, we present a novel Monte Carlo algorithm for obtaining the inverse of a given nonsingular matrix A with high accuracy. The method is performed by splitting the given matrix A=D-B where D is a strictly diagonally dominant matrix and it can be easily constructed based on matrix A and B=k‖A‖ such that k can be selected as an arbitrary number greater than or equal to 1. The accuracy of presented algorithm is compatible with any numerical method. The theory of the method and its numerical results are also presented.}
+}
+
+@ARTICLE{shell,
+  author={Lin, Wen-Yan and Liu, Siying and Ren, Changhao and Cheung, Ngai-Man and Li, Hongdong and Matsushita, Yasuyuki},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Shell Theory: A Statistical Model of Reality}, 
+  year={2022},
+  volume={44},
+  number={10},
+  pages={6438-6453},
+  keywords={Semantics;Mathematical model;Machine learning;Random variables;Manifolds;Machine learning algorithms;Prediction algorithms;High dimension;statistics;semantic manifold;anomaly detection;one-class learning;life-long learning;incremental learning;hierarchical models;generative models},
+  doi={10.1109/TPAMI.2021.3084598}}
+
+@article{miller03,
+  title={ICA using spacings estimates of entropy},
+  author={Learned-Miller, Erik G and III, John W Fisher},
+  journal={The Journal of Machine Learning Research},
+  volume={4},
+  pages={1271--1295},
+  year={2003},
+  publisher={JMLR. org}
+}
+
+@article{crammer01,
+  title={On the algorithmic implementation of multiclass kernel-based vector machines},
+  author={Crammer, Koby and Singer, Yoram},
+  journal={Journal of machine learning research},
+  volume={2},
+  number={Dec},
+  pages={265--292},
+  year={2001}
+}
+
+@article{Belkin19,
+   title={Reconciling modern machine-learning practice and the classical bias–variance trade-off},
+   volume={116},
+   ISSN={1091-6490},
+   url={http://dx.doi.org/10.1073/pnas.1903070116},
+   DOI={10.1073/pnas.1903070116},
+   number={32},
+   journal={Proceedings of the National Academy of Sciences},
+   publisher={Proceedings of the National Academy of Sciences},
+   author={Belkin, Mikhail and Hsu, Daniel and Ma, Siyuan and Mandal, Soumik},
+   year={2019},
+   month=jul, pages={15849–15854} }
+
+@article{thomas19,
+    author = {Thomas, T. and Pfrommer, C.},
+    title = "{Cosmic-ray hydrodynamics: Alfvén-wave regulated transport of cosmic rays}",
+    journal = {Monthly Notices of the Royal Astronomical Society},
+    volume = {485},
+    number = {3},
+    pages = {2977-3008},
+    year = {2019},
+    month = {01},
+    abstract = "{Star formation in galaxies appears to be self-regulated by energetic feedback processes. Among the most promising agents of feedback are cosmic rays (CRs), the relativistic ion population of interstellar and intergalactic plasmas. In these environments, energetic CRs are virtually collisionless and interact via collective phenomena mediated by kinetic-scale plasma waves and large-scale magnetic fields. The enormous separation of kinetic and global astrophysical scales requires a hydrodynamic description. Here, we develop a new macroscopic theory for CR transport in the self-confinement picture, which includes CR diffusion and streaming. The interaction between CRs and electromagnetic fields of Alfvénic turbulence provides the main source of CR scattering, and causes CRs to stream along the magnetic field with the Alfvén velocity if resonant waves are sufficiently energetic. However, numerical simulations struggle to capture this effect with current transport formalisms and adopt regularization schemes to ensure numerical stability. We extent the theory by deriving an equation for the CR momentum density along the mean magnetic field and include a transport equation for the Alfvén-wave energy. We account for energy exchange of CRs and Alfvén waves via the gyroresonant instability and include other wave damping mechanisms. Using numerical simulations, we demonstrate that our new theory enables stable, self-regulated CR transport. The theory is coupled to magnetohydrodynamics, conserves the total energy and momentum, and correctly recovers previous macroscopic CR transport formalisms in the steady-state flux limit. Because it is free of tunable parameters, it holds the promise to provide predictable simulations of CR feedback in galaxy formation.}",
+    issn = {0035-8711},
+    doi = {10.1093/mnras/stz263},
+    url = {https://doi.org/10.1093/mnras/stz263},
+    eprint = {https://academic.oup.com/mnras/article-pdf/485/3/2977/28079488/stz263.pdf},
+}
+
+
+
+@article{zweibel13,
+    author = {Zweibel, Ellen G.},
+    title = "{The microphysics and macrophysics of cosmic raysa)}",
+    journal = {Physics of Plasmas},
+    volume = {20},
+    number = {5},
+    pages = {055501},
+    year = {2013},
+    month = {05},
+    abstract = "{This review paper commemorates a century of cosmic ray research, with emphasis on the plasma physics aspects. Cosmic rays comprise only ∼10−9 of interstellar particles by number, but collectively their energy density is about equal to that of the thermal particles. They are confined by the Galactic magnetic field and well scattered by small scale magnetic fluctuations, which couple them to the local rest frame of the thermal fluid. Scattering isotropizes the cosmic rays and allows them to exchange momentum and energy with the background medium. I will review a theory for how the fluctuations which scatter the cosmic rays can be generated by the cosmic rays themselves through a microinstability excited by their streaming. A quasilinear treatment of the cosmic ray–wave interaction then leads to a fluid model of cosmic rays with both advection and diffusion by the background medium and momentum and energy deposition by the cosmic rays. This fluid model admits cosmic ray modified shocks, large scale cosmic ray driven instabilities, cosmic ray heating of the thermal gas, and cosmic ray driven galactic winds. If the fluctuations were extrinsic turbulence driven by some other mechanism, the cosmic ray background coupling would be entirely different. Which picture holds depends largely on the nature of turbulence in the background medium.}",
+    issn = {1070-664X},
+    doi = {10.1063/1.4807033},
+    url = {https://doi.org/10.1063/1.4807033},
+    eprint = {https://pubs.aip.org/aip/pop/article-pdf/doi/10.1063/1.4807033/13855964/055501\_1\_online.pdf},
+}
+
+@article{zweibel17,
+    author = {Zweibel, Ellen G.},
+    title = "{The basis for cosmic ray feedback: Written on the wind}",
+    journal = {Physics of Plasmas},
+    volume = {24},
+    number = {5},
+    pages = {055402},
+    year = {2017},
+    month = {05},
+    abstract = "{ Star formation and supermassive black hole growth in galaxies appear to be self-limiting. The mechanisms for self-regulation are known as feedback. Cosmic rays, the relativistic particle component of interstellar and intergalactic plasma, are among the agents of feedback. Because cosmic rays are virtually collisionless in the plasma environments of interest, their interaction with the ambient medium is primarily mediated by large scale magnetic fields and kinetic scale plasma waves. Because kinetic scales are much smaller than global scales, this interaction is most conveniently described by fluid models. In this paper, I discuss the kinetic theory and the classical theory of cosmic ray hydrodynamics (CCRH) which follows from assuming cosmic rays interact only with self-excited waves. I generalize CCRH to generalized cosmic ray hydrodynamics, which accommodates interactions with extrinsic turbulence, present examples of cosmic ray feedback, and assess where progress is needed. }",
+    issn = {1070-664X},
+    doi = {10.1063/1.4984017},
+    url = {https://doi.org/10.1063/1.4984017},
+    eprint = {https://pubs.aip.org/aip/pop/article-pdf/doi/10.1063/1.4984017/15993994/055402\_1\_online.pdf},
+}
+
+
+
+
+
+
+
+@article{jiang18,
+   title={A New Numerical Scheme for Cosmic-Ray Transport},
+   volume={854},
+   ISSN={1538-4357},
+   url={http://dx.doi.org/10.3847/1538-4357/aaa6ce},
+   DOI={10.3847/1538-4357/aaa6ce},
+   number={1},
+   journal={The Astrophysical Journal},
+   publisher={American Astronomical Society},
+   author={Jiang, Yan-Fei and Oh, S. Peng},
+   year={2018},
+   month=feb, pages={5} }
+
+@article{snodin16,
+   title={Global diffusion of cosmic rays in random magnetic fields},
+   volume={457},
+   ISSN={1365-2966},
+   url={http://dx.doi.org/10.1093/mnras/stw217},
+   DOI={10.1093/mnras/stw217},
+   number={4},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Snodin, A. P. and Shukurov, A. and Sarson, G. R. and Bushby, P. J. and Rodrigues, L. F. S.},
+   year={2016},
+   month=jan, pages={3975–3987} }
+
+@article{yan4,
+doi = {10.1086/423733},
+url = {https://dx.doi.org/10.1086/423733},
+year = {2004},
+month = {oct},
+publisher = {},
+volume = {614},
+number = {2},
+pages = {757},
+author = {Huirong Yan and A. Lazarian},
+title = {Cosmic-Ray Scattering and Streaming in Compressible Magnetohydrodynamic Turbulence},
+journal = {The Astrophysical Journal},
+abstract = {Recent advances in understanding of magnetohydrodynamic (MHD) turbulence call for revisions in the picture of cosmic-ray transport. In this paper we use recently obtained scaling laws for MHD modes to obtain the scattering frequency for cosmic rays. Using quasi-linear theory, we calculate gyroresonance with MHD modes (Alfvénic, slow, and fast) and transit-time damping (TTD) by fast modes. We provide calculations of cosmic-ray scattering for various phases of interstellar medium with realistic interstellar turbulence driving that is consistent with the velocity dispersions observed in diffuse gas. We account for the turbulence cutoff arising from both collisional and collisionless damping. We obtain analytical expressions for diffusion coefficients that enter the Fokker-Planck equation describing cosmic-ray evolution. We obtain the scattering rate and show that fast modes provide the dominant contribution to cosmic-ray scattering for the typical interstellar conditions in spite of the fact that fast modes are subjected to damping. We determine how the efficiency of the scattering depends on the characteristics of ionized media, e.g., plasma β. We calculate the range of energies for which the streaming instability is suppressed by the ambient MHD turbulence.}
+}
+
+@ARTICLE{kulsrud69,
+       author = {{Kulsrud}, Russell and {Pearce}, William P.},
+        title = "{The Effect of Wave-Particle Interactions on the Propagation of Cosmic Rays}",
+      journal = {Astrophysical Journal},
+         year = 1969,
+        month = may,
+       volume = {156},
+        pages = {445},
+          doi = {10.1086/149981},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1969ApJ...156..445K},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@misc{sharma11,
+      title={Numerical Implementation of Streaming Down the Gradient: Application to Fluid Modeling of Cosmic Rays and Saturated Conduction}, 
+      author={Prateek Sharma and Phillip Colella and Daniel F. Martin},
+      year={2011},
+      eprint={0909.5426},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.HE},
+      url={https://arxiv.org/abs/0909.5426}, 
+}
+
+@article{kudoh16,
+doi = {10.1088/1742-6596/719/1/012021},
+url = {https://dx.doi.org/10.1088/1742-6596/719/1/012021},
+year = {2016},
+month = {may},
+publisher = {IOP Publishing},
+volume = {719},
+number = {1},
+pages = {012021},
+author = {Yuki Kudoh and Tomoyuki Hanawa},
+title = {A New Scheme To Solve The Two-Fluid Cosmic-Ray Magnetohydrodynamic Equations},
+journal = {Journal of Physics: Conference Series},
+abstract = {We examine the two-fluid cosmic-ray magnetohydrodynamic (CR MHD) equations to take account of the dynamical effects of cosmic rays (CRs) in the simplest form. For simplicity we assume that the pressure of the CRs is proportional to the energy density, Pcr = (γcr − 1)Ecr, where γcr denotes the adiabatic index of CRs. We find the fully conservative form of the CR MHD equations and derive the Rankine-Hugoniot relation for a shock. One component of the CR MHD equations describes conservation of total number of CRs where the number density is defined as ρcr = Pcr1/γcr. We also find the Riemann solution, which provides us approximate Riemann fluxes fluxes for numerical solutions. We have also identified origin of spurious oscillation originating from the pressure balance mode across which the CR pressure has a jump while the total pressure is continuous. We propose the two step method to solve the CR MHD equations. We use 1D shock tube problems to compare our method with others.}
+}
+
+
+@article{hopkins22,
+    author = {Hopkins, Philip F and Squire, Jonathan and Butsky, Iryna S and Ji, Suoqing},
+    title = "{Standard self-confinement and extrinsic turbulence models for cosmic ray transport are fundamentally incompatible with observations}",
+    journal = {Monthly Notices of the Royal Astronomical Society},
+    volume = {517},
+    number = {4},
+    pages = {5413-5448},
+    year = {2022},
+    month = {10},
+    abstract = "{Models for cosmic ray (CR) dynamics fundamentally depend on the rate of CR scattering from magnetic fluctuations. In the ISM, for CRs with energies ∼MeV-TeV, these fluctuations are usually attributed either to ‘extrinsic turbulence’ (ET) – a cascade from larger scales – or ‘self-confinement’ (SC) – self-generated fluctuations from CR streaming. Using simple analytic arguments and detailed ‘live’ numerical CR transport calculations in galaxy simulations, we show that both of these, in standard form, cannot explain even basic qualitative features of observed CR spectra. For ET, any spectrum that obeys critical balance or features realistic anisotropy, or any spectrum that accounts for finite damping below the dissipation scale, predicts qualitatively incorrect spectral shapes and scalings of B/C and other species. Even if somehow one ignored both anisotropy and damping, observationally required scattering rates disagree with ET predictions by orders of magnitude. For SC, the dependence of driving on CR energy density means that it is nearly impossible to recover observed CR spectral shapes and scalings, and again there is an orders-of-magnitude normalization problem. But more severely, SC solutions with super-Alfvénic streaming are unstable. In live simulations, they revert to either arbitrarily rapid CR escape with zero secondary production, or to bottleneck solutions with far-too-strong CR confinement and secondary production. Resolving these fundamental issues without discarding basic plasma processes requires invoking different drivers for scattering fluctuations. These must act on a broad range of scales with a power spectrum obeying several specific (but plausible) constraints.}",
+    issn = {0035-8711},
+    doi = {10.1093/mnras/stac2909},
+    url = {https://doi.org/10.1093/mnras/stac2909},
+    eprint = {https://academic.oup.com/mnras/article-pdf/517/4/5413/46939948/stac2909.pdf},
+}
+
+
+
+
+
+
+@article{tim15,
+author = {Tim C. Hesterberg},
+title = {What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum},
+journal = {The American Statistician},
+volume = {69},
+number = {4},
+pages = {371-386},
+year = {2015},
+publisher = {Taylor & Francis},
+doi = {10.1080/00031305.2015.1089789},
+
+    note ={PMID: 27019512},
+
+
+URL = { 
+    
+        https://doi.org/10.1080/00031305.2015.1089789
+    
+    
+
+},
+eprint = { 
+    
+        https://doi.org/10.1080/00031305.2015.1089789
+    
+    
+
+}
+
+}
+
+@article{nigel12,
+    author = {Mitchell, Nigel L. and Vorobyov, Eduard I. and Hensler, Gerhard},
+    title = "{Collisionless stellar hydrodynamics as an efficient alternative to N-body methods}",
+    journal = {Monthly Notices of the Royal Astronomical Society},
+    volume = {428},
+    number = {3},
+    pages = {2674-2687},
+    year = {2012},
+    month = {11},
+    abstract = "{The dominant constituents of the Universe's matter are believed to be collisionless in nature and thus their modelling in any self-consistent simulation is extremely important. For simulations that deal only with dark matter or stellar systems, the conventional N-body technique is fast, memory efficient and relatively simple to implement. However when extending simulations to include the effects of gas physics, mesh codes are at a distinct disadvantage compared to Smooth Particle Hydrodynamics (SPH) codes. Whereas implementing the N-body approach into SPH codes is fairly trivial, the particle-mesh technique used in mesh codes to couple collisionless stars and dark matter to the gas on the mesh has a series of significant scientific and technical limitations. These include spurious entropy generation resulting from discreteness effects, poor load balancing and increased communication overhead which spoil the excellent scaling in massively parallel grid codes.In this paper we propose the use of the collisionless Boltzmann moment equations as a means to model the collisionless material as a fluid on the mesh, implementing it into the massively parallel FLASH Adaptive Mesh Refinement (AMR) code. This approach which we term ‘collisionless stellar hydrodynamics’ enables us to do away with the particle-mesh approach and since the parallelization scheme is identical to that used for the hydrodynamics, it preserves the excellent scaling of the FLASH code already demonstrated on peta-flop machines.We find that the classic hydrodynamic equations and the Boltzmann moment equations can be reconciled under specific conditions, allowing us to generate analytic solutions for collisionless systems using conventional test problems. We confirm the validity of our approach using a suite of demanding test problems, including the use of a modified Sod shock test. By deriving the relevant eigenvalues and eigenvectors of the Boltzmann moment equations, we are able to use high order accurate characteristic tracing methods with Riemann solvers to generate numerical solutions which show excellent agreement with our analytic solutions. We conclude by demonstrating the ability of our code to model complex phenomena by simulating the evolution of a two-armed spiral galaxy whose properties agree with those predicted by the swing amplification theory.}",
+    issn = {0035-8711},
+    doi = {10.1093/mnras/sts228},
+    url = {https://doi.org/10.1093/mnras/sts228},
+    eprint = {https://academic.oup.com/mnras/article-pdf/428/3/2674/3720062/sts228.pdf},
+}
+
+@article{breiman01,
+  title={Statistical modeling: The two cultures (with comments and a rejoinder by the author)},
+  author={Breiman, Leo},
+  journal={Statistical science},
+  volume={16},
+  number={3},
+  pages={199--231},
+  year={2001},
+  publisher={Institute of Mathematical Statistics}
+}
+
+@article{leer79,
+title = {Towards the ultimate conservative difference scheme. V. A second-order sequel to Godunov's method},
+journal = {Journal of Computational Physics},
+volume = {32},
+number = {1},
+pages = {101-136},
+year = {1979},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/0021-9991(79)90145-1},
+url = {https://www.sciencedirect.com/science/article/pii/0021999179901451},
+author = {Bram {van Leer}},
+abstract = {A method of second-order accuracy is described for integrating the equations of ideal compressible flow. The method is based on the integral conservation laws and is dissipative, so that it can be used across shocks. The heart of the method is a one-dimensional Lagrangean scheme that may be regarded as a second-order sequel to Godunov's method. The second-order accuracy is achieved by taking the distributions of the state quantities inside a gas slab to be linear, rather than uniform as in Godunov's method. The Lagrangean results are remapped with least-squares accuracy onto the desired Euler grid in a separate step. Several monotonicity algorithms are applied to ensure positivity, monotonicity and nonlinear stability. Higher dimensions are covered through time splitting. Numerical results for one-dimensional and two-dimensional flows are presented, demonstrating the efficiency of the method. The paper concludes with a summary of the results of the whole series “Towards the Ultimate Conservative Difference Scheme.”}
+}
+
+@Article{Adcock2006,
+author={Adcock, Stewart A.
+and McCammon, J. Andrew},
+title={Molecular Dynamics:{\thinspace} Survey of Methods for Simulating the Activity of Proteins},
+journal={Chemical Reviews},
+year={2006},
+month={May},
+day={01},
+publisher={American Chemical Society},
+volume={106},
+number={5},
+pages={1589-1615},
+issn={0009-2665},
+doi={10.1021/cr040426m},
+url={https://doi.org/10.1021/cr040426m}
+}
+
+@misc{gherghe25,
+      title={On the time-dependent Born-Oppenheimer Approximation}, 
+      author={Sebastian Gherghe and Iván Moyano and Israel Michael Sigal},
+      year={2025},
+      eprint={2505.18701},
+      archivePrefix={arXiv},
+      primaryClass={quant-ph},
+      url={https://arxiv.org/abs/2505.18701}, 
+}
+
+@article{twetris,
+author = {Nikola Tchipev and Steffen Seckler and Matthias Heinen and Jadran Vrabec and Fabio Gratl and Martin Horsch and Martin Bernreuther and Colin W Glass and Christoph Niethammer and Nicolay Hammer and Bernd Krischok and Michael Resch and Dieter Kranzlmüller and Hans Hasse and Hans-Joachim Bungartz and Philipp Neumann},
+title ={TweTriS: Twenty trillion-atom simulation},
+journal = {The International Journal of High Performance Computing Applications},
+volume = {33},
+number = {5},
+pages = {838-854},
+year = {2019},
+doi = {10.1177/1094342018819741},
+URL = { 
+        https://doi.org/10.1177/1094342018819741
+},
+eprint = { 
+        https://doi.org/10.1177/1094342018819741
+
+}}
+
+@article{clausius58,
+author = {Clausius, R.},
+title = {Ueber die mittlere Länge der Wege, welche bei der Molecularbewegung gasförmiger Körper von den einzelnen Molecülen zurückgelegt werden; nebst einigen anderen Bemerkungen über die mechanische Wärmetheorie},
+journal = {Annalen der Physik},
+volume = {181},
+number = {10},
+pages = {239-258},
+doi = {https://doi.org/10.1002/andp.18581811005},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/andp.18581811005},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/andp.18581811005},
+year = {1858}
+}
+
+
+
+@misc{deng24,
+      title={Long time derivation of the Boltzmann equation from hard sphere dynamics}, 
+      author={Yu Deng and Zaher Hani and Xiao Ma},
+      year={2024},
+      eprint={2408.07818},
+      archivePrefix={arXiv},
+      primaryClass={math.AP},
+      url={https://arxiv.org/abs/2408.07818}, 
+}
+
+@misc{deng25,
+      title={Hilbert's sixth problem: derivation of fluid equations via Boltzmann's kinetic theory}, 
+      author={Yu Deng and Zaher Hani and Xiao Ma},
+      year={2025},
+      eprint={2503.01800},
+      archivePrefix={arXiv},
+      primaryClass={math.AP},
+      url={https://arxiv.org/abs/2503.01800}, 
+}
+
+
+@article{Kincl23,
+   title={Globally time-reversible fluid simulations with smoothed particle hydrodynamics},
+   volume={284},
+   ISSN={0010-4655},
+   url={http://dx.doi.org/10.1016/j.cpc.2022.108593},
+   DOI={10.1016/j.cpc.2022.108593},
+   journal={Computer Physics Communications},
+   publisher={Elsevier BV},
+   author={Kincl, Ondřej and Pavelka, Michal},
+   year={2023},
+   month=mar, pages={108593}
+  }
+
+@article{ardourel17,
+  title={Irreversibility in the derivation of the Boltzmann equation},
+  author={Ardourel, Vincent},
+  journal={Foundations of physics},
+  volume={47},
+  number={4},
+  pages={471--489},
+  year={2017},
+  publisher={Springer}
+}
+
+@Article{Scarf1970,
+author={Scarf, Frederick L.},
+title={Microscopic structure of the solar wind},
+journal={Space Science Reviews},
+year={1970},
+month={Oct},
+day={01},
+volume={11},
+number={2},
+pages={234-270},
+abstract={As the solar wind flows out from the coronal base the coulomb collision frequencies rapidly become small and particle-particle collisions can no longer maintain local statistical equilibrium. At 1 AU the particle distribution functions have important non-Maxwellian characteristics and the firehose instability, a cyclotron resonance whistler-mode instability, and several heat flux current instabilities should be operative. Superthermal particle populations also provide large wave levels, and other forms of enhanced plasma turbulence develop at shock fronts and discontinuities. This report contains a review of the theoretical concepts and a progress report on the experimental study of interplanetary wave-particle interactions.},
+issn={1572-9672},
+doi={10.1007/BF00241523},
+url={https://doi.org/10.1007/BF00241523}
+}
+
+
+@article{baumgart24,
+  title={A shock stabilization of the HLLC Riemann solver for the carbuncle instability},
+  author={Baumgart, Alexandra and Jones, Samuel W and Edelmann, Philipp VF and Dolence, Joshua C},
+  journal={Journal of Scientific Computing},
+  volume={98},
+  number={2},
+  pages={33},
+  year={2024},
+  publisher={Springer}
+}
+
+@article{woodward84,
+title = {The numerical simulation of two-dimensional fluid flow with strong shocks},
+journal = {Journal of Computational Physics},
+volume = {54},
+number = {1},
+pages = {115-173},
+year = {1984},
+doi = {https://doi.org/10.1016/0021-9991(84)90142-6},
+url = {https://www.sciencedirect.com/science/article/pii/0021999184901426},
+author = {Paul Woodward and Phillip Colella}
+}
+
+@article{hasbestan17,
+title = {A short note on the use of the red–black tree in Cartesian adaptive mesh refinement algorithms},
+journal = {Journal of Computational Physics},
+volume = {351},
+pages = {473-477},
+year = {2017},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2017.09.056},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999117307295},
+author = {Jaber J. Hasbestan and Inanc Senocak},
+}
+
+@misc{holke18,
+      title={Scalable Algorithms for Parallel Tree-based Adaptive Mesh Refinement with General Element Types}, 
+      author={Johannes Holke},
+      year={2018},
+      eprint={1803.04970},
+      archivePrefix={arXiv},
+      primaryClass={cs.DC},
+      url={https://arxiv.org/abs/1803.04970}, 
+}
+
+@article{tang23,
+  title={Adaptive symmetric flux limiters with long computation times for hyperbolic conservation laws},
+  author={Tang, Shujiang},
+  journal={Results in Applied Mathematics},
+  volume={20},
+  pages={100410},
+  year={2023},
+  publisher={Elsevier}
+}
+
+@article{san15,
+title = {Evaluation of Riemann flux solvers for WENO reconstruction schemes: Kelvin–Helmholtz instability},
+journal = {Computers and Fluids},
+volume = {117},
+pages = {24-41},
+year = {2015},
+doi = {https://doi.org/10.1016/j.compfluid.2015.04.026},
+url = {https://www.sciencedirect.com/science/article/pii/S0045793015001486},
+author = {Omer San and Kursat Kara},
+}
+
+
+@misc{shamrock25,
+      title={The Shamrock code: I- Smoothed Particle Hydrodynamics on GPUs}, 
+      author={Timothée David--Cléris and Guillaume Laibe and Yona Lapeyre},
+      year={2025},
+      eprint={2503.09713},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2503.09713}, 
+}
+
+@misc{luise25,
+      title={Accurate and scalable exchange-correlation with deep learning}, 
+      author={Giulia Luise and Chin-Wei Huang and Thijs Vogels and Derk P. Kooi and Sebastian Ehlert and Stephanie Lanius and Klaas J. H. Giesbertz and Amir Karton and Deniz Gunceler and Megan Stanley and Wessel P. Bruinsma and Lin Huang and Xinran Wei and José Garrido Torres and Abylay Katbashev and Bálint Máté and Sékou-Oumar Kaba and Roberto Sordillo and Yingrong Chen and David B. Williams-Young and Christopher M. Bishop and Jan Hermann and Rianne van den Berg and Paola Gori-Giorgi},
+      year={2025},
+      eprint={2506.14665},
+      archivePrefix={arXiv},
+      primaryClass={physics.chem-ph},
+      url={https://arxiv.org/abs/2506.14665}, 
+}
+
+@article{gadget,
+  title={The cosmological simulation code GADGET-2},
+  author={Springel, Volker},
+  journal={Monthly notices of the royal astronomical society},
+  volume={364},
+  number={4},
+  pages={1105--1134},
+  year={2005},
+  publisher={The Royal Astronomical Society}
+}
+
+@article{Weinberger2020,
+   title={The AREPO Public Code Release},
+   volume={248},
+   ISSN={1538-4365},
+   url={http://dx.doi.org/10.3847/1538-4365/ab908c},
+   DOI={10.3847/1538-4365/ab908c},
+   number={2},
+   journal={The Astrophysical Journal Supplement Series},
+   publisher={American Astronomical Society},
+   author={Weinberger, Rainer and Springel, Volker and Pakmor, Rüdiger},
+   year={2020},
+   month=jun, pages={32}
+}
+
+@article{zhang22,
+title = {An efficient smoothness indicator mapped WENO scheme for hyperbolic conservation laws},
+journal = {Computers and Fluids},
+volume = {240},
+pages = {105421},
+year = {2022},
+issn = {0045-7930},
+doi = {https://doi.org/10.1016/j.compfluid.2022.105421},
+url = {https://www.sciencedirect.com/science/article/pii/S0045793022000846},
+author = {Xin Zhang and Chao Yan and Feng Qu},
+keywords = {WENO, Smoothness indicators, Mapping process, Hyperbolic conservation laws},
+abstract = {The mapping function method is a common approach to improve the accuracy of WENO type schemes. However, with the demand of the accuracy improvement higher, the mapping function becomes more and more complex, and the calculation cost also increases significantly. In this study, a novel smoothness indicator mapping method called WENO-ISM is proposed based on the WENO scheme. It employs a simple function which amplifies the original smoothness to improve the scheme's accuracy. In addition to the difference of the mapping function, the superior innovation of the designed scheme is that the mapping object is changed to the smoothness indicator instead of the nonlinear weight calculated from the WENO-JS scheme. The underlying idea of this method is to use this mapping function to directly regard the optimal weight of the stencil in the relatively smooth region as the nonlinear weight. For these, the calculation cost can be greatly reduced without loss of accuracy. In the meanwhile, the simple mapping function itself is with higher accuracy and lower cost. Numerical experiments with one-dimensional linear advection and ADR analysis show that this scheme is superior to other mapped WENO schemes in accuracy and especially in computation cost. Furthermore, improved results of this scheme are obtained by several typical one-dimensional and two-dimensional numerical cases.}
+}
+
+@inbook{shu99,
+  title = {High Order ENO and WENO Schemes for Computational Fluid Dynamics},
+  ISBN = {9783662038826},
+  ISSN = {1439-7358},
+  url = {http://dx.doi.org/10.1007/978-3-662-03882-6_5},
+  DOI = {10.1007/978-3-662-03882-6_5},
+  booktitle = {High-Order Methods for Computational Physics},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Shu,  Chi-Wang},
+  year = {1999},
+  pages = {439–582}
+}
+
+@inproceedings{leer_tutorial,
+  title={Upwind and high-resolution methods for compressible flow: From donor cell to residual-distribution schemes},
+  author={Van Leer, Bram},
+  booktitle={16th aiaa computational fluid dynamics conference},
+  pages={3559},
+  year={2006}
+}
+
+@article{hllc_lm,
+title = {A shock-stable modification of the HLLC Riemann solver with reduced numerical dissipation},
+journal = {Journal of Computational Physics},
+volume = {423},
+pages = {109762},
+year = {2020},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2020.109762},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999120305362},
+author = {Nico Fleischmann and Stefan Adami and Nikolaus A. Adams},
+keywords = {Shock instability, Carbuncle phenomenon, HLLC, High-order schemes, WENO, Low-dissipation schemes},
+abstract = {The purpose of this paper is twofold. First, the application of high-order methods in combination with the popular HLLC Riemann solver demonstrates that the grid-aligned shock instability can strongly affect simulation results when the grid resolution is increased. Beyond the well-documented two-dimensional behavior, the problem is particularly troublesome with three-dimensional simulations. Hence, there is a need for shock-stable modifications of HLLC-type solvers for high-speed flow simulations. Second, the paper provides a stabilization of the popular HLLC flux based on a recently proposed mechanism for grid aligned-shock instabilities Fleischmann et al. (2020) [8]. The instability was found to be triggered by an inappropriate scaling of acoustic and advection dissipation for local low Mach numbers. These low Mach numbers occur during the calculation of fluxes in transverse direction of the shock propagation, where the local velocity component vanishes. A centralized formulation of the HLLC flux is provided for this purpose, which allows for a simple reduction of nonlinear signal speeds. In contrast to other shock-stable versions of the HLLC flux, the resulting HLLC-LM flux reduces the inherent numerical dissipation of the scheme. The robustness of the proposed scheme is tested for a comprehensive range of cases involving strong shock waves. Three-dimensional single- and multi-component simulations are performed with high-order methods to demonstrate that the HLLC-LM flux also copes with latest challenges of compressible high-speed computational fluid dynamics.}
+}
+
+@article{bonitz22,
+author = {Graziani, F. and Moldabekov, Z. and Olson, B. and Bonitz, M.},
+title = {Shock physics in warm dense matter: A quantum hydrodynamics perspective},
+journal = {Contributions to Plasma Physics},
+volume = {62},
+number = {2},
+pages = {e202100170},
+keywords = {jellium, quantum hydrodynamics, shock propagation, warm dense matter},
+doi = {https://doi.org/10.1002/ctpp.202100170},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/ctpp.202100170},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/ctpp.202100170},
+abstract = {Abstract Warm dense matter (WDM), an exotic, highly compressed state of matter between solid and plasma phases, is of high current interest, in particular for astrophysics and inertial confinement fusion. For the latter, in particular the propagation of compression shocks is crucial. The main unknown in the shock propagation in WDM is the behaviour of the electrons since they are governed by correlations, quantum and spin effects that need to be accounted for simultaneously. Here we describe the shock dynamics of the warm dense electron gas using a quantum hydrodynamic model. From the numerical hydrodynamic simulations, we observe that the quantum Bohm pressure induces shear force that weakens the formation and strength of the shock. In addition, the Bohm pressure induces an electron density response that takes the form of oscillations. This is confirmed by the theoretical analysis of the early stage of the shock formation. Our theoretical and numerical analyses allow us to identify characteristic dimensionless shock propagation parameters at which the effect of the Bohm force is important.},
+year = {2022}
+}
+
+
+@article{Rein14,
+   title={ias15: a fast, adaptive, high-order integrator for gravitational dynamics, accurate to machine precision over a billion orbits},
+   volume={446},
+   ISSN={0035-8711},
+   url={http://dx.doi.org/10.1093/mnras/stu2164},
+   DOI={10.1093/mnras/stu2164},
+   number={2},
+   journal={Monthly Notices of the Royal Astronomical Society},
+   publisher={Oxford University Press (OUP)},
+   author={Rein, Hanno and Spiegel, David S.},
+   year={2014},
+   month=nov, pages={1424–1437} }
+
+  @BOOK{freidberg14,
+       author = {{Freidberg}, Jeffrey P.},
+        title = "{Ideal MHD}",
+         year = 2014,
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2014idmh.book.....F},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+% =========================== Inbook =======================================
+
+@inbook{solarbasics,
+    author = {Manoharan, P.},
+    booktitle = {Lecture Notes in Physics},
+    year = {2008},
+    month = {10},
+    pages = {235-265},
+    title = {The Solar Wind},
+    doi = {10.1007/3-540-36963-5_9}
+}
+
+@inbook{Toro1997,
+  title = {The HLL and HLLC Riemann Solvers},
+  ISBN = {9783662034903},
+  url = {http://dx.doi.org/10.1007/978-3-662-03490-3_10},
+  DOI = {10.1007/978-3-662-03490-3_10},
+  booktitle = {Riemann Solvers and Numerical Methods for Fluid Dynamics},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Toro,  Eleuterio F.},
+  year = {1997},
+  pages = {293–311}
+}
+
+% ============================ Books =====================================
+
+@Book{feynman,
+  Title                    = {The Feynman lectures on physics},
+  Author                   = {Feynman, R. P. and Leighton, R. B. and Sands, M. L.},
+  Publisher                = {Addison-Wesley Pub. Co.},
+  Year                     = {1963},
+  Edition                  = {1nd},
+  url={https://www.feynmanlectures.caltech.edu/III_04.html}
+}
+
+@book{raymond09,
+  title = {Hydrodynamic Limits of the Boltzmann Equation},
+  ISBN = {9783540928478},
+  ISSN = {1617-9692},
+  url = {http://dx.doi.org/10.1007/978-3-540-92847-8},
+  DOI = {10.1007/978-3-540-92847-8},
+  journal = {Lecture Notes in Mathematics},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Saint-Raymond,  Laure},
+  year = {2009}
+}
+
+@book{kruger17,
+  title={The Lattice Boltzmann Method: Principles and Practice},
+  author={Krüger, Timm and Kusumaatmaja, Halim and Kuzmin, Alexey and Shardt, Orest and Silva, Gonçalo and Viggen, Erlend Magnus},
+  year={2017},
+  publisher={Springer}
+}
+
+@book{villani2008,
+  title={H-theorem and beyond: Boltzmann’s entropy in today’s mathematics},
+  author={Villani, C{\'e}dric},
+  year={2008},
+  publisher={EMS Publishing House: Z{\"u}rich, Switzerland}
+}
+
+@misc{thuerey25,
+      title={Physics-based Deep Learning}, 
+      author={Thuerey, Nils and Holzschuh, B. and Holl, P. and Kohl, G. and Lino, M. and Liu, Q. and Schnell, P. and Trost, F.},
+      year={2025},
+      eprint={2109.05237},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2109.05237}, 
+}
+
+@book{higham02,
+    author = {Higham, Nicholas J.},
+    title = {Accuracy and Stability of Numerical Algorithms},
+    publisher = {Society for Industrial and Applied Mathematics},
+    year = {2002},
+    doi = {10.1137/1.9780898718027},
+    address = {},
+    edition   = {Second},
+    URL = {https://epubs.siam.org/doi/abs/10.1137/1.9780898718027},
+    eprint = {https://epubs.siam.org/doi/pdf/10.1137/1.9780898718027}
+}
+
+@book{bryant2011computer,
+  title={Computer systems: a programmer’s perspective},
+  author={Bryant, Randal E and O’Hallaron, David Richard},
+  year={2011},
+  publisher={Prentice Hall}
+}
+
+@book{lewis2004,
+  title={Fundamentals of the finite element method for heat and fluid flow},
+  author={Lewis, Roland W and Nithiarasu, Perumal and Seetharamu, Kankanhalli N},
+  year={2004},
+  publisher={John Wiley and Sons}
+}
+
+@book{Ulmann2020,
+  title = {Analog and Hybrid Computer Programming},
+  ISBN = {9783110662207},
+  url = {http://dx.doi.org/10.1515/9783110662207},
+  DOI = {10.1515/9783110662207},
+  publisher = {De Gruyter},
+  author = {Ulmann,  Bernd},
+  year = {2020},
+  month = may 
+}
+
+@book{Scott2023,
+  doi = {10.1007/978-3-031-25820-6},
+  url = {https://doi.org/10.1007/978-3-031-25820-6},
+  year = {2023},
+  publisher = {Springer International Publishing},
+  author = {Jennifer Scott and Miroslav T{\r{u}}ma},
+  title = {Algorithms for Sparse Linear Systems}
+}
+
+@BOOK{long11,
+       author = {{Longair}, Malcolm S.},
+        title = "{High Energy Astrophysics}",
+         year = 2011,
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2011hea..book.....L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@book{lambert91,
+  title={Numerical Methods for Ordinary Differential Systems: The Initial Value Problem},
+  author={Lambert, J.D.},
+  isbn={9780471929901},
+  lccn={90028513},
+  url={https://books.google.de/books?id=P0vPnQEACAAJ},
+  year={1991},
+  publisher={Wiley}
+}
+
+@book{hairer93,
+  doi = {10.1007/978-3-540-78862-1},
+  url = {https://doi.org/10.1007/978-3-540-78862-1},
+  year = {1993},
+  author = {Ernst Hairer and Gerhard Wanner and Syvert P. Nørsett},
+  publisher = {Springer Berlin Heidelberg},
+  title = {Solving Ordinary Differential Equations I}
+}
+
+@misc{hahn19,
+  author       = {Oliver Hahn},
+  title        = {Fluid Mechanics for Astrophysicists: From Kinetic Theory to Fluids and Plasmas},
+  howpublished = {MAUCA Fundamental Course 2019 – Course Notes},
+  year         = {2019},
+  url          = {https://www-n.oca.eu/ohahn/teaching/fluid_mechanics.pdf}
+}
+
+@Article{Margolin2023,
+author={Margolin, L. G.
+and Lloyd-Ronning, N. M.},
+title={Artificial viscosity---then and now},
+journal={Meccanica},
+year={2023},
+month={Jun},
+day={01},
+volume={58},
+number={6},
+pages={1039-1052},
+abstract={In this paper, we recount the history of artificial viscosity, beginning with its origin in previously unpublished and unavailable documents, continuing on to current research and ending with recent work describing its physical basis that suggests new directions for improvement. This review is mainly about finite volume methods and the finite scale theory, We focus on the underlying ideas that recognize the finiteness of scale and of measurement.},
+issn={1572-9648},
+doi={10.1007/s11012-022-01541-5},
+url={https://doi.org/10.1007/s11012-022-01541-5}
+}
+
+@book{Dafermos2000,
+  title = {Hyperbolic Conservation Laws in Continuum Physics},
+  ISBN = {9783662220191},
+  ISSN = {0072-7830},
+  url = {http://dx.doi.org/10.1007/978-3-662-22019-1},
+  DOI = {10.1007/978-3-662-22019-1},
+  journal = {Grundlehren der mathematischen Wissenschaften},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Dafermos,  Constantine M.},
+  year = {2000}
+}
+
+
+@article{dubois19,
+   title={Shock-accelerated cosmic rays and streaming instability in the adaptive mesh refinement code Ramses},
+   volume={631},
+   ISSN={1432-0746},
+   url={http://dx.doi.org/10.1051/0004-6361/201936275},
+   DOI={10.1051/0004-6361/201936275},
+   journal={Astronomy and Astrophysics},
+   publisher={EDP Sciences},
+   author={Dubois, Yohan and Commerçon, Benoît and Marcowith, Alexandre and Brahimi, Loann},
+   year={2019},
+   month=nov, pages={A121} }
+
+
+@article{stokes48,
+  title={LIV. On a difficulty in the theory of Sound},
+  author={Stokes, George Gabriel},
+  journal={The London, Edinburgh, and Dublin philosophical magazine and journal of science},
+  volume={33},
+  number={223},
+  pages={349--356},
+  year={1848},
+  publisher={Taylor \& Francis}
+}
+
+@article{challis48,
+  title={LXV. On the velocity of sound, in reply to the remarks of the Astronomer Royal},
+  author={Challis, James},
+  journal={The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science},
+  volume={32},
+  number={218},
+  pages={494--499},
+  year={1848},
+  publisher={Taylor \& Francis}
+}
+
+@lecturenotes{dullemond,
+  author       = {C. P. Dullemond and H. H. Wang},
+  title        = {Numerische Strömungsmechanik},
+  type         = {Lecture Notes},
+  institution  = {Ruprecht-Karls-Universität Heidelberg},
+  address      = {Heidelberg, Germany},
+  year         = {2009},
+  url         = {https://www.ita.uni-heidelberg.de/~dullemond/lectures/num_fluid_2009/index.shtml},
+}
+
+@inproceedings{osher_limiter,
+  title={High resolution applications of the Osher upwind scheme for the Euler equations},
+  author={Chakravarthy, S and Osher, Stanley},
+  booktitle={6th Computational Fluid Dynamics Conference Danvers},
+  pages={1943},
+  year={1983}
+}
+
+@article{vanleer11,
+title = {A historical oversight: Vladimir P. Kolgan and his high-resolution scheme},
+journal = {Journal of Computational Physics},
+volume = {230},
+number = {7},
+pages = {2378-2383},
+year = {2011},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2010.12.032},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999110007060},
+author = {Bram {van Leer}},
+keywords = {History of Computational Fluid Dynamics, Euler equations, Godunov-type methods, Second-order methods, High-resolution schemes, Non-oscillatory schemes, Limiters},
+abstract = {The Russian landmark paper “Application of the principle of minimizing the derivative to the construction of finite-difference schemes for computing discontinuous solutions of gas dynamics” by Vladimir P. Kolgan is discussed in a historical–technical perspective. The 1972 paper already featured a Godunov-type scheme for the Euler equations with second-order spatial accuracy, and a limiter to make it monotonicity-preserving. The work remained little known within and completely unknown outside the USSR, largely because of Kolgan’s untimely death in 1978. To honor Kolgan’s contribution to CFD, an English translation of his paper is included in this issue of the Journal of Computational Physics. Facts about Kolgan’s life are presented here, and an appraisal is given of the originality of his ideas.}
+}
+
+@book{leveque,
+  title={Finite volume methods for hyperbolic problems},
+  author={LeVeque, Randall J},
+  volume={31},
+  year={2002},
+  publisher={Cambridge university press}
+}
+
+@misc{tong,
+  author       = {David Tong},
+  title        = {Fluid Mechanics},
+  year         = {2025},
+  note         = {Lecture notes, Department of Applied Mathematics and Theoretical Physics, University of Cambridge},
+  url          = {https://www.damtp.cam.ac.uk/user/tong/fluids/fluids.pdf#page=162.09}
+}
+
+
+@misc{sormani22,
+  author       = {Sormani, Mattia},
+  title        = {Lecture Notes in Astrophysical Fluid Dynamics},
+  year         = {2022},
+  note         = {Lecture notes for the course at Heidelberg University},
+  url         = {https://www.ita.uni-heidelberg.de/~mattia/teaching/AFD_2022.pdf},
+}
+
+@book{Pringle2007,
+  title = {Astrophysical Flows},
+  ISBN = {9781107693401},
+  url = {http://dx.doi.org/10.1017/CBO9780511802201},
+  DOI = {10.1017/cbo9780511802201},
+  publisher = {Cambridge University Press},
+  author = {Pringle,  James E. and King,  Andrew},
+  year = {2007},
+  month = apr 
+}
+
+@book{Hairer1996,
+  doi = {10.1007/978-3-642-05221-7},
+  url = {https://doi.org/10.1007/978-3-642-05221-7},
+  year = {1996},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Ernst Hairer and Gerhard Wanner},
+  title = {Solving Ordinary Differential Equations {II}}
+}
+
+@book{press07,
+author = {Press, William H. and Teukolsky, Saul A. and Vetterling, William T. and Flannery, Brian P.},
+title = {Numerical Recipes 3rd Edition: The Art of Scientific Computing},
+year = {2007},
+isbn = {0521880688},
+publisher = {Cambridge University Press},
+address = {USA},
+edition = {3}
+}
+
+@book{Hairer06,
+  doi = {10.1007/3-540-30666-8},
+  url = {https://doi.org/10.1007/3-540-30666-8},
+  year = {2006},
+  publisher = {Springer-Verlag},
+  author = {Ernst Hairer and Gerhard Wanner and Christian Lubich},
+  title = {Geometric Numerical Integration}
+}
+
+% ========================= Inpreceeding ==============================
+@INPROCEEDINGS{wurz,
+       author = {{Wurz}, P.},
+        title = "{Solarwind Composition}",
+    booktitle = {The Dynamic Sun: Challenges for Theory and Observations},
+         year = 2005,
+       editor = {{Danesy}, D. and {Poedts}, S. and {de Groof}, A. and {Andries}, J.},
+       series = {ESA Special Publication},
+       volume = {11},
+        month = dec,
+          eid = {44.1},
+        pages = {44.1},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2005ESASP.600E..44W},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+@inproceedings{jagode06,
+  title={Fourier Transforms for the BlueGene / L Communication Network},
+  author={Heike Jagode},
+  year={2006},
+  url={https://api.semanticscholar.org/CorpusID:18464112}
+}
+
+@inproceedings{gutknecht07,
+  title={A brief introduction to Krylov space methods for solving linear systems},
+  author={Gutknecht, Martin H},
+  booktitle={Frontiers of Computational Science: Proceedings of the International Symposium on Frontiers of Computational Science 2005},
+  pages={53--62},
+  year={2007},
+  organization={Springer}
+}
+
+@article{bodin,
+  title={From molecular dynamics to kinetic theory and hydrodynamics},
+  author={Bodineau, Thierry and Gallagher, Isabelle and Saint-Raymond, Laure},
+  url = {https://www.imj-prg.fr/wp-content/uploads/2020/prix/gallagher2014.pdf#page=1.02},
+  year = {2014},
+}
+%Proceedings of the International Congress of Mathematicians, Seoul, 2014
+
+% ========================= Misc (programs, ...) =======================
+
+@misc{augustine24,
+      title={A Survey on Universal Approximation Theorems}, 
+      author={Midhun T Augustine},
+      year={2024},
+      eprint={2407.12895},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2407.12895}, 
+}
+
+@misc{shamrock,
+      title={The Shamrock code: I- Smoothed Particle Hydrodynamics on GPUs}, 
+      author={Timothée David--Cléris and Guillaume Laibe and Yona Lapeyre},
+      year={2025},
+      eprint={2503.09713},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2503.09713}, 
+}
+
+@misc{sycl,
+  author       = {{The Khronos Group}},
+  title        = {{SYCL – C++ Single-source Heterogeneous Programming for OpenCL}},
+  howpublished = {\url{https://www.khronos.org/sycl/}},
+  note         = {Accessed: 2025-05-30},
+  year         = {2025}
+}
+
+@ARTICLE{biermann51,
+       author = {{Biermann}, L.},
+        title = "{Kometenschweife und solare Korpuskularstrahlung}",
+      journal = {Zeitschrift für Astrophysik},
+         year = 1951,
+        month = jan,
+       volume = {29},
+        pages = {274},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1951ZA.....29..274B},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{neugebauer66,
+author = {Neugebauer, Marcia and Snyder, Conway W.},
+title = {Mariner 2 observations of the solar wind: 1. Average properties},
+journal = {Journal of Geophysical Research (1896-1977)},
+volume = {71},
+number = {19},
+pages = {4469-4484},
+doi = {https://doi.org/10.1029/JZ071i019p04469},
+url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/JZ071i019p04469},
+eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/JZ071i019p04469},
+abstract = {This paper summarizes the properties of the positive-ion component of the solar wind observed during the four months of the Mariner 2 flight to and past Venus in 1962. The protons' average velocity and temperature were approximately 500 km/sec and 1.7×1050K, respectively. Several streams of hot, high-velocity plasma were observed to recur at 27-day intervals, with peak velocity and temperature values of ∼ 830 km/sec and 9×1050K. One of these streams probably existed for at least 18 months. Between streams the velocity dropped as low as 307 km/sec, while the temperature was ∼ 3×1040K. Near 1 AU the average number density was approximately 5 protons/cm3. The density was usually highest at the leading or western edge of each stream, with a maximum value of ∼80 protons/cm3. Otherwise, the density varied inversely with the plasma velocity. The ions' velocity, temperature, and density were calculated from ∼35,000 energy/charge spectrums by fitting the data to isotropic Maxwell-Boltzmann distributions in a reference frame moving away from the sun at the solar-wind velocity. A model in which the protons and α particles had equal thermal velocities gives a better fit to the observed spectrums than does an equal-temperature model. The spectrums usually had high-energy tails, which became more pronounced at the higher plasma velocities. The velocity, temperature, and high-energy tail were not strongly dependent on distance from the sun, whereas the density varied approximately as the inverse square of this distance.},
+year = {1966}
+}
+
+
+@Article{Obridko2017,
+author={Obridko, V. N.
+and Vaisberg, O. L.},
+title={On the history of the solar wind discovery},
+journal={Solar System Research},
+year={2017},
+month={Mar},
+day={01},
+volume={51},
+number={2},
+pages={165-169},
+abstract={The discovery of the solar wind has been an outstanding achievement in heliophysics and space physics. The solar wind plays a crucial role in the processes taking place in the Solar System. In recent decades, it has been recognized as the main factor that controls the terrestrial effects of space weather. The solar wind is an unusual plasma laboratory of giant scale with a fantastic diversity of parameters and operating modes, and devoid of influence from the walls of laboratory plasma systems. It is also the only kind of stellar wind accessible for direct study. The history of this discovery is quite dramatic. Like many remarkable discoveries, it had several predecessors. However, the honor of a discovery usually belongs to a scientist who was able to more fully explain the phenomenon. Such a man is deservedly considered the US theorist Eugene Parker, who discovered the solar wind, as we know it today, almost ``with the point of his pen''. In 2017, we will celebrate the 90th anniversary birthday of Eugene Parker.},
+issn={1608-3423},
+doi={10.1134/S0038094617020058},
+url={https://doi.org/10.1134/S0038094617020058}
+}
+
+@ARTICLE{parker64,
+       author = {{Parker}, E.~N.},
+        title = "{Dynamical Properties of Stellar Coronas and Stellar Winds. I. Integration of the Momentum Equation.}",
+      journal = {Astrophysical Journal},
+         year = 1964,
+        month = jan,
+       volume = {139},
+        pages = {72},
+          doi = {10.1086/147740},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/1964ApJ...139...72P},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@inbook{solarbasics,
+author = {Manoharan, P.},
+booktitle = {Lecture Notes in Physics},
+year = {2008},
+month = {10},
+pages = {235-265},
+title = {The Solar Wind},
+doi = {10.1007/3-540-36963-5_9}
+}
+
+
+@article{chapman1957notes,
+  title={Notes on the solar corona and the terrestrial ionosphere},
+  author={Chapman, Sydney and Zirin, Harold},
+  journal={Smithsonian Contributions to Astrophysics},
+  year={1957}
+}
+
+@misc{um21,
+      title={Solver-in-the-Loop: Learning from Differentiable Physics to Interact with Iterative PDE-Solvers}, 
+      author={Um, Kiwon and Brand, Robert and Fei, Yun and Holl, Philipp and Thuerey, Nils},
+      year={2021},
+      eprint={2007.00016},
+      archivePrefix={arXiv},
+      primaryClass={physics.comp-ph},
+      url={https://arxiv.org/abs/2007.00016}, 
+}
+
+@misc{antonsen19,
+  author       = {T. M. Antonsen},
+  title        = {Single Fluid Ideal MHD},
+  year         = {2019},
+  howpublished = {Lecture notes for Phys 761},
+  note         = {University of Maryland},
+  url          = {https://terpconnect.umd.edu/~antonsen/PHYS761_F19/LECTURES/Single_Fluid_MHD.pdf},
+}
+
+@misc{langmuirpython,
+    Title = {Langmuir Python Package},
+    Author = {Marholm, Sigvald and Darian, Diako},
+    url={https://langmuir.readthedocs.io/en/latest/citation.html}
+}
+
+@misc{springel23,
+  author        = {Volker Springel and Christoph Pfrommer and Phillip Girichidis and Ralf Klessen and Cornelis Dullemond and Frauke Gräter and Rüdiger Pakmor and Fritz Röpke},
+  title         = {Lecture notes in Fundamentals of Simulation Methods},
+  year          = {2023}
+}
+
+@misc{pang24,
+      title={Provably Positivity-Preserving Constrained Transport (PPCT) Second-Order Scheme for Ideal Magnetohydrodynamics}, 
+      author={Dongwen Pang and Kailiang Wu},
+      year={2024},
+      eprint={2410.05173},
+      archivePrefix={arXiv},
+      primaryClass={math.NA},
+      url={https://arxiv.org/abs/2410.05173}, 
+}
+
+@article{Gebremedhin2005,
+author = {Gebremedhin, Assefaw Hadish and Manne, Fredrik and Pothen, Alex},
+title = {What Color Is Your Jacobian? Graph Coloring for Computing Derivatives},
+journal = {SIAM Review},
+volume = {47},
+number = {4},
+pages = {629-705},
+year = {2005},
+doi = {10.1137/S0036144504444711},
+
+URL = { 
+    
+        https://doi.org/10.1137/S0036144504444711
+    
+    
+
+},
+eprint = { 
+    
+        https://doi.org/10.1137/S0036144504444711
+    
+    
+
+}
+,
+    abstract = { Graph coloring has been employed since the 1980s to efficiently compute sparse Jacobian and Hessian matrices using either finite differences or automatic differentiation. Several coloring problems occur in this context, depending on whether the matrix is a Jacobian or a Hessian, and on the specifics of the computational techniques employed. We consider eight variant vertex coloring problems here. This article begins with a gentle introduction to the problem of computing a sparse Jacobian, followed by an overview of the historical development of the research area. Then we present a unifying framework for the graph models of the variant matrix estimation problems. The framework is based upon the viewpoint that a partition of a matrix into structurally orthogonal groups of columns corresponds to distance-2 coloring an appropriate graph representation. The unified framework helps integrate earlier work and leads to fresh insights; enables the design of more efficient algorithms for many problems; leads to new algorithms for others; and eases the task of building graph models for new problems. We report computational results on two of the coloring problems to support our claims. Most of the methods for these problems treat a column or a row of a matrix as an atomic entity, and partition the columns or rows (or both). A brief review of methods that do not fit these criteria is provided. We also discuss results in discrete mathematics and theoretical computer science that intersect with the topics considered here. }
+}
+
+@software{rackauckas22,
+  author       = {Christopher Rackauckas and
+                  Sciemon and
+                  Jacob Vaverka and
+                  Bowen S. Zhu and
+                  Victor L. and
+                  Arno Strouwen and
+                  David P. Sanders and
+                  George Sterpu and
+                  Jerry Ling and
+                  Patrick Eli Catach and
+                  Pietro Monticone and
+                  Will Dey and
+                  Valentin Churavy and
+                  Alan Edelman and
+                  Alex Haslam and
+                  Alexander Lenail and
+                  Ayush Kaushal and
+                  Christian Laforte and
+                  Chunji Wang and
+                  Fernando Cucchietti and
+                  Krishna Bhogaonker and
+                  Lauren Milechin and
+                  Frames Catherine White and
+                  Mark Payne and
+                  Simeon Schaub and
+                  Stephanie Fu and
+                  Vincent Meijer and
+                  Wilhelm Kirchgässner and
+                  anand jain},
+  title        = {SciML/SciMLBook: v1.1},
+  month        = nov,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v1.1},
+  doi          = {10.5281/zenodo.7347643},
+  url          = {https://doi.org/10.5281/zenodo.7347643}
+}
+
+% ========================= Online =====================================
+@online{ecguide,
+  author = {R. L. Stenzel},
+  title = {Typical Langmuir Probe Trace Evaluation},
+  year = 1997,
+  url = {https://www.physics.ucla.edu/plasma-exp/180E-W97/LprobeAnalysis.html}
+}
+
+% ======================== PHDs =======================================
+@phdthesis{judith,
+    title    = {Stereoscopy and tomography of coronal structures},
+    school   = {Technischen Universitat Carolo-Wilhelmina zu Braunschweig},
+    author   = {Judith de Patoul},
+    year     = {2011},
+}
+
+@PHDTHESIS{thomas22,
+       author = {Thomas, T.},
+        title = "{Cosmic-ray Hydrodynamics: Theory, Numerics, Applications}",
+       school = {University of Potsdam, Germany},
+         year = 2022,
+        month = sep,
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2022PhDT.........6T},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+
+% ======================== Masters =======================================
+
+@mastersthesis{heiter12,
+  author       = {Pascal Frederik Heiter},
+  title        = {On Numerical Methods for Stiff Ordinary Differential Equation Systems},
+  school       = {Ulm University},
+  year         = 2012,
+  url          = {https://www.uni-ulm.de/fileadmin/website_uni_ulm/mawi.inst.070/abschlussarbeiten/masterthesis_pfh.pdf}
+}
+
+@mastersthesis{flatscher19,
+  doi = {10.3217/YQB1T-22135},
+  url = {https://repository.tugraz.at/publications/yqb1t-22135},
+  author = {Flatscher,  Tobit},
+  title = {Lattice-Boltzmann method for multi-component flows in porous media},
+  publisher = {Technische Universit\"{a}t Graz},
+  year = {2019}
+}
+
+@mastersthesis{over04,
+  author       = {Stephen Overduin},
+  title        = {USE OF THE LOGNORMAL DISTRIBTUON FOR SURVIVAL DATA: INFERENCE AND ROBUSTNESS},
+  school       = {Simon Fraser University},
+  year         = 2004,
+  url          = {https://core.ac.uk/download/pdf/56374045.pdf}
+}

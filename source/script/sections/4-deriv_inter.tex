@@ -186,7 +186,7 @@ which is started from some initial conditions $u_{ij}^{(0)} = u_{ij}(t = t_0)$.
 Consider we have data points $f_i = f(x_i), i = 0,..,m$ and would like to 
 find a polynomial $p \in \Pi_m$ passing through those points $p(x_i) = f(x_i)$.
 
-\bluebox{\textbf{Theorem of Polynomial Interpolation:} Let $(x_0, f_0),... , (x_m, f_m)$ be n points in the
+\bluebox{\textbf{Theorem of Polynomial Interpolation:} Let $(x_0, f_0),... , (x_m, f_m)$ be $m+1$ points in the
 plane with distinct $x_i$. Then there exists one and only one polynomial $p$ of degree $m$ or
 less that satisfies $p(x_i) = f_i$ for $i = 0,...,m$. See \cite[Theorem 2.3]{sauer25}.}
 
@@ -250,18 +250,180 @@ The interpolation becomes trivial
 \begin{itemize}
     \item The computational cost of evaluating the Lagrange polynomial is $\mathcal{O}(m^2)$.
     \item Cancellation problems in the evaluation of $l_j$.
+    \item One cannot simply add new points $x_i$ without recomputing all base functions.
 \end{itemize}}
 
 \subsubsection{Newton interpolation}
 
+Consider the Newton base
 
+\begin{equation}
+    n_0 := 1, \quad n_j := (x-x_0) \cdot \dots \cdot (x - x_{j-1}), j = 1,...,m, \quad \text{short:} \, n_j = \prod_{i = 0}^{j - 1} (x-x_i)
+\end{equation}
 
-\subsubsection{Outlook}
+and construct the polynomial as
+
+\begin{equation}
+    p(x) = \sum_{j=0}^{m} d_j n_j(x)
+\end{equation}
+
+This construction has two advantages:
 
 \begin{itemize}
-    \item splines
-    \item neural networks - not a polynomial basis
-    \item regression tasks and optimization
+    \item $p$ can be evaluated in $m$ multiplications with a modified Horner scheme
+    \begin{equation}
+        z_m = d_m, z_j = d_j + (x - x_j) z_{j+1} \quad \rightarrow \quad z_0 = p(x)
+    \end{equation}
+    \item the base functions $n_j$ evaluate to zero for all evaluation points $x_i$ with $i = 0, ..., j-1$ (a product is zero when one of the factor is zero)
+\end{itemize}
+
+This second advantage is crucial. It means that our interpolation goal
+
+\begin{equation}
+    p(x_i) = f(x_i) = f_i, \quad i = 0,...,m, \quad p \in \Pi_m
+\end{equation}
+
+leads to a lower triangular system
+
+\begin{equation}
+    \left(\begin{array}{ccc}
+    n_0\left(x_0\right) & & \\
+    \vdots & \ddots & \\
+    n_0\left(x_m\right) & \ldots & n_m\left(x_m\right)
+    \end{array}\right)\left(\begin{array}{c}
+    d_0 \\
+    \vdots \\
+    d_m
+    \end{array}\right)=\left(\begin{array}{c}
+    f\left(x_0\right) \\
+    \vdots \\
+    f\left(x_m\right)
+    \end{array}\right)
+\end{equation}
+
+which could be solved bottom down in $\mathcal{O}(m^2)$.
+
+\subsubsubsection{Newton divided differences}
+
+The coefficients can be determined more 
+efficiently using divided differences
+
+\begin{equation}
+    d_j = [x_0,...,x_j] f
+\end{equation}
+
+where for $j<i$ we recursively define
+
+\begin{equation}
+    \begin{aligned}
+        \left[x_j\right]f & = f_j, \\
+        \left[x_j, \ldots, x_i\right] f &=\frac{\left[x_{j+1}, \ldots, x_i\right] f-\left[x_j, \ldots, x_{i-1}\right] f}{x_i-x_j}
+    \end{aligned}
+\end{equation}
+
+\subsubsection{Interpolation error}
+
+Consider we interpolate an $m+1$ times continuously 
+differentiable function $f$ on a closed interval $[a,b]$ ($f \in C^{m+1}[a,b]$)
+with an $m$-th order polynomial $p_m \in Pi_m$ on
+$m + 1$ distinct points $x_0,...,x_m$
+(such that $p(x_i) = f(x_i)$).
+
+By Newton interpolation, $p_m$ is given by ($x \in I$)
+
+\begin{equation}
+    p_m(x) = \sum_{j=0}^{m}  \left( [x_0,...,x_j] f \, \prod_{i = 0}^{j-1} (x - x_i) \right)
+\end{equation}
+
+Consider a polynomial $p_{m+1}$ which also interpolates $f$ at $x_{m+1} := x$ ($p_{m+1}(x) = f(x)$).
+By Newton interpolation, $p_{m+1}$ is given by
+
+\begin{equation}
+    \begin{aligned}
+        p_{m+1}(\zeta) &= \sum_{j=0}^{m+1}  \left( [x_0,...,x_j] f \, \prod_{i = 0}^{j-1} (\zeta - x_i) \right) \\
+                       &= \underbrace{\sum_{j=0}^{m}  \left( [x_0,...,x_j] f \, \prod_{i = 0}^{j-1} (\zeta - x_i) \right)}_{=p_m(\zeta)} + \underbrace{\left( [x_0,...,x_m,x] f \, \prod_{i = 0}^{m} (\zeta - x_i) \right)}_{=: R_m(\zeta)} \\
+                       &= p_{m}(\zeta) + R_m(\zeta)
+    \end{aligned}
+\end{equation}
+
+By our interpolation objective
+
+\begin{equation}
+    f(x) = p_{m+1}(x) = p_{m}(x) + R_n(x) \quad \rightarrow \quad f(x) - p_m(x) = R_m(x) = [x_0,...,x_m,x] f \, \prod_{i = 0}^{m} (x - x_i)
+\end{equation}
+
+such that $R_n$ \textbf{is our interpolation error}.
+
+We can apply the mean value theorem to obtain a Lagrange form of the error term $R_n$.
+For each $x \in [a,b]$ exists a $\xi(x) \in (a,b)$ such that
+
+\begin{equation}
+    \boxed{f(x) - p_m(x) = R_n(x) = \frac{f^{m+1}(\xi)}{(m+1)!} \prod_{i = 0}^{m} (x - x_i)}
+\end{equation}
+
+\yellowbox{\textbf{Note}: While we cannot typically control $f^{m+1}(\xi)$, we might 
+be able to optimize the $\prod_{i = 0}^{m} (x - x_i)$ 
+factor (leading to \textit{Chebyshev interpolation}).}
+
+\subsubsubsection{Proof of the Lagrange form of the interpolation error}
+Let us repeat two essential theorems from calculus.
+\begin{itemize}
+    \item \textbf{Rolle's theorem:} Consider $f \in C^1[a,b]$ and $f(a) = f(b) = 0$. Then there
+exists at least one $\xi \in (a,b)$ such that $f'(\epsilon) = 0$.
+    \item \textbf{Classical mean value theorem}: Consider $f \in C^1[a,b]$ then there exists at least on $\xi \in (a,b)$ such that
+\begin{equation}
+    f'(\xi) = \frac{f(b) - f(a)}{b - a}
+\end{equation}
+\end{itemize}
+We can now formulate a \textbf{generalized mean value theorem}:
+For any pairwise distinct points $x_0,...,x_m \in [a,b]$ there exists $\xi \in (a,b)$ such that
+\begin{equation}
+    [x_0,...,x_m] f = \frac{f^{(m)}(\xi)}{m!}
+\end{equation}
+\textbf{Proof:} We equivalently proof
+\begin{equation}
+    [x_0,...,x_m,x] f = \frac{f^{m+1}(\xi)}{(m+1)!}
+\end{equation}
+to retain the context from the Lagrange error term. Our starting point is
+\begin{equation}
+    f(x) - p_m(x) = R_m(x) = [x_0,...,x_m,x] f \, n_{m+1}(x), \quad n_{m+1}(x) = \prod_{i = 0}^{m} (x - x_i)
+\end{equation}
+We define the auxiliary function (for an arbitrary $x \in [a,b]$, $x \neq x_i$)
+\begin{equation}
+    \phi(t) = R_m(t) n_{m+1}(x) - R_m(x) n_{m+1}(t)
+\end{equation}
+The proof is based on the following observations:
+\begin{itemize}
+    \item $n_{m+1}(t) = \prod_{i = 0}^{m} (t - x_i) = t^{m+1} + \dots$ (the highest order term is $t^{m+1}$) such that $n_{m+1}^{(m+1)} = (m+1)!$ 
+    (you can show this by induction)
+    \item $R_m^{(m+1)}(t) = f^{(m+1)}(t) - \underbrace{p_m^{(m+1)}(t)}_{=0} = f^{(m+1)}(t)$
+    \item for some function $g \in C^{1}[a,b]$ with $n$ roots in $(a,b)$, $g'$ has at least $n-1$ roots
+    (in-between the roots of $g$) in $(a,b)$, following from Rolle's theorem
+    \item $\phi(t)$ has $m+2$ roots: $x_0,...,x_m$ and $x$
+\end{itemize}
+Therefore, since $\phi(t)$ has $m+2$ roots, $\phi^{(m+1)}(t)$ has at least one root $\xi \in (a,b)$:
+\begin{equation}
+    \begin{aligned}
+        0 &= \phi^{(m+1)}(\xi) \\
+          &= R^{(m+1)}_m(\xi) n_{m+1}(x) - R_m(x) n^{(m+1)}_{m+1}(\xi) \\
+          & = f^{(m+1)}_m(\xi) n_{m+1}(x) - [x_0,...,x_m,x] f \, n_{m+1}(x) (m+1)!
+    \end{aligned}
+\end{equation}
+such that
+\begin{equation}
+    [x_0,...,x_m,x] f = \frac{f^{(m+1)}_m(\xi)}{(m+1)!}
+\end{equation}
+
+\subsubsection{Final remarks}
+
+Let us make two final remarks.
+
+\begin{itemize}
+    \item To interpolate between many data points one typically does not use 
+    one very high-order polynomial but one rather pieces together lower-order polynomials
+    (typically such that the overall interpolation is twice continuously differentiable) (this avoids \textit{Runge's phenomenon})
+    \item Often data points contain noise and an exact interpolation is not of interest, but we want to find the underlying functional
+    relation which generated the data. In such cases we resort to regression, e.g. polynomial regression or neural network regression.
 \end{itemize}
 
 \pagebreak

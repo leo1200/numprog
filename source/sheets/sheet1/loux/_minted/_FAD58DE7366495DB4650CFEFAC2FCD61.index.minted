@@ -1,13 +1,9 @@
 {
   "jobname": "main",
   "md5": "FAD58DE7366495DB4650CFEFAC2FCD61",
-  "timestamp": "20251224005618",
+  "timestamp": "20260106175815",
   "cachefiles": [
-    "4EB45FB288F78284E2B6BB43A2F4A688.highlight.minted",
-    "80ED3639C4A75C6CE66D5AEDE165EE00.highlight.minted",
-    "EFE41210E167153F5EBB4983811F2B9E.highlight.minted",
     "F01C1925815DF49B2A2E56CBA3BB47B5.highlight.minted",
-    "F155E2A6F16791EB67C59869527A54BD.highlight.minted",
     "_FAD58DE7366495DB4650CFEFAC2FCD61.index.minted",
     "manni.style.minted"
   ]

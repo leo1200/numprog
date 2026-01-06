@@ -8,16 +8,15 @@ The course covers both theoretical foundations and
 practical implementations in Python.
 
 > [!TIP]
-> You can directly jump into the script [here](https://github.com/leo1200/numprog/raw/main/source/script/loux/main.pdf).
+> You can directly jump into the script [here](https://github.com/leo1200/numprog/raw/main/source/script/loux/lecture_notes.pdf).
 
 ## Course Overview
 
-1. Digital Representation of Numbers ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet1/loux/main.pdf))
-2. Solving Linear Systems ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet2/loux/main.pdf))
-3. Numerical Derivatives and Interpolation ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet3/loux/main.pdf))
-4. Optimization ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/main.pdf))
-5. Numerical Integration ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/main.pdf))
-
+1. Digital Representation of Numbers ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet1/loux/sheet1.pdf))
+2. Solving Linear Systems ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet2/loux/sheet2.pdf))
+3. Numerical Derivatives and Interpolation ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet3/loux/sheet3.pdf))
+4. Optimization ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/sheet4.pdf))
+5. Numerical Integration ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
 The second half of the course will cover numerical
 techniques for ordinary differential equations. Other 
 important topics not covered include spectral methods 
