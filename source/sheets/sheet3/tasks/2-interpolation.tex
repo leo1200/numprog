@@ -1,7 +1,53 @@
 \problem{Newton interpolation and Runge's phenomenon}
-    Todo
+    Consider the \textit{Runge} function
+    \begin{equation}
+        f_A(x) = \frac{1}{1+25x^2}
+    \end{equation}
+    as well as
+    \begin{equation}
+        f_B(x) = \sin(x)
+    \end{equation}
+    and
+    \begin{itemize}
+        \item equidistant evaluation points
+            \begin{equation}
+                x_i = \frac{2i}{m} - 1, \quad i = 0,...,m
+            \end{equation}
+        \item as well as \textit{Chebyshev-nodes}
+            \begin{equation}
+                \tilde{x}_i=\cos \left(\frac{(2 i+1) \pi}{2(m+1)}\right), \quad i=0, \ldots, m
+            \end{equation}
+    \end{itemize}
+    In this task, we will perform \textbf{Newton interpolation}
+
+    \begin{equation}
+        p(x) = \sum_{j=0}^{m} d_j n_j(x), \quad n_j(x) = \prod_{i = 0}^{j - 1} (x-x_i)
+    \end{equation}
+
+    with the coefficients given by the finite differences
+
+    \begin{equation}
+        d_j = [x_0,...,x_j] f
+    \end{equation}
+
+    where for $j<i$ we recursively define
+
+    \begin{equation}
+        \begin{aligned}
+            \left[x_j\right]f & = f_j, \\
+            \left[x_j, \ldots, x_i\right] f &=\frac{\left[x_{j+1}, \ldots, x_i\right] f-\left[x_j, \ldots, x_{i-1}\right] f}{x_i-x_j}
+        \end{aligned}
+    \end{equation}
+
     \begin{enumerate}
-        \item todo
+        \item Implement Newton divided differences in Python.
+        \item Implement the modified Horner scheme to evaluate $p(x)$ via
+            \begin{equation}
+                z_m = d_m, z_j = d_j + (x - x_j) z_{j+1} \quad \rightarrow \quad z_0 = p(x)
+            \end{equation}
+        \item For both $f_A$ and $f_B$ perform Newton interpolation for $m = 3, 9, 24, 48$ both
+        with equidistant and Chebyshev nodes. Plot the results. For plotting $p(x)$ use
+        $m = 200$ evaluation points. Interpret your results.
     \end{enumerate}
 
 \begin{solutionblock}

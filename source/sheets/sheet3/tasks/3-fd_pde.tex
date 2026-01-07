@@ -1,8 +1,105 @@
-\problem{The power of finite differencing - solving the Kuramoto–Sivashinsky (KS) equation}
-    Todo
+\problem{\textit{(Optional)} The power of finite differencing - solving the Kuramoto–Sivashinsky equation}
+    The Kuramoto–Sivashinsky equation\footnote{Here rather a physicists version of it.} is given by
+
+    \begin{equation}
+        \partial_t u + \alpha L \Delta u + \beta L^3 \Delta^2 u + \frac{\gamma L}{2u_s} |\vec{\nabla}u|^2 = 0
+    \end{equation}
+
+    where $\Delta$ is the Laplace and $\Delta^2$ the biharmonic operator. $L = 1.0$ is the box size and $\alpha, \beta, \gamma$ are parameters, here
+
+    \begin{equation}
+        \alpha = 10^{-2}, \quad \beta = 10^{-6}, \quad \gamma = 10^{-2}
+    \end{equation}
+
+    (physically all are in velocity units) and $u_s = 1.0$.
+
+    We consider a 2D setting, so
+
+    \begin{equation}
+        \Delta = \partial_x^2 + \partial_y^2 
+    \end{equation}
+
+    \begin{equation}
+        \Delta^2 = (\partial_x^2 + \partial_y^2)(\partial_x^2 + \partial_y^2) = \partial_x^4 + \partial_y^4 + 2 \partial_x^2 \partial_y^2
+    \end{equation}
+
+    We assume periodic boundary conditions and a box of size $L = 1$.
+
+    We discretize space to a grid with $N^2$ grid points
+
+    \begin{equation}
+        \begin{aligned}
+            x_i = L \frac{i}{N}, \quad i = 0,...,N-1 \\
+            y_j = L \frac{j}{N}, \quad j = 0,...,N-1
+        \end{aligned}
+    \end{equation}
+
+    such that the grid-spacing is $\Delta x = \frac{L}{N}$.
+
+    Let us define the distance to the center of the box as
+
+    \begin{equation}
+        r_{ij} = \sqrt{\left(x_i - \frac{L}{2}\right)^2 + \left(y_j - \frac{L}{2}\right)^2}
+    \end{equation}
+
+    The initial conditions are given by
+
+    \begin{equation}
+        u_{ij}(t = 0) = \exp{\left(-\eta \frac{r_{ij}}{L}\right)}, \quad \eta = 500
+    \end{equation}
+
+    Time is discretized into an iteration with $N_t$ steps of size $\Delta t$ with
+
+    \begin{equation}
+        t_\text{final} = 1.5 L, \quad \Delta t = \frac{10^4}{L^3} \Delta x^4, \quad N_\text{t} = \lfloor \frac{t_\text{final}}{\Delta t} \rfloor
+    \end{equation}
+
     \begin{enumerate}
-        \item todo
+        \item Implement discrete Laplace, Biharmonic and gradient-squared
+        operators based on the first and second derivative implementations
+        given in Code-Snippet \ref{code:periodic_deriv}.
+        \item Implement the right-hand side of the KS equation
+        \begin{equation}
+            \partial_t u = -\alpha L \Delta u - \beta L^3 \Delta^2 u - \frac{\gamma L}{2u_s} |\vec{\nabla}u|^2
+        \end{equation}
+        Use the discrete Laplace, Biharmonic and gradient-squared
+        operators just implemented.
+        \item Implement a time integration loop taking in an initial state
+        the time step $\Delta t$ and the number of time steps $N_s$ and returning
+        the final state. A single time step is given by
+        \begin{equation}
+            u(t + \Delta t) \approx u(t) + \Delta t \, \partial_t u(t)
+        \end{equation}
+        $\partial_t u(t)$ given by the function you have just implemented.
+        \item Run the simulation with the given initial conditions. Plot the final state using $\operatorname{plt.imshow}$. The expected result is shown in Fig. \ref{fig:ks_final}
+        \item Produce an animation of the state over time. Do not use every physical
+        time step of your simulation as a frame but rather $150$ frames equally spaced in time.
     \end{enumerate}
+
+    \begin{codebox}
+        \begin{minted}{python3}
+            import numpy as np
+
+            XAXIS = 0
+            YAXIS = 1
+
+            def first_deriv(u, grid_spacing, axis):
+                return (np.roll(u, 1, axis=axis) - np.roll(u, -1, axis=axis)) / (2 * grid_spacing)
+
+            def second_deriv(u, grid_spacing, axis):
+                return (np.roll(u, 1, axis=axis) - 2 * u + np.roll(u, -1, axis=axis)) / grid_spacing**2
+        \end{minted}
+    \caption{Finite difference approximations of the first and second derivative along a specified axis
+    of an array. By rolling the arrays, we implicitly assume periodic boundary conditions.}
+    \label{code:periodic_deriv}
+    \end{codebox}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/ks.png}\hfill
+    \caption{States in the time evolution of the Kuramoto–Sivashinsky equation.}
+    \label{fig:ks_final}
+    \end{figure}
 
 \begin{solutionblock}
 \part
