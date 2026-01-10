@@ -1,6 +1,103 @@
 \problem{Gradient descent vs Newton optimization}
+    In this task we are going to consider three different 
+    functions
+    \begin{itemize}
+        \item the quadratic form
+        \begin{equation}
+            L_1(\vec{\theta}) = \frac{1}{2} \vec{\theta}^T \mat{A} \vec{\theta} + \vec{\theta}^T \vec{b}
+        \end{equation}
+        where $\mat{A} \in \mathbb{R}^{p \times p}$ is positive definite
+        \item \textit{Himmelblau's function}
+        \begin{equation}
+            L_2(\vec{\theta}) = (\theta_1^2 + \theta_2 - 11)^2 + (\theta_1 + \theta_2^2 - 7)^2, \quad \vec{\theta} = \begin{pmatrix}
+                \theta_1 \\
+                \theta_2
+            \end{pmatrix}
+        \end{equation}
+        \item and the \textit{Goldstein-Price function}
+        \begin{equation}
+            \begin{aligned}
+L_3(\vec{\theta}) = & \left[ 1 + (\theta_1 + \theta_2 + 1)^2 (19 - 14\theta_1 + 3\theta_1^2 - 14\theta_2 + 6\theta_1\theta_2 + 3\theta_2^2) \right] \\
+& \left[ 30 + (2\theta_1 - 3\theta_2)^2 (18 - 32\theta_1 + 12\theta_1^2 + 48\theta_2 - 36\theta_1\theta_2 + 27\theta_2^2) \right]
+\end{aligned}
+        \end{equation}
+    \end{itemize}
+
+
     \begin{enumerate}
-        \item 
+        \item Implement gradient descent
+        
+        \begin{equation}
+            \begin{gathered}
+                \vec{\theta}^{(n+1)}=\vec{\theta}^{(n)}-\left.\gamma \vec{\nabla} L\right|_{\vec{\theta}=\vec{\theta}^{(n)}}, \quad \text{learning rate } \gamma \\
+                \text{until } \left|L\left(\vec{\theta}^{(n+1)}\right)-L\left(\vec{\theta}^{(n)}\right)\right|<\epsilon \text{ or \# steps } >N_{\text {max }}
+            \end{gathered}
+        \end{equation}
+        
+        in Python. Your gradient descent function should take as
+        input
+
+        \begin{itemize}
+            \item the starting point $\vec{\theta}^{(0)}$
+            \item the objective function $L(\vec{\theta})$
+            \item its gradient function $\vec{\nabla} L(\vec{\theta})$
+            \item the learning rate $\gamma$
+            \item the tolerance $\epsilon$
+            \item and the maximum number of iterations $N_{\text{max}}$
+        \end{itemize}
+
+        and should return all iteration steps.
+
+        \item For
+        \begin{equation}
+            \mat{A} = \begin{pmatrix}
+                10 & 0 \\
+                0 & 1
+            \end{pmatrix}, \quad \vec{b} = \begin{pmatrix}
+                0 \\
+                0
+            \end{pmatrix}
+        \end{equation}
+        plot the contours and heatmap of $L_1$ for $\theta_1 \in [-5.0,5.0], \theta_2 \in [-2,2]$.
+        For \begin{equation}
+            \vec{\theta}^{(0)} = \begin{pmatrix}
+            -4 \\ 1.5
+        \end{pmatrix}, \quad \gamma \in \{0.05, 0.01, 0.018\}, \quad \epsilon = 10^{-4}
+        \end{equation}
+        plot the iteration steps. What do you observe?
+        \item Implement Newton optimization in Python. Your Newton optimization function should take as
+        input
+
+        \begin{itemize}
+            \item the starting point $\vec{\theta}^{(0)}$
+            \item the objective function $L(\vec{\theta})$
+            \item its gradient function $\vec{\nabla} L(\vec{\theta}) \in \mathbb{R}^p$
+            \item its Hessian function $\mat{H}_L(\vec{\theta}) \in \mathbb{R}^{(p \times p)}$
+            \item the tolerance $\epsilon$
+            \item and the maximum number of iterations $N_{\text{max}}$
+        \end{itemize}
+
+        and should return all iteration steps.
+        \item Apply Newton optimization to $L_1$ with 
+        \begin{equation}
+            \vec{\theta}^{(0)} = \begin{pmatrix}
+            -4 \\ 1.5
+        \end{pmatrix}, \quad \epsilon = 10^{-4}
+        \end{equation}
+        How many iterations are necessary?
+        \item What is the unique minimizer of $L_1$ with positive definite $\mat{A}$?
+        \item Show that this minimizer is reached in a single Newton optimization step. Why doesn't 
+        it make sense to apply Newton optimization to $L_1$?
+        \item Now consider $L_2$. Plot the contours and heatmap of $L_2$ for $\theta_1,\theta_2 \in [-5,5]$.
+        \item Calculate the gradient and Hessian of $L_2$ and implement them in Python.
+        \item Apply both gradient descent and Newton iteration on $L_2$ for
+        \begin{equation}
+            \vec{\theta}^{(0)} \in \left\{\begin{pmatrix} 0.0 \\ -4.0 \end{pmatrix}, \begin{pmatrix} -0.25 \\ -0.9 \end{pmatrix} \right\}, \quad \epsilon = 10^{-4}
+        \end{equation}
+        \item \textit{(Optional)} Plot the contours and heatmap of $L_2$ for $\theta_1 \in [-2,2], \theta_2 \in [-3,1]$.
+        Our aim is to find the minimum of $L_2$ using gradient descent. However, calculating the 
+        gradient will be tedious. Try using finite differencing for estimating the gradient.
+        Alternatively you might also look into automatic differentiation using \texttt{JAX}.
     \end{enumerate}
 
 \begin{solutionblock}

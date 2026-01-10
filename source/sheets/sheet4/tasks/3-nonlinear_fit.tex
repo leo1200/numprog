@@ -1,6 +1,67 @@
-\problem{Gauss-Newton for nonlinear curve fitting}
+\problem{\textit{(Optional)} Gauss-Newton for nonlinear curve fitting}
+    Consider we are given data
+
+    \begin{equation}
+        \begin{aligned}
+        \vec{t} &=
+        \begin{pmatrix}
+        0.0 & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 & 0.7 & 0.8 & 0.9, \\
+        1.0 & 1.1 & 1.2 & 1.3 & 1.4 & 1.5 & 1.6 & 1.7 & 1.8 & 1.9
+        \end{pmatrix}^T \in \mathbb{R}^{20}\\
+        \vec{y} &=
+        \begin{pmatrix}
+        2.55 & 2.21 & 2.05 & 1.93 & 1.57 & 1.42 & 1.47 & 1.28 & 1.06 & 1.07, \\
+        0.90 & 0.84 & 0.85 & 0.59 & 0.57 & 0.65 & 0.58 & 0.69 & 0.54 & 0.47
+        \end{pmatrix}^T \in \mathbb{R}^{20}
+        \end{aligned}
+    \end{equation}
+
+    and want to fit parameters in the model
+
+    \begin{equation}
+        f_\vec{\theta}(t) = \theta_0 + \theta_1 \exp{\left(-\theta_2 t\right)}
+    \end{equation}
+
+    to minimize
+
+    \begin{equation}
+        \vec{\theta}^* = \argmin_{\vec{\theta}} \frac{1}{2} \sum_{i = 1}^{N} (\underbrace{f_\vec{\theta}(t_i) - y_i}_{r_i})^2 = \frac{1}{2} ||\vec{r}(\vec{\theta})||_2^2, \quad \vec{r}(\vec{\theta}) = (r_1(\vec{\theta}),...,r_N(\vec{\theta}))^T
+    \end{equation}
+
     \begin{enumerate}
-        \item 
+        \item Implement the residual function $\vec{r}$ in Python. Its inputs are
+        \begin{itemize}
+            \item the model $f_\vec{\theta}$
+            \item the parameters $\vec{\theta} \in \mathbb{R}^p$
+            \item the evaluation points $\vec{t} \in \mathbb{R}^N$
+            \item the data $\vec{y} \in \mathbb{R}^N$
+        \end{itemize}
+        \item Calculate and implement the Jacobian
+        \begin{equation}
+            \mat{J}_\vec{r}(\vec{\theta}) = \left[ \frac{\partial r_j}{\partial \theta_i} \right]_{\substack{
+                j=1,...,N \\
+                i=1,...,p
+            }} \in \mathbb{R}^{N \times p}
+        \end{equation}
+        for our specific model $f_\vec{\theta}(t)$ and an arbitrary input vector $\vec{t} = (t_1,...,t_N)^T$.
+        \item Implement Gauss-Newton iteration
+        \begin{equation}
+            \vec{\theta}_{k+1} = \vec{\theta}_k - \left( \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) \right)^{-1} \mat{J}_\vec{r}(\vec{\theta}_k)^T \vec{r}(\vec{\theta}_k)
+        \end{equation}
+        and apply it to our test data. Plot the results. \textit{Hint:} Do not explicitly invert 
+        $\mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k)$. Instead, we rewrite
+        \begin{equation}
+            \vec{\theta}_{k+1} = \vec{\theta}_k + \vec{p}_k
+        \end{equation}
+        with
+        \begin{equation}
+            \vec{p}_k = - \left( \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) \right)^{-1} \mat{J}_\vec{r}(\vec{\theta}_k)^T \vec{r}(\vec{\theta}_k)
+        \end{equation}
+        which we can write as the linear problem
+        \begin{equation}
+            \left( \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) \right) \vec{p}_k = - \mat{J}_\vec{r}(\vec{\theta}_k)^T \vec{r}(\vec{\theta}_k)
+        \end{equation}
+        You can solve this linear problem using $\operatorname{scipy.linalg.solve}$.
     \end{enumerate}
 
 \begin{solutionblock}

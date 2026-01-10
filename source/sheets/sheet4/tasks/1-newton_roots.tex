@@ -1,6 +1,32 @@
 \problem{Convergence of Newton's root finding method}
+    In the lecture we have stated:
+
+    \bluebox{If $g$ is continuously differentiable in a neighborhood
+around a root $x^\star$ with nonzero derivative at $x^\star$, 
+then there exists a neighborhood around $x^\star$ where Newton's 
+iteration converges to $x^\star$ for all starting values.}
+
+    Now consider the function
+
+    \begin{equation}
+        g(x) = x(1+x^2)^{-\frac{1}{2}}
+    \end{equation}
+
     \begin{enumerate}
-        \item 
+        \item What is the root $x^\star$ of $g$?
+        \item Calculate $g'(x^\star)$. What does this imply for Newton iteration?
+        \item Explicitly calculate the newton update step
+        \begin{equation}
+            x_{k+1} = x_{k} - \frac{g(x_k)}{g'(x_k)}
+        \end{equation}
+        \item Consider the following cases for the initialization of 
+        the Newton iteration
+        \begin{itemize}
+            \item $x_0 = 0.5$
+            \item $x_0 = -1.0$
+            \item $x_0 = 2.0$
+        \end{itemize}
+        and analyze if the iteration converges, diverges or oscillates.
     \end{enumerate}
 
 \begin{solutionblock}
