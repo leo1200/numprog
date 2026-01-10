@@ -34,7 +34,7 @@
         \end{aligned}
     \end{equation}
 
-    such that the grid-spacing is $\Delta x = \frac{L}{N}$.
+    such that the grid-spacing is $\Delta x = \frac{L}{N}$. Here we use $N = 128$.
 
     Let us define the distance to the center of the box as
 
@@ -64,13 +64,13 @@
         \end{equation}
         Use the discrete Laplace, Biharmonic and gradient-squared
         operators just implemented.
-        \item Implement a time integration loop taking in an initial state
+        \item Implement a time integration loop taking in an initial state $u(t_0)$
         the time step $\Delta t$ and the number of time steps $N_s$ and returning
-        the final state. A single time step is given by
+        the final state $u(t_0 + N_s \Delta t)$. A single time step is given by
         \begin{equation}
             u(t + \Delta t) \approx u(t) + \Delta t \, \partial_t u(t)
         \end{equation}
-        $\partial_t u(t)$ given by the function you have just implemented.
+        $\partial_t u(t)$ is given by the function you have just implemented.
         \item Run the simulation with the given initial conditions. Plot the final state using $\operatorname{plt.imshow}$. The expected result is shown in Fig. \ref{fig:ks_final}
         \item Produce an animation of the state over time. Do not use every physical
         time step of your simulation as a frame but rather $150$ frames equally spaced in time.

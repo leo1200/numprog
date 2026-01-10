@@ -41,6 +41,50 @@ for instance
     \end{aligned}
 \end{equation}
 
+\subsection{Repetition on gradients}
+\label{app:gradients}
+
+The \textbf{directional derivative} of a function
+$f: \mathbb{R}^p \rightarrow \mathbb{R}$ at 
+$\vec{w}$ in direction $\vec{v}$ is given by
+
+\begin{equation}
+    \partial f(\vec{w}) [\vec{v}] := \lim_{\delta \to 0} \frac{f(\vec{w} + \delta \vec{v}) - f(\vec{w})}{\delta}
+\end{equation}
+
+$f$ is \textbf{(Frechet) differentiable} at $\vec{w}$, if
+$\partial f(\vec{w}) [\vec{v}]$ is
+\begin{itemize}
+    \item defined along any direction
+    \item linear in any direction $\vec{v}$
+    \item and if
+    \begin{equation}
+        \lim_{||\vec{v}||_2 \to 0} \frac{|f(\vec{w} + \vec{v}) - f(\vec{w}) - \partial f(\vec{w}) [\vec{v}]|}{||\vec{v}||_2} = 0
+    \end{equation}
+\end{itemize}
+
+The \textbf{gradient} is defined as
+
+\begin{equation}
+    \vec{\nabla} f(\vec{w}):=\left(\begin{array}{c}
+    \partial_1 f(\vec{w}) \\
+    \vdots \\
+    \partial_p f(\vec{w})
+    \end{array}\right)=\left(\begin{array}{c}
+    \partial f(\vec{w})\left[\vec{\hat{e}}_1\right] \\
+    \vdots \\
+    \partial f(\vec{w})\left[\vec{\hat{e}}_p\right]
+    \end{array}\right) \in \mathbb{R}^p
+\end{equation}
+
+and by the linearity of the directional 
+derivative $\partial f(\vec{w}) [\vec{v}]$ with respect to $\vec{v}$, we can 
+\textbf{express the directional derivative in terms of the gradient}
+
+\begin{equation}
+    \partial f(\vec{w}) [\vec{v}] = \vec{v} \cdot \vec{\nabla} f(\vec{w})
+\end{equation}
+
 \subsection{Krylow subspace methods}
 \label{app:krylov}
 Our aim still is to solve a linear system $\mat{A}\vec{x} = \vec{b}$.
@@ -83,7 +127,7 @@ Then the following holds
 \begin{equation}
     \mat{A}\vec{x} = \vec{b} \leftrightarrow \text{quadratic form } f(x) := \frac{1}{2} \vec{x}^T \mat{A} \vec{x} - \vec{x}^T \vec{b} \text{ is minimal}
 \end{equation}
-(intuitively as the quadratic form for a positive definite matrix if parabolic) where we can now apply standard gradient descent (\textbf{steepest descent method})
+(intuitively as the quadratic form for a positive definite matrix is parabolic) where we can now apply standard gradient descent (\textbf{steepest descent method})
 \begin{equation}
     \vec{x}^{(n+1)} = \vec{x}^{(n)} + \alpha^{(n)} \vec{p}^{(n)}, \quad \vec{p}^{(n)} = - \vec{\nabla} f(x^{(n)}) = - (\vec{b} - \mat{A} \vec{x}^{(n)})
 \end{equation}

@@ -665,45 +665,6 @@
       \field{pages}{836\bibrangedash 854}
       \range{pages}{19}
     \endentry
-    \entry{wright99}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=7763509f7c4b10ac0b0770c30259cb1d}{%
-           family={Wright},
-           familyi={W\bibinitperiod},
-           given={Stephen},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=88a342d927bf795b0d92af8a5613da31}{%
-           family={Nocedal},
-           familyi={N\bibinitperiod},
-           given={Jorge},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{fullhash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{fullhashraw}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{bibnamehash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{authorbibnamehash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{authornamehash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{authorfullhash}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \strng{authorfullhashraw}{e3d1aa0ac6bd5eadca5874e2a121f229}
-      \field{sortinit}{W}
-      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Springer Science}
-      \field{number}{67-68}
-      \field{title}{Numerical optimization}
-      \field{volume}{35}
-      \field{year}{1999}
-      \field{pages}{7}
-      \range{pages}{1}
-    \endentry
   \enddatalist
 \endrefsection
 \endinput

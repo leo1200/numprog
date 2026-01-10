@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+          \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+
+          \PYG{n}{XAXIS} \PYG{o}{=} \PYG{l+m+mi}{0}
+          \PYG{n}{YAXIS} \PYG{o}{=} \PYG{l+m+mi}{1}
+
+          \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{first\PYGZus{}deriv}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{n}{grid\PYGZus{}spacing}\PYG{p}{,} \PYG{n}{axis}\PYG{p}{):}
+              \PYG{k}{return} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{roll}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{roll}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{))} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{grid\PYGZus{}spacing}\PYG{p}{)}
+
+          \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{second\PYGZus{}deriv}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{n}{grid\PYGZus{}spacing}\PYG{p}{,} \PYG{n}{axis}\PYG{p}{):}
+              \PYG{k}{return} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{roll}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{u} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{roll}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{))} \PYG{o}{/} \PYG{n}{grid\PYGZus{}spacing}\PYG{o}{**}\PYG{l+m+mi}{2}
+\end{MintedVerbatim}

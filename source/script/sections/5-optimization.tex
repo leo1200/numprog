@@ -1,38 +1,298 @@
-\section{Root-finding and optimization}
+\section{Root finding and optimization}
 \thispagestyle{plain}
 
-\subsection{Overview on numerical methods for minimizing the loss (in the MLE setting)}
-The basic methods are to either numerically minimize the loss function directly, e.g.
+We have already talked about linear problems in Sec. \ref{sec:linear}. However,
+many problems we face in practice are non-linear. For instance, how do we even
+calculate an arbitrary square-root $\sqrt{a}, a>0$? Or how do we fit 
+a non-linear model, e.g. 
+$f_\vec{\theta}(t) = \theta_0 + \theta_1 \exp{(-\theta_2 t)}, \vec{\theta} = (\theta_0, \theta_1, \theta_2)^T$, to data?
+
+Such non-linear problems broadly fall into two categories:
+
 \begin{itemize}
-    \item gradient descent
-\end{itemize}
-or to apply root-finding methods to the gradient of the loss function, in the MLE
-setting the gradient of the log-likelihood, \textbf{the score}
-\begin{equation}
-    \vec{s}(\vec{\theta}) = \nabla_{\vec{\theta}} \log \mathcal{L}(\vec{\theta})
-\end{equation}
-with methods like
-\begin{itemize}
-    \item Newton-Raphson
-    \item Fisher scoring\footnote{Like Newton-Raphson but with the Fisher information matrix in place of the Hessian.
+    \item root finding: for a function $\vec{g}: \mathbb{R}^n \rightarrow \mathbb{R}^n$ find $\vec{x}^\star \in \mathbb{R}^n$ with $\vec{g}(\vec{x}^\star) = \vec{0}$. A function might generally have
+    no or multiple roots. Calculating a square root $\sqrt{a}, a>0$, for instance, is equivalent to finding the positive root of
+    $g(x) = x^2 - a$.
+    \item optimization: for a function $L: \mathbb{R}^p \rightarrow \mathbb{R}$ we want to find $\vec{\theta}^* = \argmin_{\vec{\theta}} L(\vec{\theta})$.
+    A typical example is a non-linear fit. Given the data $(t_i, y_i), i=1,...,N$ we want
+    to find parameters $\vec{\theta}$ which minimize the residual sum
     \begin{equation}
-        \mat{I}(\vec{\theta}) = E(\vec{s} \vec{s}^T) =-E \left( \frac{\partial^2 \log \mathcal{L}}{\partial \vec{\theta} \partial \vec{\theta}^T} \right)
+        \vec{\theta}^* = \argmin_{\vec{\theta}} L(\vec{\theta}), \quad L(\vec{\theta}) = \sum_{i=1}^{N} |y_i - f_\vec{\theta}(t_i)|^2
     \end{equation}
-    (the negative expectation of the Hessian of the log-likelihood)
-    (which is not a function of any particular observation as the random variable $X$ was 
-    averaged out).}
+    We want to find a global minimum based on local knowledge of $L$.
 \end{itemize}
 
-\subsection{Gradient Descent}
-Here we just walk down the gradient of the loss function, starting at some initial guess $\vec{\theta}_0$, so
+This section requires knowledge in multivariable calculus, for instance the notion of gradients, Jacobians and
+Hessians. An introduction to gradients is given in Sec. \ref{app:gradients}.
+
+\subsection{Root finding}
+
+\subsubsection{Bisection method}
+
+Let us start with the univariate case, $g: \mathbb{R} \to \mathbb{R}$. 
+
+\bluebox{\textbf{Aim:} Find $x^\star$ with $g(x^\star) = 0$.}
+
+\greenbox{\textbf{Insight:} Consider we know
+some $a,b$ ($a<b$) where $g$ has opposite sign, so $g(a)g(b)<0$. Assuming $g$ is continuous,
+there must exist a root $x^\star \in (a,b)$.}
+
+Start with some $a_0,b_0 \in \mathbb{R}$ with $g(a_0)g(b_0)<0$.
+
+\begin{enumerate}
+    \item Divide the interval $[a_i,b_i]$ by half into $[a_i,c_i]$ and $[c_i,b_i]$ where $c_i = \frac{a_i+b_i}{2}$.
+    \item If $g(c_i) = 0$ we have found a root and terminate. Otherwise,
+    \begin{itemize}
+        \item if $g(a_i)g(c_i)<0$ then $x^\star \in (a_i,c_i)$, set $a_{i+1} = a_{i}, b_{i+1} = c_i$
+        \item if $g(c_i)g(b_i)<0$ then $x^\star \in (c_i,b_i)$, set $a_{i+1} = c_{i}, b_{i+1} = b_i$
+    \end{itemize}
+    then $i \to i + 1$.
+\end{enumerate}
+
+We will typically want to terminate before we find the exact root. There are multiple options for termination.
+We know for instance that $|x^\star - c_i| \leq |b - c_i|$ (there is no point in $[a,b]$ further from $c$ than $b$ (or $a$))
+and can terminate when $|b - c| \leq \epsilon_\text{tol}$ with a given absolute tolerance $\epsilon_\text{tol}$.
+
+\greybox{\textbf{Task to the reader:} Find an upper bound for $|x^\star - c_n|$ after $n$ iteration steps.}
+
+\redbox{\textbf{Problem:} The bisection method does not generalize the higher-dimensional case $g: \mathbb{R}^n \to \mathbb{R}^n, n > 1$.}
+
+\subsubsection{Newton's iterative method for root finding}
+
+Let us think about a different approach, again starting with the
+univariate case $g: \mathbb{R} \to \mathbb{R}$. Our aim is still
+to approximate a root $x^\star$ ($g(x^\star) = 0$).
+
+We want to find a sequence $x_k$ which quickly
+and reliably converges to the root $x^\star$.
+
+To construct this sequence, we linearly approximate $g$ around
+$x_k$
+
+\begin{equation}
+    g\left(x_{k+1}\right) \approx g\left(x_k\right)+\left(x_{k+1}-x_k\right) g'(x_k) =0
+\end{equation}
+
+and solve for the root
+
+\begin{equation}
+    x_{k+1}=x_k-\frac{g\left(x_k\right)}{g'(x_k)}
+\end{equation}
+
+This is illustrated in Fig. \ref{fig:newton_raphson}.
+
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=0.7\textwidth]{figures/newton_raphson.svg}
+    \caption{Illustration of the Newton-Raphson method.}
+    \label{fig:newton_raphson}
+\end{figure}
+
+\bluebox{If $g$ is continuously differentiable in a neighborhood
+around a root $x^\star$ with nonzero derivative at $x^\star$, 
+then there exists a neighborhood around $x^\star$ where Newton's 
+iteration converges to $x^\star$ for all starting values.}
+
+\subsubsubsection{Quadratic Convergence of Newton's method}
+
+Consider $x_k$ is an approximation to $x^\star$ with error
+
+\begin{equation}
+    \epsilon_k = x^\star - x_k
+\end{equation}
+
+We would like to relate $\epsilon_{k+1}$ to $\epsilon_k$ to characterize
+the error convergence. 
+
+\begin{equation}
+    \epsilon_{k+1} = x^\star - x_{k+1} = x^\star - x_k + \frac{g\left(x_k\right)}{g'(x_k)} = \epsilon_k + \frac{g\left(x_k\right)}{g'(x_k)}
+\end{equation}
+
+Now we use the Taylor expansion of $g$ (assume $g$ has a continuous second derivative) from $x_k$ to $x^\star$
+
+\begin{equation}
+    0 = g(x^\star) = g(x_k + \epsilon_k) = g(x_k) + \epsilon_k g'(x_k) + \frac{1}{2} \epsilon_k^2 g''(\xi_k), \quad \xi_k \in (x_k,x^\star)
+\end{equation}
+
+so
+
+\begin{equation}
+    g(x_k) = -\epsilon_k g'(x_k) - \frac{1}{2} \epsilon_k^2 g''(\xi_k)
+\end{equation}
+
+to obtain
+
+\begin{equation}
+    \begin{aligned}
+         \epsilon_{k+1} &= \epsilon_k + \frac{g\left(x_k\right)}{g'(x_k)} \\
+                        &= \epsilon_k + \frac{-\epsilon_k g'(x_k) - \frac{1}{2} \epsilon_k^2 g''(\xi_k)}{g'(x_k)} \\
+                        &= -\frac{g''(\xi_k)}{2 g'(x_k)} \epsilon_k^2
+    \end{aligned}
+\end{equation}
+
+so for the absolute error
+
+\begin{equation}
+    \boxed{|\epsilon_{k+1}| = \frac{|g''(\xi_k)|}{2 |g'(x_k)|} \epsilon_k^2, \quad \xi_k \in (x_k,x^\star)}
+\end{equation}
+
+Given that for all points $x$ closer to $x^\star$ than our original
+guess $x_0$ ($x \in I = [x_0 - |\epsilon_0|, x_0 + |\epsilon_0|]$), $\frac{|g''(\xi_k)|}{2 |g'(x_k)|}$ 
+is bound ($x \in I: f'(x) \neq 0$), we define 
+
+\begin{equation}
+    M := \frac{1}{2} \left(\sup_{x \in I} |g''(x)|\right)  \left(\sup_{x \in I} \frac{1}{|g'(x)|}\right), \quad \rho := M |\epsilon_0|
+\end{equation}
+
+to obtain an upper bound in 
+
+\begin{equation}
+    |\epsilon_{k+1}| \leq M \epsilon_k^2 \quad \rightarrow \quad M |\epsilon_1| \leq M^2 \epsilon_0^2 = \rho^2, M |\epsilon_2| \leq M^2 \epsilon_1^2 \leq \rho^4,..., M |\epsilon_k| \leq \rho^{2^k}
+\end{equation}
+
+which quadratically converges to zero given that 
+
+\begin{equation}
+    \rho = M |\epsilon_0| < 1
+\end{equation}
+
+\subsubsubsection{Multivariate Newton iteration}
+
+\greenbox{Different from the bisection method, Newton's iterative method is straightforward to generalize to the multivariate case.}
+
+In the multivariate case, $g: \mathbb{R}^n \rightarrow \mathbb{R}^n$, we have
+
+\begin{equation}
+    \vec{x}_{k+1}=\vec{x}_k-\mat{J}_{\vec{g}}^{-1}\left(\vec{x}_k\right) \vec{g}\left(\vec{x}_k\right), \quad \mat{J}_\vec{g}=\left(\begin{array}{ccc}
+    - & \vec{\nabla}_{\vec{x}} g_1 & - \\
+    \vdots & \vdots & \vdots \\
+    - & \vec{\nabla}_{\vec{x}} g_n & -
+    \end{array}\right)
+\end{equation}
+
+where $\mat{J}_\vec{g} \in \mathbb{R}^{n \times n}$ is the Jacobian of $\vec{g}$.
+
+\subsection{Optimization}
+
+In optimization, for a function $L: \mathbb{R}^p \rightarrow \mathbb{R}$ we want 
+to find $\vec{\theta}^* = \argmin_{\vec{\theta}} L(\vec{\theta})$.
+Often $L$ is an error term, called \textit{loss} and $\vec{\theta}$ are
+model parameters which we tweak to minimize the loss. In constrained optimization
+there are further constraints on $\vec{\theta}$.
+
+The fundamental problem in optimization is that our knowledge of 
+$L: \mathbb{R}^p \rightarrow \mathbb{R}$ is only
+local. We can evaluate $L$ and possibly its derivatives, but this comes at a cost.
+We would like to find a minimum of $L$ using as little evaluations as possible.
+
+A naive strategy for finding the minimizer in a given region would be grid-search: Consider
+$p = 1$ and assume the minimum to be between $\theta_A$ and $\theta_B$. We choose
+$N$ evaluation points $\theta_i = \theta_A + \frac{i}{N} (\theta_B - \theta_A)$
+and estimate $\vec{\theta}^*$ with
+
+\begin{equation}
+    \hat{\theta}^*_{\text{grid-search}} = \argmin_{\theta_i, i=1,...,N} L(\theta_i)
+\end{equation}
+
+Now consider $p=2$. To maintain the same resolution per dimension as in the one dimensional 
+case, $N^2$ grid points are necessary. This is illustrated in Fig. \ref{fig:grid_curse}.
+
+\begin{figure}[!htb]
+ \centering
+ \includesvg[width=1.0\textwidth]{figures/grid_curse.svg}\hfill
+ \caption{Curse of dimensionality in grid-search.}
+ \label{fig:grid_curse}
+\end{figure}
+
+\redbox{\textbf{Curse of dimensionality in grid-search:} For a given resolution per dimension, the number of 
+evaluations necessary to approximate the minimum of $L: \mathbb{R}^p \rightarrow \mathbb{R}$ scales 
+exponentially with $N^p$. This quickly becomes infeasible. Also, the larger the 
+search volume (the more global the search), the higher
+the cost (for a fixed resolution).}
+
+The algorithms we use are typically designed to find \textit{local minimizers}.
+
+\bluebox{\textbf{Local minimizer:} A point $\vec{\theta}^*$ is a strict local minimizer of $L: \mathbb{R}^p \rightarrow \mathbb{R}$
+if there is a neighborhood of $\vec{\theta}^*$ such that $L(\vec{\theta}^*) < L(\vec{\theta})$ for all
+$\vec{\theta}$ in the neighborhood.}
+
+Let us repeat two important results from analysis \citep[Theorem 2.4 and 2.5]{wright99}.
+
+\bluebox{\textbf{Sufficient conditions for local minimizers:}
+Suppose $\vec{\theta}^*$ is a stationary point of
+$L: \mathbb{R}^p \rightarrow \mathbb{R}$, i.e.
+$\vec{\nabla}L(\vec{\theta}^*) = \vec{0}$, and the Hessian
+\begin{equation}
+    \mat{H}_L(\vec{\theta}^*)
+    =
+    \left[ \frac{\partial^2 L}{\partial \theta_i \partial \theta_j} \right]_{i,j=1}^{p}
+    \in \mathbb{R}^{p \times p}
+\end{equation}
+is positive definite, i.e.
+\begin{equation}
+\forall \vec{v} \in \mathbb{R}^p \setminus \{0\}:
+\quad
+\vec{v}^{\mathsf T} \mat{H}_L(\vec{\theta}^*) \vec{v} > 0, 
+\end{equation}
+and $\mat{H}_L$ is continuous in an open neighborhood of $\vec{\theta}^*$,
+then $\vec{\theta}^*$ is a strict local minimizer of $L$.}
+
+\bluebox{\textbf{Stationary points of convex functions:} If $L: \mathbb{R}^p \rightarrow \mathbb{R}$ is differentiable and convex, i.e.
+\begin{equation}
+    \forall \vec{x},\vec{y} \in \mathbb{R}^p, \forall \alpha \in [0,1]: L(\alpha \vec{x} + (1-\alpha)\vec{y}) \leq \alpha L(\vec{x}) + (1-\alpha) L(\vec{y})
+\end{equation}
+(for a twice differentiable function its convex if and only if its Hessian is positiv semidefinite) then any stationary point of $L$, i.e. $\vec{\nabla}L(\vec{\theta}^*) = \vec{0}$, is a \textbf{global minimizer}
+of $L$.}
+
+This is the mathematical foundation of optimization schemes searching for stationary points.
+
+\subsubsection{Iterative algorithms for optimization}
+
+We consider iterative schemes designed to find local minima.
+
+An iteration
+\begin{equation}
+    \vec{\theta}_{k+1} = \vec{\theta}_k + \alpha_k \vec{p}_k
+\end{equation}
+is given by a direction $\vec{p}_k$ ($||\vec{p}_k|| = 1$) and a step length $\alpha_k$.
+
+\bluebox{\textbf{Aim:} We want to find a direction $\vec{p}_k$ and step size $\alpha_k$
+to minimize $L(\vec{\theta}_{k+1})$.}
+
+Consider we Taylor expand $L$ to first order
+
+\begin{equation}
+    L(\vec{\theta}_k + \alpha_k \vec{p}_k) = L(\vec{\theta}_k) + \alpha_k \vec{p}_k^T \vec{\nabla} L(\vec{\theta}_k) + \mathcal{O}(\alpha^2)
+\end{equation}
+
+Any direction with
+
+\begin{equation}
+    \vec{p}_k^T \vec{\nabla} L(\vec{\theta}_k) = ||\vec{p}_k|| \, ||\vec{\nabla} L(\vec{\theta}_k)|| \cos{\measuredangle \left(\vec{p}_k, \vec{\nabla} L(\vec{\theta}_k)\right)} < 0
+\end{equation}
+
+will reduce $L$ to first order!
+
+\subsubsection{Gradient Descent}
+
+\greybox{\textbf{The gradient $\vec{\nabla} L$ points in the direction of maximum ascent. Therefore the most
+natural choice for the search direction $\vec{p}_k$ is the negative gradient, $\vec{p}_k = -\vec{\nabla} L(\vec{\theta}_k)$.}}
+
+In gradient descent we walk down the gradient of $L$, starting at some initial guess $\vec{\theta}^{(0)}$, so
+
 \begin{equation}
     \begin{gathered}
-        \vec{\hat{\theta}}^{(n+1)}=\vec{\hat{\theta}}^{(n)}-\left.\gamma \vec{\nabla}_{\vec{\theta}} L\right|_{\vec{\theta}=\vec{\widehat{\theta}}^{(n)}}, \quad \text{learning rate } \gamma \\
-        \text{until } \left|L\left(\vec{\hat{\theta}}^{(n+1)}\right)-L\left(\vec{\hat{\theta}}^{(n)}\right)\right|<\epsilon \text{ or \# steps } >N_{\text {max }}
+        \vec{\theta}^{(n+1)}=\vec{\theta}^{(n)}-\left.\gamma \vec{\nabla} L\right|_{\vec{\theta}=\vec{\theta}^{(n)}}, \quad \text{learning rate } \gamma \\
+        \text{until } \left|L\left(\vec{\theta}^{(n+1)}\right)-L\left(\vec{\theta}^{(n)}\right)\right|<\epsilon \text{ or \# steps } >N_{\text {max }}
     \end{gathered}
 \end{equation}
 where $\epsilon$ is a small number and $N_{\text{max}}$ is the maximum number of steps, set by
 the user. Alternatively, one can stop when $||\vec{\theta}^{(n+1)} - \vec{\theta}^{(n)}|| < \epsilon$.
+
+Gradient descent is one of the most widely used and 
+generally applicable optimization method. Virtually all
+modern machine learning models are trained based on variants
+of gradient descent.
 
 \redbox{\textbf{Problems of standard gradient descent:}
 \begin{itemize}
@@ -42,78 +302,71 @@ the user. Alternatively, one can stop when $||\vec{\theta}^{(n+1)} - \vec{\theta
 \end{itemize}
 }
 
-\subsubsection{Improvements to standard gradient descent}
+\subsubsubsection{Improvements to standard gradient descent}
 \begin{itemize}
     \item to combat local minima, we can start from multiple initial conditions and take the best final result
     \item we prefer an approximate global optimum over an exact local one $\rightarrow$ use stochasticity, 
     (e.g. injected noise $\rightarrow$ jump out of local but not global minima); simulated annealing (probabilistically 
     move to some state or stay in the current one, even locally suboptimal steps are allowed)
-    \item \textbf{stochastic gradient descent}: consider we want to minimize an additive function
-    \begin{equation}
-        Q(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^N Q_i(\vec{\theta}), \quad \text{e.g.} L(\vec{\theta}) = -\mathcal{LL}(\vec{\theta}) = \sum_{i=1}^N -\log p(\vec{x}_i | \vec{\theta})
-    \end{equation}
-    We do the gradient descent steps by
-    \begin{equation}
-        \vec{\hat{\theta}}^{(n+1)}=\vec{\hat{\theta}}^{(n)}-\frac{\gamma}{k} \vec{\nabla}_{\vec{\theta}} \sum_{\substack{\text { random subset } \\ \text { of size } k}} Q_k(\vec{\theta})
-    \end{equation}
-    so we only consider the loss following from a subset of data points - which can avoid local minima (noise
-    in the data itself is used)
-    \item adaptive learning rage $\gamma$ (reduce for steep gradients) (e.g. AdaGrad, RMSProp, Adam)
+    \item adaptive learning rate $\gamma$ (reduce for steep gradients) (e.g. AdaGrad, RMSProp, Adam)
 \end{itemize}
 
-\subsection{Newton-Raphson}
-
-\subsubsection{Standard Newton iteration for root finding}
-Consider we want to find the root of a function $g(\xi)$. We linearly approximate
-$g$ around the current guess $\xi_k$ and solve for the root.
-\begin{equation}
-    \begin{gathered}
-    g\left(\xi_{k+1}\right) \approx g\left(\xi_k\right)+\left.\left(\xi_{k+1}-\xi_k\right) \partial_{\xi} g\right|_{\xi=\xi_k}=0 \\
-    \rightarrow \xi_{k+1}=\xi_k-\frac{g\left(\xi_k\right)}{\left.\partial_{\xi} g\right|_{\xi=\xi_k}}
-    \end{gathered}
-\end{equation}
-so in the multivariate case, $g: \mathbb{R}^n \rightarrow \mathbb{R}^m$, we have
-\begin{equation}
-    \vec{\xi}_{k+1}=\vec{\xi}_k-\mat{J}_{\vec{g}}^{-1}\left(\vec{\xi}_k\right) \vec{g}\left(\vec{\xi}_k\right), \quad \mat{J} \vec{g}=\left(\begin{array}{ccc}
-    - & \vec{\nabla}_{\vec{\xi}} g_1 & - \\
-    \vdots & \vdots & \vdots \\
-    - & \vec{\nabla}_{\vec{\xi}} g_n & -
-    \end{array}\right)
-\end{equation}
-Which is illustrated in Fig. \ref{fig:newton_raphson}.
-
-\begin{figure}[!htb]
-    \centering
-    \includesvg[width=0.7\textwidth]{figures/newton_raphson.svg}
-    \caption{Illustration of the Newton-Raphson method.}
-    \label{fig:newton_raphson}
-\end{figure}
-
 \subsubsection{Newton's method in optimization}
-We now want to find critical values $\xi_{\text{crit}}$ of a function $g$, where
-\begin{equation}
-    \left. \partial_{\xi} g \right|_{\xi_{\text{crit}}} = 0
-\end{equation}
-\redbox{These can be minima, maxima or saddle points.}
-Using Newton iteration, we get
-\begin{equation}
-    \xi_{k+1}=\xi_k-\frac{\left.\partial_{\xi} g\right|_{\xi=\xi_k}}{\left.\partial_{\xi}^2 g\right|_{\xi=\xi_k}}
-\end{equation}
-\greenbox{\textbf{Intuition of Newton-optimization:} At
-$\xi_k$, a parabola is fitted to the function $g$ and we move the 
-the extremum (in higher dimension this can be a saddle point) of it.}
 
-In higher dimensions $g: \mathbb{R}^n \rightarrow \mathbb{R}$, we get
+We will motivate Newton's method in optimization in two ways.
+
+We have mentioned the connection between stationary points and local
+minima. Stationary points where $\vec{\nabla}L(\vec{\theta}^*) = \vec{0}$
+are necessary conditions for local minima
+(but not sufficient, we might also be dealing with 
+a local maximum or saddle point) and for differentiable convex functions
+even sufficient conditions for global minima.
+
+This motivates applying Newton's root finding method on $\vec{\nabla}L(\vec{\theta}^*)$
+for finding stationary points.
+
 \begin{equation}
-    \vec{\xi}_{k+1} = \vec{\xi}_k - \mat{H}_{\vec{g}}^{-1}(\vec{\xi}_k) \vec{\nabla}_{\vec{\xi}} g(\vec{\xi}_k)
+    \vec{\theta}_{k+1} = \vec{\theta}_k - \mat{H}_L^{-1}(\vec{\theta}_k) \vec{\nabla}L(\vec{\theta}_k)
 \end{equation}
-with the numerically costly Hessian
+
+Our second viewing angle comes from the line-search principle. Let us Taylor expand
+$L$ to second order
+
 \begin{equation}
-    \mat{H}_g = \mat{J}_{\vec{\nabla}_{\vec{\xi}} g}
+    L(\vec{\theta}_k + \vec{p}) = \underbrace{L(\vec{\theta}_k) + \vec{p}^T \vec{\nabla} L(\vec{\theta}_k) + \frac{1}{2} \vec{p}^T \mat{H}_L(\vec{\theta}_k) \vec{p}}_{=: m_k(\vec{p})} + \mathcal{O}(||\vec{p}_k||^3)
 \end{equation}
-best analytically found or calculated based on Automatic 
-Differentiation (AD).
-\greenbox{In our loss-optimization we simply have $g(\vec{\xi}) = L(\vec{\theta})$.}
+
+Assuming $\mat{H}_L(\vec{\theta}_k)$ is positive definite, then $m_k(\vec{p})$ is convex and
+the stationary point $\vec{\nabla} m_k(\vec{p}_k) = \vec{0}$ is the unique minimizer of
+$m_k$, so the optimal step direction under second order Taylor expansion. Put intuitively
+we fit a parabola to $L$ and move to its minimum. We can 
+determine $\vec{p}_k$ to
+
+\begin{equation}
+    \vec{\nabla} m_k(\vec{p}_k) = \vec{\nabla} L(\vec{\theta}_k) + \mat{H}_L(\vec{\theta}_k) \vec{p} = 0 \quad \rightarrow \quad \vec{p}_k = -\mat{H}_L^{-1}(\vec{\theta}_k) \vec{\nabla} L(\vec{\theta}_k)
+\end{equation}
+
+which brings us back to Newton's method as derived above
+
+\begin{equation}
+    \vec{\theta}_{k+1} = \vec{\theta}_k - \mat{H}_L^{-1}(\vec{\theta}_k) \vec{\nabla}L(\vec{\theta}_k)
+\end{equation}
+
+\yellowbox{\textbf{Note:} When $\mat{H}_L(\vec{\theta}_k)$ is not positive definite,
+the Hessian might not be invertable, and even if the Hessian is invertable, the search direction
+might not satisfy the descent condition, $\vec{p}_k^T \vec{\nabla} L(\vec{\theta}_k) < 0$.}
+
+\bluebox{Generally, any search direction
+\begin{equation}
+    \vec{p}_k = -\mat{B}_k^{-1} \vec{\nabla} L(\vec{\theta}_k)
+\end{equation}
+where $\mat{B}_k \in \mathbb{R}^{p \times p}$ is a symmetric positive definite matrix,
+\textbf{is a descent direction}, as
+\begin{equation}
+    \vec{p}_k^T \vec{\nabla} L(\vec{\theta}_k) = -\vec{\nabla} L(\vec{\theta}_k)^T \mat{B}_k^{-1} \vec{\nabla} L(\vec{\theta}_k) < 0
+\end{equation}
+as the inverse of a positive definite matrix is also positive definite.
+}
 
 \subsubsubsection{Advantages of Newton optimization}
 \begin{itemize}
@@ -130,17 +383,18 @@ Differentiation (AD).
 \begin{figure}[!htb]
     \centering
     \includesvg[width=0.4\textwidth]{figures/newton_vs_gd.svg}
-    \caption{Newton optimization (\textcolor{green1}{green}), gradient descent (\textcolor{red1}{red}).}
+    \caption{Newton optimization (\textcolor{red1}{red}), gradient descent (\textcolor{green1}{green}).}
     \label{fig:newton_vs_gd}
 \end{figure}
 
 \subsubsubsection{Disadvantages of Newton optimization}
 \begin{itemize}
-    \item strictly only applies to convex / concave functions $g$
+    \item strictly only applies to convex / concave functions
     \item at the inflection point of a non-convex function, the Hessian is indefinite
-    so in the 1D case $\partial_{\xi}^2 g = 0$ and Newton optimization breaks down
-    \item it searches critical points, not minima, if $\partial_{\xi}^2 g < 0$ and $\partial_{\xi} g > 0$,
+    so in the 1D case $\partial_\theta^2 L = 0$ and Newton optimization breaks down
+    \item it searches critical points, not minima, in 1D if $\partial_\theta^2 L < 0$ and $\partial_{\theta} L > 0$,
     we go uphill, see Fig. \ref{fig:newton_crit}.
+    \item the inversion and calculation of the Hessian can be too costly $\rightarrow$ consider quasi-Newton methods like the Broyden–Fletcher–Goldfarb–Shanno algorithm
 \end{itemize}
 
 \begin{figure}[!htb]
@@ -149,5 +403,116 @@ Differentiation (AD).
     \caption{Newton optimization breaks down at the inflection point and goes uphill right of it.}
     \label{fig:newton_crit}
 \end{figure}
+
+\subsubsection{Nonlinear least-squares optimization: Gauss-Newton}
+
+\subsubsubsection{Problem setting of least-squares optimization}
+
+Consider $L: \mathbb{R}^p \to \mathbb{R}$ has the special form
+
+\begin{equation}
+    L(\vec{\theta}) = \frac{1}{2} \sum_{i=1}^{N} r_i^2(\vec{\theta}) = \frac{1}{2} ||\vec{r}(\vec{\theta})||_2^2, \quad \vec{r}(\vec{\theta}) = (r_1(\vec{\theta}),...,r_N(\vec{\theta}))^T
+\end{equation}
+
+This is typically the case when we have data $\{t_i,y_i\}_{i=1}^N$ and a 
+model $f_\vec{\theta}(t)$ and we want to find parameters
+
+\begin{equation}
+    \vec{\theta}^* = \argmin_{\vec{\theta}} \frac{1}{2} \sum_{i = 1}^{N} (\underbrace{f_\vec{\theta}(t_i) - y_i}_{r_i})^2
+\end{equation}
+
+For a model $f_\vec{\theta}$ linear in $\vec{\theta}$, see Sec. \ref{sec:linear_regression}.
+But what is $f_\vec{\theta}$ is nonlinear in $\vec{\theta}$, for instance
+
+\begin{equation}
+    f_\vec{\theta}(t) = \theta_0 + \theta_1 \exp{\left(-\theta_2 t\right)}
+\end{equation}
+
+\subsubsubsection{Special structure of the gradient and Hessian in least-squares optimization}
+
+Given the Jacobian
+
+\begin{equation}
+    \mat{J}_\vec{r}(\vec{\theta}) = \left[ \frac{\partial r_j}{\partial \theta_i} \right]_{\begin{matrix}
+        j=1,...,N \\
+        i=1,...,p
+    \end{matrix}} \in \mathbb{R}^{N \times p}
+\end{equation}
+
+of
+
+\begin{equation}
+    \vec{r}: \mathbb{R}^p \to \mathbb{R}^N, \quad \vec{r}(\vec{\theta}) = (r_1(\vec{\theta}),...,r_N(\vec{\theta}))^T
+\end{equation}
+
+($N>p$), the gradient of
+
+\begin{equation}
+    L(\vec{\theta}) = \frac{1}{2} \sum_{i=1}^{N} r_i^2(\vec{\theta}) = \frac{1}{2} ||\vec{r}(\vec{\theta})||_2^2
+\end{equation}
+
+is given by (chain rule)
+
+\begin{equation}
+    \vec{\nabla} L(\vec{\theta}) = \mat{J}_\vec{r}(\vec{\theta})^T \vec{r}(\vec{\theta}) \in \mathbb{R}^p
+\end{equation}
+
+and the Hessian by
+
+\begin{equation}
+    \begin{aligned}
+        \left[\mat{H}_L(\vec{\theta})\right]_{k,l} &= \frac{1}{2} \sum_{i=1}^{N} \partial_{\theta_k}\partial_{\theta_l}r_i^2(\vec{\theta}) \\
+                                       &= \sum_{i=1}^{N} \partial_{\theta_k}\left(r_i(\vec{\theta}) \partial_{\theta_l}r_i(\vec{\theta})\right) \\
+                                       &= \sum_{i=1}^{N} \left(\partial_{\theta_k}r_i(\vec{\theta})\right) \left(\partial_{\theta_l}r_i(\vec{\theta})\right) + \sum_{i=1}^{N} r_i(\vec{\theta})  \partial_{\theta_k} \partial_{\theta_l}r_i(\vec{\theta}) \\
+    \end{aligned}
+\end{equation}
+
+which in matrix notation is
+
+\begin{equation}
+    \mat{H}_L(\vec{\theta}) = \mat{J}_\vec{r}(\vec{\theta})^T \mat{J}_\vec{r}(\vec{\theta}) + \sum_{i=1}^{N} r_i(\vec{\theta}) \mat{H}_{r_i}(\vec{\theta}) \in \mathbb{R}^{p \times p}
+\end{equation}
+
+\greenbox{Note that the first term in the Hessian, $\mat{J}_\vec{r}(\vec{\theta})^T \mat{J}_\vec{r}(\vec{\theta})$
+only requires first derivatives of the residuals, which are much less expensive than the second derivatives appearing
+in the second term $\sum_{i=1}^{N} r_i(\vec{\theta}) \mat{H}_{r_i}(\vec{\theta})$. \textbf{Luckily, the second term
+can often be neglected compared to the first term}. This can be done when
+\begin{itemize}
+    \item the residuals $r_i$ are small
+    \item or the residuals are close to affine in $\vec{\theta}$, such that the second derivatives
+    $\partial_{\theta_k} \partial_{\theta_l}r_i(\vec{\theta})$ are small
+\end{itemize}
+}
+
+\subsubsubsection{Gauss-Newton optimization}
+
+Plugging in our result for the gradient
+
+\begin{equation}
+    \vec{\nabla} L(\vec{\theta}) = \mat{J}_\vec{r}(\vec{\theta})^T \vec{r}(\vec{\theta}) \in \mathbb{R}^p
+\end{equation}
+
+and the first term approximation to the Hessian
+
+\begin{equation}
+    \mat{H}_L(\vec{\theta}) \approx \mat{J}_\vec{r}(\vec{\theta})^T \mat{J}_\vec{r}(\vec{\theta})
+\end{equation}
+
+into Newton optimization
+
+\begin{equation}
+    \vec{\theta}_{k+1} = \vec{\theta}_k - \mat{H}_L^{-1}(\vec{\theta}_k) \vec{\nabla}L(\vec{\theta}_k)
+\end{equation}
+
+yields the Gauss-Newton method
+
+\begin{equation}
+    \vec{\theta}_{k+1} = \vec{\theta}_k - \left( \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) \right)^{-1} \mat{J}_\vec{r}(\vec{\theta}_k)^T \vec{r}(\vec{\theta}_k)
+\end{equation}
+
+\greenbox{Gauss-Newton always goes into descent directions as $ \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k)$ is
+positive definite.}
+
+\bluebox{Also consider Levenberg-Marquardt (see \cite[Ch. 10]{wright99}).}
 
 \pagebreak
