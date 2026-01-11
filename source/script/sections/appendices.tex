@@ -1160,3 +1160,323 @@ $\lambda = -0.5$. The core observations are:
     \item dopri5 is sufficiently accurate such that both the direct autodiff and continuous
     adjoint nicely match the ground truth
 \end{itemize}
+
+\subsection{Monte Carlo Integration}
+\label{app:monte_carlo}
+
+Classical numerical methods for integration (e.g. Simpson's rule) become infeasible for high-dimensional integrals,
+essentially, as the errors scale with the number of function-evaluation-points per dimension (so in high dimensions, we need
+to perform lots of function evaluations).
+
+\subsubsection{Intuition for Monte Carlo Integration}
+Consider we want to calculate the integral
+
+\begin{equation}
+    I := \int_{V} g(\vec{x}) d^d \vec{x}
+\end{equation}
+
+where $V$ is a $d$-dimensional volume and $g$ is a function $g: V \rightarrow \mathbb{R}$. Then it makes intuitive sense
+to approximate this integral by the mean of the function $g$ on the domain of interest, as found as the mean of $g$ evaluated
+at $N$ random points $\vec{x}_i$ in $V$, multiplied by the volume of $V$ (also denoted by $V$)
+
+\begin{equation}
+\hat{I}_N := \frac{V}{N} \sum_{i=1}^{N} g(\vec{x}_i) \xrightarrow[N \rightarrow \infty]{a.s.} I
+\end{equation}
+
+\bluebox{\textbf{Monte Carlo Integration}: Let $V$ for simplicity be the hypercube $[0,1]^d$ (by change of variables, the domain of interest can be mapped to this hypercube). Then Monte Carlo
+integration to approximate $I = \int_{[0,1]^d} g(\vec{x}) d^d \vec{x}, \vec{x} \in \mathbb{R}^d$ is given by
+\begin{itemize}
+    \item Generate $N$ random vectors $\vec{x}$ where each component is drawn uniformly from $[0,1]$ (so we need $N\times d$ random numbers)
+    \item Evaluate
+    \begin{equation}
+        \hat{I}_N = V \frac{1}{N} \sum_{i=1}^{N} g(\vec{x}_i), \quad \text{here } V = 1 
+    \end{equation}
+\end{itemize}}
+
+\greenbox{\textbf{Scaling of the error}: The error of the Monte Carlo integrator scales with $1/\sqrt{N}$, independent of the number of dimensions of the integration $d$.}
+
+\subsubsection{Connection to the Monte Carlo Estimator}
+We can also obtain the result from above
+from the Monte Carlo Estimator (eq. \ref{eq:mc_est}) by using the uniform distribution
+\begin{equation}
+    f(\vec{x}) = \begin{cases}
+        \frac{1}{V} & \text{if } \vec{x} \in V \\
+        0 & \text{else}
+    \end{cases}
+\end{equation}
+and rewriting the integral as
+\begin{equation}
+    I = \int_{V} g(\vec{x}) d^d \vec{x} = V \int_{V} g(\vec{x}) \cdot \frac{1}{V} d^d \vec{x} = V \int_{V} g(\vec{x}) \cdot f(\vec{x}) d^d \vec{x}
+\end{equation}
+
+\subsubsection{Intuition from calculating the area of a shape}
+Consider an irregular shape with area $A_{\text{shape}}$ within a rectangle with area $A_{\text{rect}}$. 
+The probability that a point drawn uniformly from the rectangle lies within the shape is 
+\begin{equation}
+    p_{\text{shape}} = \frac{A_{\text{shape}}}{A_{\text{rect}}}
+\end{equation}
+so we can approximate
+\begin{equation}
+    A_{\text{shape}}\approxeq A_{\text{rect}} \frac{\# \text{ hits in shape}}{\# \text{ hits in rectangle}}
+\end{equation}
+which is the same as the Monte Carlo Integration introduced, where $g(\vec{x}) = 1_{\text{shape}}(\vec{x})$ and $V = A_{\text{rect}}$.
+
+\subsubsection{Error in Monte Carlo Integration - scaling with $\frac{1}{\sqrt{N}}$}
+Based on the connection to the Monte Carlo Estimator, the
+variance of our estimator for the integral is given by
+\begin{equation}
+    \Var[\hat{I}_N] = \frac{V^2}{N} \Var[g(x)], \quad \text{estimate} \Var[g(x)] \text{ by } S_{g;N}^2 := \frac{1}{N-1} \sum_{i=1}^{N} \left(g(x_i) - \frac{\hat{I}_N}{V}\right)^2
+    \label{eq:mcint_var}
+\end{equation}
+\bluebox{
+So the standard error of our Monte Carlo estimator
+\begin{equation}
+    \hat{I}_N = \frac{V}{N} \sum_{i=1}^{N} g(\vec{x}_i)
+\end{equation}
+that is if we calculate $\hat{I}_N$ multiple times with different random samples, the standard deviation of these
+different estimates is
+ \begin{equation}
+    \boxed{\sigma_{\hat{I}_N} = V \sqrt{\frac{\sigma_g^2}{N}} \propto \frac{1}{\sqrt{N}}}
+ \end{equation}
+which is illustrated in Fig. \ref{fig:mcint}. This follows directly from the basic properties of the variance
+\begin{equation}
+    \text{for } X,Y \text{ independent} \quad \Var[X+Y] = \Var[X] + \Var[Y], \quad \Var[aX] = a^2 \Var[X]
+\end{equation}
+with
+\begin{equation}
+    \Var[\hat{I}_N] = \Var\left[\frac{V}{N} \sum_{i=1}^{N} g(\vec{x}_i)\right] = \frac{V^2}{N^2} \sum_{i=1}^{N} \Var[g(\vec{x}_i)] \underset{\vec{x}_i \text{ i.i.d.}}{=} \frac{V^2}{N} \Var[g(\vec{x})]
+\end{equation}
+}
+
+\subsubsection{Distribution of $\hat{I}_N$ and derivation of the central limit theorem\skipthis}
+The Monte Carlo Estimator is
+\begin{equation}
+    \hat{I}_N = \frac{V}{N} \sum_{i=1}^{N} g(\vec{x}_i) = \frac{1}{N} \sum_{i=1}^{N} y_i = \sum_{i=1}^{N} s_i, \quad y_i = V g(\vec{x}_i), \quad s_i = \frac{y_i}{N}
+\end{equation}
+by basic properties of variance and mean
+\begin{equation}
+    \begin{gathered}
+        \langle \hat{I}_N \rangle = N \langle s \rangle = \langle y \rangle  \\
+        \Var[\hat{I}_N] = N \Var[s] = \frac{1}{N} \Var[y] = \frac{V^2}{N} \Var[g(\vec{x})]
+    \end{gathered}
+\end{equation}
+\note{$p(y)$ is the distribution of $y$ over $V$ along the $y$-axis with
+\begin{equation}
+    \langle y \rangle = \int y p(y) \, dy = \int_{V} g(\vec{x}) \, d^d \vec{x}, \quad \int p(y) \, dy = 1
+\end{equation}
+\textbf{$p(y)$ might be any distribution.}
+}
+Applying the Central Limit Theorem (eq. \ref{eq:central_limit_theorem}) to the Monte Carlo Estimator
+(assuming the moments of $p(y)$ exist and are finite), we obtain
+\begin{equation}
+    \begin{aligned}
+        P_N(\hat{I}_N) &= \frac{1}{\sqrt{2\pi \Var[\hat{I}_N]}} \exp{\left( -\frac{(\hat{I}_N-\langle \hat{I}_N \rangle)^2}{2\Var[\hat{I}_N]} \right)} \\
+                       &= \frac{\sqrt{N}}{\sqrt{2\pi \sigma_y^2}} \exp{\left( -\frac{N(\hat{I}_N-\langle y \rangle)^2}{2\sigma_y^2} \right)}
+    \end{aligned}
+\end{equation}
+independent of the shape of $p(y)$ for $N$ sufficiently large.
+
+\paragraph{Derivation of the Central Limit Theorem by Fourier Transform} The central limit
+theorem can be derived by considering $P_N$ in Fourier space, where 
+the central ingredient will simply be
+\begin{equation}
+    \exp{x} = \lim_{N \rightarrow \infty} \left(1 + \frac{x}{N}\right)^N
+\end{equation}
+which is also approximately true for large $N$.
+\bluebox{\textbf{Distribution of the sum of independent random variables}: Consider \textbf{independent} variables $X,Y$ with PDFs $f_X$ and $f_Y$. The PDF of the sum $Z = X + Y$
+is naturally the convolution
+\begin{equation}
+    f_Z(z)=\int_{-\infty}^{\infty} \underbrace{f_X(x) f_Y(z-x)}_{x+(z-x) = z} d x
+\end{equation}
+Another way to write this is
+\begin{equation}
+    f_Z(z)=\int f_X(x) f_Y(y) \delta(z-(x+y)) \, d x \, d y
+\end{equation}
+which one can easily see is equivalent to the convolution and also makes intuitive sense - the $\delta$-function
+ensures that the sum of $x$ and $y$ is $z$.
+}
+Analogously to the two-variable case, we write
+\begin{equation}
+    P_N\left(\hat{I}_N\right)=\int \delta\left(\hat{I}_N-\sum_i \frac{y_i}{N}\right) p\left(y_1\right) p\left(y_2\right) \cdots p\left(y_N\right) \mathrm{d} y_1 \mathrm{~d} y_1 \cdots \mathrm{d} y_N
+\end{equation}
+Based on the Fourier transform and expansion of $p(y)$
+\begin{equation}
+    \begin{aligned}
+        \hat{p}(k)&=\int p(y) \exp{\left(i k(y-\langle y\rangle)\right)} \, \mathrm{d} y \\
+        \underset{\text{Series Expansion}}&= \int p(y) \left[ 1 + ik(y-\langle y\rangle) - \frac{k^2}{2}(y-\langle y\rangle)^2 + \cdots \right] \, \mathrm{d} y \\
+        &= 1 - \frac{k^2}{2} \sigma_y^2 + \cdots
+    \end{aligned}
+\end{equation}
+we find the Fourier transform of $P_N$ to be
+\begin{equation}
+    \begin{aligned}
+    \hat{P}_N(k) & =\int P_N\left(\hat{I}_N\right) \exp{\left(i k\left(I_N-\left\langle I_N\right\rangle\right)\right)} \mathrm{d} I_N \\
+    \underset{\langle \hat{I}_N \rangle = \langle y \rangle}&= \int p\left(y_1\right) \cdots p\left(y_N\right) \exp{\left(i \frac{k}{N}\left(y_1-\left\langle y_1\right\rangle+y_2-\left\langle y_2\right\rangle+\ldots+y_N-\left\langle y_N\right\rangle\right)\right)} \mathrm{d} y_1 \cdots \mathrm{d} y_N \\
+    &= \left[\hat{p}\left(\frac{k}{N}\right)\right]^N \\
+    \underset{\text{series expansion of } \hat{p}}&= \left( 1 - \frac{k^2 \sigma_y^2}{2N^2} \right)^N \\
+    \underset{N \text{ large}}&\approxeq \exp{\left( - \frac{k^2 \sigma_y^2}{2N} \right)}
+    \end{aligned}
+\end{equation}
+where the inverse Fourier transform of $\hat{P}_N(k)$
+\begin{equation}
+    P_N\left(\hat{I}_N\right)=\frac{1}{2 \pi} \int \exp{\left(-i k\left(I_N-\left\langle I_N\right\rangle\right)\right)} \hat{P}_N(k) \mathrm{d} k
+\end{equation}
+yields the previously stated result for $P_N\left(\hat{I}_N\right)$\footnote{Insert the result for $\hat{P}_N(k)$, complete the square and use the normalization of the normal distribution
+or the Gaussian integral $\int \exp \left(-\alpha x^2\right) \mathrm{d} x=\sqrt{\frac{\pi}{\alpha}}$.}.
+
+\subsubsection{Illustrative Example of Monte Carlo Integration}
+Consider the integral
+\begin{equation}
+    I = \int_{0}^{1} g(x) dx, \quad g(x) = \exp{\left(-\frac{x^2}{2}\right)}
+\end{equation}
+Our Monte Carlo estimator for this integral is given by
+\begin{equation}
+    \hat{I}_N = \frac{1}{N} \sum_{i=1}^{N} g(x_i), \quad x_i \sim \mathcal{U}(0, 1)
+\end{equation}
+which is illustrated in Fig. \ref{fig:mcint}. The higher the number of sampled points $N$ the lower the variance of our estimator; the lower the variance of $g$ along the $y$ axis, the lower the variance of our estimator.
+
+\begin{figure}[!htb]
+ \centering
+ \includesvg[width=1\textwidth]{figures/mc_int.svg}\hfill
+ \caption{Illustration of Monte Carlo Integration for $I = \int_{0}^{1} \exp{\left(-\frac{x^2}{2}\right)} dx$}
+ \label{fig:mcint}
+\end{figure}
+
+\subsubsection{Comparison to other techniques - when to use Monte Carlo integration?}
+\paragraph*{Error of standard methods} In a standard integration scheme like the midpoint rule
+or Simpsons rule\footnote{$\int_a^b f(x) d x \approx \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right]$
+which can be derived by approximating the function $f$ by a quadratic polynomial and integrating this polynomial.} each
+dimension is divided into $n$ regularly space points, so that we have $N = n^d$ points in total. The error scales with
+\begin{equation}
+    \text{midpoint or trapezoidal rule } \propto \frac{1}{n^2}, \quad \text{Simpson's rule } \propto \frac{1}{n^4} = \frac{1}{N^{\frac{4}{d}}}
+\end{equation}
+\redbox{In these \textit{regular} methods, adding more points to the integration (increasing $N$) helps less and less the higher we go 
+in dimension - e.g. for Simpson's rule $\text{err} \propto \frac{1}{N^{\frac{4}{d}}}$. For a standard method if we want
+$10$ points per dimension with $d = 10$ we already need $10^{10}$ function evaluations - infeasible (e.g. high-dimensional integrations in Machine Learning).}
+\greenbox{On the other hand in Monte Carlo integration the error scales with $\frac{1}{N^\frac{1}{2}}$ independent of the dimensionality $d$.}
+\bluebox{\textbf{Starting at what dimension of the integral $d$ will MC integration have a more
+favorable error scaling compared to Simpson's rule?} Setting $\frac{1}{N^{\frac{4}{d}}} = \frac{1}{N^\frac{1}{2}}$ yields that starting at $d = 8$ 
+Monte Carlo Integration's error will reduce more quickly if we increase $N$ the number of points (/ function evaluations) used for the integration.}
+
+\paragraph{Intuition for the better scaling} One intuition for this advantage of Monte Carlo is that the
+higher the dimension, the more evenly pairs of random points are spread with respect to their pair-wise distance
+- normally known as the curse of dimensionality, illustrated in Fig. \ref{fig:curse}.
+
+\begin{figure}[!htb]
+ \centering
+ \includesvg[width=0.8\textwidth]{figures/curse.svg}\hfill
+ \caption{In higher dimensions, pairwise distances between random points show a sharper distribution around the mean distance
+ (a more even distribution in space)}
+ \label{fig:curse}
+\end{figure}
+
+\subsubsection{Reducing the variance of the Monte Carlo Estimator}
+
+\subsubsubsection{Antithetic Estimators\skipthis}
+
+Two random variables with the same distribution on the same probability space are called \textit{antithetic}, if their covariance is negative.
+We can use such antithetic variables to reduce the variance of a Monte Carlo estimator.
+
+This motivates the following ansatz
+
+\begin{equation}
+    \begin{multlined}
+        I := \int_{0}^{1} g(x) dx, \quad \hat{I}_{anti} = \frac{\hat{I}_{N / 2} + \tilde{I}_{N / 2}}{2} \\
+        \hat{I}_{N / 2} = \frac{1}{N / 2} \sum_{i=1}^{N / 2} g(u_i), \quad \tilde{I}_{N / 2} = \frac{1}{N / 2} \sum_{i=1}^{N / 2} g(1 - u_i), \quad u_i \sim \mathcal{U}(0, 1)
+    \end{multlined}
+\end{equation}
+
+with
+
+\begin{equation}
+    \Var[\hat{I}_{anti}] = \frac{1}{4} \left(\Var[\hat{I}_{N / 2}] + \Var[\tilde{I}_{N / 2}] + 2 \Cov[\hat{I}_{N / 2}, \tilde{I}_{N / 2}]\right) \explain{=}{\text{see eq. \ref{eq:mcint_var}}} \Var[\hat{I}_N] + \frac{1}{2} \Cov[\hat{I}_{N / 2}, \tilde{I}_{N / 2}]
+\end{equation}
+
+where for $g$ continuous and monotonic, $\Cov[\hat{I}_{N / 2}, \tilde{I}_{N / 2}]$ is negative, as $U$ and $1 - U$ with $U \sim \mathcal{U}(0, 1)$ are negatively correlated. So we can reduce the variance compared to an estimator $\hat{I}_N$ using the same number of function 
+evaluation and only half the number of random numbers.
+
+Let us give an intuition why using antithetic evaluation points makes sense for estimating an integral of a monotonic function from $0$ to $1$. Using uniform antithetic variables we create pairs of points $(x_i, 1 - x_i)$, which are symmetric around $x = 0.5$ and as of the monotony of the function $g$ we want to integrate, we obtain a better balance between sampling points where $g$ is large and where $g$ is small, reducing the variance of the estimate.
+
+\textbf{Example of using Antithetic Estimators}
+\par
+% Notice the even distribution of points around (a+b) / 2 by constructing yielding an advantage over standard M
+Consider the integral
+\begin{equation}
+    I = \int_{0}^{2} \frac{1}{1 + x^2} dx \explain{=}{\text{exact solution}} \arctan(2) \approx 1.107149
+\end{equation}
+Estimates based on the standard Monte Carlo estimator and the antithetic estimator are given in table \ref{tab:antithetic} and illustrated in Fig. \ref{fig:mc_antithetic}. A relative reduction in standard deviation of roughly 80\% is achieved using the antithetic estimator.
+
+% make table for results with N = 100 and seed = 1234 for results
+% MC: est, std, conf. int: 1.09562114 0.01677497 [1.06274280 1.12849948]
+% MC anti: est, std, conf. int: 1.105492851 0.003340705 [1.098945189 1.112040513]
+% Relative reduction in standard deviation: 0.8008518
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Estimator & Estimate & Standard Deviation & 95\% Confidence Interval \\
+        \hline
+        Standard Monte Carlo & 1.096 & 0.017 & [1.0627 1.128] \\
+        Antithetic Monte Carlo & 1.106 & 0.0033 & [1.099 1.112] \\
+        \hline
+    \end{tabular}
+    \caption{Rounded estimates for the integral $\int_{0}^{2} \frac{1}{1 + x^2} dx$ using the standard Monte Carlo estimator and the antithetic Monte Carlo estimator for $N = 100$ samples with seed $1234$}
+    \label{tab:antithetic}
+\end{table}
+
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=1\textwidth]{figures/mc_anti.svg}\hfill
+    \caption{Illustration of Monte Carlo Integration with Antithetic Variables. Notice the even distribution of points around $\frac{a+b}{2} = 1$ by construction yielding an advantage over the standard Monte Carlo estimator.}
+    \label{fig:mc_antithetic}
+\end{figure}
+
+\subsubsubsection{Importance Sampling}
+
+\problem{Consider we have a sharply peaked function $g(x)$ over the domain of integration. In this case using evaluation points sampled
+from the uniform will be inefficient.}
+\greenbox{\textbf{Importance sampling idea:} Preferably choose points where the integrand is large. This is done by sampling
+from a distribution $f(x)$ similarly shaped as $g(x)$ but from which we can easily sample (e.g. by direct inversion\footnote{
+Note that for the inverse transform we need the inverted CDF, so we need to integrate the PDF. So choosing $f(x)$ itself
+as $g(x)$ is non-sense as we would need to integrate $f(x)$ to obtain the CDF.} or the rejection method).}
+
+The higher the variance of the output of the function $g(x)$ over the domain of integration, the higher
+the variance in our Monte Carlo Estimate for our integral. 
+
+\begin{equation}
+    \begin{multlined}
+        I := \int_{V} g(x) dx = \int_{V} \frac{g(x)}{f(x)} f(x) dx, \quad I_N = \frac{1}{N} \sum_{i=1}^{N} \frac{g(x_i)}{f(x_i)} \\
+        \text{sample} \left\{x_i\right\}_{i=1,...,N} \text{drawn from } f(x) \text{ limited to } V
+    \end{multlined}
+    \label{eq:importance_sampling}
+\end{equation}
+
+Let us as an example tackle the integral
+
+\begin{equation}
+    I = \int_{0}^{1} \frac{4}{1+x^2} dx \explain{=}{\text{exact solution}} \pi
+\end{equation}
+
+using the importance sampling function $f(x) = \frac{4 - 2x}{3}$ on $0 \leq x \leq 1$. We can sample
+from $f(x)$ using the inverse transform method using the CDF $F(x) = \frac{4x - x^2}{3}$ (with $F(1) = 1$ as we want) so $F^{-1}(u) = 2 - \sqrt{4 - 3u}$. We can then
+simply use equation \ref{eq:importance_sampling} to obtain an estimate.
+
+The importance sampling approach compared to the standard Monte Carlo approach is illustrated in Fig. \ref{fig:mc_impA} and \ref{fig:mc_impB}. There it is easy to see how
+effectively integrating a flatter function is to our advantage.
+
+\greenbox{\textbf{Advantage of Importance Sampling}: As we can see in Fig. \ref{fig:mc_impA} the flatter $h(x) := \frac{g(x)}{f(x)}$ (best $h \propto g$ as achievable in lattice Monte Carlo) (mind the different naming in the figure) the sharper
+the probability distribution $p(h)$ (a limited range of $h$ values with higher probabilities), the smaller the Monte Carlo error $\sigma_{\hat{I}_N} = \sqrt{\frac{\sigma_h^2}{N}}$.}
+
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=1\textwidth]{figures/mc_imp_N_10.svg}\hfill
+    \caption{Illustration of Monte Carlo Integration with Importance Sampling for $N=10$ samples.}
+    \label{fig:mc_impA}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=1\textwidth]{figures/mc_imp_N_200.svg}\hfill
+    \caption{Illustration of Monte Carlo Integration with Importance Sampling for $N=200$ samples.}
+    \label{fig:mc_impB}
+\end{figure}

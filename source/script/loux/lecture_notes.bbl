@@ -235,6 +235,43 @@
       \field{title}{Introduction to algorithms}
       \field{year}{2022}
     \endentry
+    \entry{simpson_error}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e29495cce96b309f6118ab1a85294b93}{%
+           family={Fejzic},
+           familyi={F\bibinitperiod},
+           given={Hajrudin},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{fullhash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{fullhashraw}{e29495cce96b309f6118ab1a85294b93}
+      \strng{bibnamehash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{authorbibnamehash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{authornamehash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{authorfullhash}{e29495cce96b309f6118ab1a85294b93}
+      \strng{authorfullhashraw}{e29495cce96b309f6118ab1a85294b93}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.GM}
+      \field{eprinttype}{arXiv}
+      \field{title}{A short proof of the error term in Simpson's rule}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1708.07727
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1708.07727
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1708.07727
+      \endverb
+    \endentry
     \entry{higham02}{book}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=5bec9d02065c9b35d45c881a24f7a1cd}{%

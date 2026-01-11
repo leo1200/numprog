@@ -16,14 +16,11 @@ practical implementations in Python.
 2. Solving Linear Systems ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet2/loux/sheet2.pdf))
 3. Numerical Derivatives and Interpolation ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet3/loux/sheet3.pdf))
 4. Optimization ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/sheet4.pdf))
-5. Numerical Integration ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
+5. Numerical Integration and Recap ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
 
-
-The second half of the course will cover numerical
-techniques for ordinary differential equations. Other 
-important topics not covered include spectral methods 
-(in particular the Fast Fourier Transform algorithm
-by Cooley and Tukey), and partial differential equations.
+The second part of the course (Fundamentals of 
+Numerical Programming II) will cover numerical
+techniques for ordinary differential equations.
 
 ## Python Environment
 
