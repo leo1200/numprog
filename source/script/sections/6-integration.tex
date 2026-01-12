@@ -14,11 +14,10 @@ in elementary form, as is the case for
 $f(x) = \exp{(-x^2)}$. So how can we calculate
 integrals numerically?
 
-% In this section we cover some classical numerical integration
-% techniques.
-% Monte Carlo integration,
-% advantageous for high-dimensional integration,
-% is covered in Sec. \ref{app:monte_carlo}.
+Monte Carlo integration,
+advantageous for high-dimensional integration,
+is covered in Sec. \ref{app:monte_carlo}. Additionally,
+notes on Gauss-Legendre quadrature are provided in Sec. \ref{app:gauss_legendre}.
 
 \subsection{Classical one-dimensional quadrature}
 
@@ -42,7 +41,7 @@ numerical integration schemes come up:
     \end{equation}
     we obtain the midpoint rule
     \begin{equation}
-        \int_{x_i}^{x_{i+1}} f(x) \, dx \approx (x_{i+1} - x_i) \, f\left( \frac{x_{i} + x_{i+1}}{2} \right)
+        \int_{x_i}^{x_{i+1}} f(x) \, dx = \underbrace{(x_{i+1} - x_i) \, f\left( \frac{x_{i} + x_{i+1}}{2} \right)}_{=:M_i} + \mathcal{O}((x_{i+1} - x_i)^3)
     \end{equation}
     \item \textbf{Trapezoidal rule}: For the linear approximation
     \begin{equation}
@@ -50,7 +49,7 @@ numerical integration schemes come up:
     \end{equation}
     we obtain the trapezoidal rule
     \begin{equation}
-        \int_{x_i}^{x_{i+1}} f(x) \, dx \approx (x_{i+1} - x_i) \, \left(\frac{f(x_i) + f(x_{i+1})}{2}\right)
+        \int_{x_i}^{x_{i+1}} f(x) \, dx = \underbrace{(x_{i+1} - x_i) \, \left(\frac{f(x_i) + f(x_{i+1})}{2}\right)}_{=:T_i} + \mathcal{O}((x_{i+1} - x_i)^3)
     \end{equation}
     \item \textbf{Simpson's rule}: We interpolate $f(x)$ through $\left(x_{i}, f(x_{i})\right), \left(\frac{x_{i} + x_{i+1}}{2}, f\left(\frac{x_{i} + x_{i+1}}{2}\right)\right), \left(x_{i+1}, f(x_{i+1})\right)$
     with a polynomial
@@ -59,7 +58,7 @@ numerical integration schemes come up:
     \end{equation}
     yielding (we leave the derivation as a task to the reader)
     \begin{equation}
-        \int_{x_i}^{x_{i+1}} f(x) \, dx \approx \frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right)
+        \int_{x_i}^{x_{i+1}} f(x) \, dx = \underbrace{\frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right)}_{=:S_i} + \mathcal{O}((x_{i+1}-x_i)^5)
     \end{equation}
 \end{itemize}
 
@@ -73,68 +72,90 @@ These quadrature rules are compared in Fig. \ref{fig:quadrature_comparison}.
  \label{fig:quadrature_comparison}
 \end{figure}
 
-\subsubsection{Error in Simpson's rule}
+\subsubsection{Local error derivations}
 
-Let $q_i$ be the polynomial that agrees with $f$ at $x_i, \frac{x_i + x_{i+1}}{2}, x_{i+1}$.
-Then the error of Simpson's rule on the sub-interval $[x_i,x_{i+1}]$
-is given by (see \cite{simpson_error} for a proof)
+We can use Taylor expansion to derive error terms for quadrature rules.
+
+Let us define
+
+\begin{equation}
+    c_i := \frac{x_{i} + x_{i+1}}{2}, \quad \Delta x := x_{i+1} - x_i
+\end{equation}
+
+and consider the \textbf{midpoint approximation}
+
+\begin{equation}
+    f(x) = f\left( c_i \right) + (x-c_i) f'(c_i) + \frac{1}{2}(x-c_i)^2 f''(c_i) + \mathcal{O}((x-c_i)^3) \quad \text{for} \quad x \in [x_i, x_{i+1}]
+\end{equation}
+
+yielding
+
+\begin{equation}
+    \begin{aligned}
+        \int_{x_i}^{x_{i+1}} f(x) \, dx &= \Delta x f\left( c_i \right) + \underbrace{\int_{x_i}^{x_{i+1}} (x-c_i) f'(c_i)  \, dx}_{=0} + \int_{x_i}^{x_{i+1}} \frac{1}{2}(x-c_i)^2 f''(c_i)  \, dx + \mathcal{O}(\Delta x^4) \\
+        &= \Delta x f\left( c_i \right) + 2 f''(c_i) \int_{c_i}^{x_{i+1}} \frac{1}{2}(x-c_i)^2   \, dx + \mathcal{O}(\Delta x^4) \\
+        &= \Delta x f\left( c_i \right) + \frac{1}{24} f''(c_i)\Delta x^3 + \mathcal{O}(\Delta x^4)
+    \end{aligned}
+\end{equation}
+
+such that
+
+\begin{equation}
+    M_i = M_{[x_i, x_{i+1}]}(f) := \Delta x f\left( c_i \right) = \int_{x_i}^{x_{i+1}} f(x) \, dx - \frac{1}{24} f''(x_i)\Delta x^3 + \mathcal{O}(\Delta x^4)
+\end{equation}
+
+where we have used $f''(c_i) = f''(x_i) + \mathcal{O}(\Delta x)$.
+
+Likewise, for the trapezoidal rule, we can find
+
+\begin{equation}
+    T_i = T_{[x_i, x_{i+1}]}(f) := \Delta x \frac{f(x_i) + f(x_{i+1})}{2} = \int_{x_i}^{x_{i+1}} f(x) \, dx + \frac{1}{12} f''(x_i)\Delta x^3 + \mathcal{O}(\Delta x^4)
+\end{equation}
+
+\greenbox{\textbf{Idea:} We can combine $M_i$ and $T_i$ to cancel the third order error terms.}
+
+\begin{equation}
+    S_i = S_{[x_i, x_{i+1}]}(f) := \frac{2M+T}{3} = \frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right) = \int_{x_i}^{x_{i+1}} f(x) \, dx + \mathcal{O}(\Delta x^4)
+\end{equation}
+
+\textbf{We have just re-derived Simpson's rule!} But we previously stated the error term $\mathcal{O}(\Delta x^5)$.
+We will see that the even error terms vanish by symmetry.
+
+Let us split $f$ into an even and odd part around $c_i$:
+
+\begin{equation}
+    f(x) = f_e(x) + f_o(x), \quad f_e(c_i - x) = f_e(c_i + x), \quad  f_o(c_i - x) = -f_o(c_i + x)
+\end{equation}
+
+By symmetry
+
+\begin{equation}
+    S_i(f_o) = \int_{x_i}^{x_{i+1}} f_o(x) \, dx = 0, \quad c_i = \frac{x_i + x_{i+1}}{2}
+\end{equation}
+
+i.e. the uneven part is integrated exactly.
+
+The Taylor expansion of $f_e$ has only even terms, such that
+an approximation to $\int_{x_i}^{x_{i+1}} f_e(x) \, dx$ based on truncated
+Taylor expansion can only have uneven error terms. Therefore
+
+\begin{equation}
+    S_i =\frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right) = \int_{x_i}^{x_{i+1}} f(x) \, dx + \mathcal{O}(\Delta x^5)
+\end{equation}
+
+For a proof on the specific error term
 
 \begin{equation}
     E_\text{local} = \int_{x_i}^{x_{i+1}} (f(x) - q_i(x)) \, dx = -\frac{f^{(4)}(\xi)}{32 \cdot 90} (\underbrace{x_{i+1} - x_i}_{=: \Delta x})^5 \sim \mathcal{O}(\Delta x^5)
 \end{equation}
 
+(with $q_i$ the polynomial that agrees with $f$ at $x_i, \frac{x_i + x_{i+1}}{2}, x_{i+1}$) see \cite{simpson_error}.
+
+\subsubsection{Global errors}
+
 Consider a constant sub-interval size $x_{i+1} - x_i = \Delta x$. The whole
 domain of integration $[a,b]$ is divided into $N = \frac{b-a}{\Delta x}$ sub-intervals.
-Therefore, the global error scales with
-
-\begin{equation}
-    E_\text{global} = \sum_{i=0}^{N-1} \underbrace{\int_{x_i}^{x_{i+1}} (f(x) - q_i(x)) \, dx}_{E_\text{local} \sim \mathcal{O}(\Delta x^5)} \sim N \mathcal{O}(\Delta x^5) = \mathcal{O}(\Delta x^4)
-\end{equation}
-
-% \subsection{Gauss-Legendre Quadrature}
-
-% The first Legendre polynomials are
-
-% \begin{equation}
-%     P_0(\xi)=1, P_1(\xi)=\xi, P_2(\xi) = \frac{1}{2}\left(3 \xi^2-1\right)
-% \end{equation}
-
-% \note{The span of ${P_0(x),P_1(x),\dots,P_n(x)}$ is the same as of ${1,x,x^2,\dots,x^n}$. So
-% \begin{equation}
-%     \forall \text{polynomial } P \text{ of degree } < n: \int_{-1}^{1} P(x) P_n(x) \, d x=0
-% \end{equation}
-% }
-
-% It is intuitive that an integral can be approximated by the mean of evaluation points.
-% However, it turns out, that one can exactly integrate polynomials of degree $2n-1$ with $n$ smart
-% evaluation points and weights. One such method is called Gauss-Legendre quadrature.
-
-% \textbf{Claim: } The approximation
-% \begin{equation}
-%     \begin{gathered}
-%         \int_{-1}^1 f(\xi) d \xi \approx \sum_{q=1}^n f\left(\xi_q^{1 D}\right) w_q^{1 D} \\
-%         \text{roots } \xi_q^{1 D} \text{ of } P_n(\xi), \text{ weights } w_q^{1 D}=\frac{2}{\left(1-\left( \xi_{q}^{1 D} \right)^2\right)\left(P_{n}^{\prime}\left(\xi_{q}^{1 D}\right)\right)^{2}}
-%     \end{gathered}
-% \end{equation}
-% for $f: [-1,1] \rightarrow \mathbb{R}$ is exact for polynomials of degree $2n-1$.
-
-% \textbf{Proof: } Let $f = P(x)$ have degree $\leq 2n-1$. Then we can write
-% $P(x) = Q(x) P_{n+1}(x) + R(x)$ with $Q(x), R(x)$ polynomials of degree $\leq n$ ($P_{n+1}(x)$ is the $(n+1)$-th Legendre polynomial).
-% Then 
-% \begin{equation}
-%     \begin{aligned}
-%         \int_{-1}^{1} P(x) d x &=\underbrace{\int_{-1}^{1} Q(x) P_{n+1}(x) d x}_{=0\text{ as } Q \text{ can be written in base } \{P_0,\dots,P_n\} \perp P_{n+1}}+\int_{-1}^{1} R(x) d x \\
-%         &=\int_{-1}^{1} R d x \\
-%         &=\underbrace{\sum_{q=1}^{n} R\left(\xi_{q}^{1 D}\right) w_{q}^{1 D}}_{\text{exact as } R \text{ is a polynomial of degree } \leq n} \\
-%         &=\sum_{q=1}^{n} \left( R\left(\xi_{q}^{1 D}\right) + \underbrace{P_{n+1}(\xi_{q}^{1 D}) \cdot Q(\xi_{q}^{1 D})}_{=0, \text{as } \xi_{q}^{1 D} \text{ roots of } P_{n+1}} \right)w_{q}^{1 D} \\
-%         &= \sum_{q=1}^{n} P(\xi_{q}^{1 D}) w_{q}^{1 D}
-%     \end{aligned}
-% \end{equation}
-
-% \textbf{Formulation in higher dimensions: } We generalize to $f: [-1,1]^2 \rightarrow \mathbb{R}$ by
-% \begin{equation}
-%     \int_{-1}^1 \int_{-1}^1 f\left(\xi_1, \xi_2\right) d \xi_1 d \xi_2 \approx \sum_{q=1}^n \sum_{r=1}^n f\left(\xi_q^{1 D}, \xi_r^{1 D}\right) w_q^{1 D} w_r^{1 D}=\sum_{q=1}^{n^2} f\left(\vec{\xi}_q^{2 D}\right) w_q^{2 D}
-% \end{equation}
-
+Therefore, when the local error scales with $\mathcal{O}(\Delta x^n)$, the global errors
+scales with $N \mathcal{O}(\Delta x^n) =  \mathcal{O}(\Delta x^{n-1})$.
 
 \pagebreak

@@ -1161,6 +1161,62 @@ $\lambda = -0.5$. The core observations are:
     adjoint nicely match the ground truth
 \end{itemize}
 
+\subsection{Gauss-Legendre Quadrature}
+\label{app:gauss_legendre}
+
+It is intuitive that an integral can be approximated by the mean of evaluation points.
+However, it turns out, that one can exactly integrate polynomials of degree $2n-1$ with $n$ smart
+evaluation points and weights. One such method is called Gauss-Legendre quadrature, where the evaluation
+points are the roots of \textit{Legendre polynomials}.
+
+\subsubsection{Legendre Polynomials}
+
+The Legendre Polynomials are an orthogonal system of polynomials,
+$P_n \in \Pi_n$, on the interval $[-1,1]$ with 
+
+\begin{equation}
+    \int_{-1}^{1} P_m(x) P_n(x) \, dx = \frac{2}{2n+1} \delta_{nm}
+\end{equation}
+
+and the additional condition $P_n(1) = 1$.
+
+The first Legendre polynomials are
+
+\begin{equation}
+    P_0(\xi)=1, \quad P_1(\xi)=\xi, \quad P_2(\xi) = \frac{1}{2}\left(3 \xi^2-1\right)
+\end{equation}
+
+\note{The span of ${P_0(x),P_1(x),\dots,P_n(x)}$ is the same as of ${1,x,x^2,\dots,x^n}$. So
+\begin{equation}
+    \forall \, \text{polynomial } P \text{ of degree } < n: \int_{-1}^{1} P(x) P_n(x) \, d x=0
+\end{equation}
+}
+
+\subsubsection{Gauss-Legendre Quadrature}
+Gauss-Legendre Quadrature given by
+\begin{equation}
+    \begin{gathered}
+        \int_{-1}^1 f(\xi) d \xi \approx \sum_{q=0}^n f\left(\xi_q^{1 D}\right) w_q^{1 D} \\
+        \text{roots } \xi_q^{1 D} \text{ of } P_{n+1}(\xi), \text{ weights } w_q^{1 D}=\frac{2}{\left(1-\left( \xi_{q}^{1 D} \right)^2\right)\left(P_{n+1}^{\prime}\left(\xi_{q}^{1 D}\right)\right)^{2}}
+    \end{gathered}
+\end{equation}
+for $f: [-1,1] \rightarrow \mathbb{R}$ is exact for polynomials of degree $2n+1$.
+
+\subsubsection{Proof: Gauss-Legendre quadrature with $n+1$ evaluation points is exact for polynomials of degree $2n+1$}
+
+Let $f = P(x)$ have degree $\leq 2n+1$. Then we can write
+$P(x) = Q(x) P_{n+1}(x) + R(x)$ with $Q(x), R(x)$ polynomials of degree $\leq n$ ($P_{n+1}(x)$ is the $(n+1)$-th Legendre polynomial).
+Then 
+\begin{equation}
+    \begin{aligned}
+        \int_{-1}^{1} P(x) d x &=\underbrace{\int_{-1}^{1} Q(x) P_{n+1}(x) d x}_{=0\text{ as } Q \text{ can be written in base } \{P_0,\dots,P_n\} \perp P_{n+1}}+\int_{-1}^{1} R(x) d x \\
+        &=\int_{-1}^{1} R d x \\
+        &=\underbrace{\sum_{q=0}^{n} R\left(\xi_{q}^{1 D}\right) w_{q}^{1 D}}_{\text{exact as } R \text{ is a polynomial of degree } \leq n} \\
+        &=\sum_{q=0}^{n} \underbrace{\left(\underbrace{Q(\xi_{q}^{1 D}) \cdot P_{n+1}(\xi_{q}^{1 D})}_{=0, \text{as } \xi_{q}^{1 D} \text{ roots of } P_{n+1}} + R\left(\xi_{q}^{1 D}\right)\right)}_{=P(\xi_{q}^{1 D})} w_{q}^{1 D} \\
+        &= \sum_{q=0}^{n} P(\xi_{q}^{1 D}) w_{q}^{1 D}
+    \end{aligned}
+\end{equation}
+
 \subsection{Monte Carlo Integration}
 \label{app:monte_carlo}
 

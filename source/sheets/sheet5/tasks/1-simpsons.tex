@@ -1,0 +1,80 @@
+\problem{Adaptive Quadrature}
+
+    Consider the following functions
+
+    \begin{equation}
+        f_1(x) = \exp{\left(\frac{1}{2}x\right)}, \quad f_2 = \sqrt{1+x^4}, \quad f_3 = \ln{\left(1+\exp{(x)}\right)}
+    \end{equation}
+
+    We are interested in integrals ($a,b\in \mathbb{R}, a<b$)
+
+    \begin{equation}
+        \int_{a}^{b} f_i(x) \, dx
+    \end{equation}
+
+    $f_1$ is trivial to integrate, $f_2$ and $f_3$ have no elementary integrals.
+
+    In the lecture we have discussed the \textbf{midpoint rule}
+
+    \begin{equation}
+        M_{[a, b]}(f) := (b-a) f\left( \frac{a+b}{2} \right)
+    \end{equation}
+
+    the \textbf{trapezoidal rule}
+
+    \begin{equation}
+        T_{[a, b]}(f) := \frac{b-a}{2} \left( f(a) + f(b) \right)
+    \end{equation}
+
+    and \textbf{Simpson's rule}
+
+    \begin{equation}
+        S_{[a, b]}(f) := \frac{b-a}{6} \left( f(a) + 4 f\left( \frac{a+b}{2} \right) +  f(b) \right)
+    \end{equation}
+
+    (here written for the whole interval rather than
+    for sub-intervals as in the lecture).
+
+    One can show that for a convex function $f$ ($f''(x) \geq 0$)
+
+    \begin{equation}
+        M_{[a, b]}(f) \leq \int_{a}^{b} f_i(x) \, dx \leq T_{[a, b]}(f)
+    \end{equation}
+
+    The second inequality follows from $f$ being under the tangent
+    for a convex $f$ and the first is a form of \textit{Jensen's inequality}.
+
+    This allows us to construct an \textbf{adaptive quadrature scheme}
+
+    \begin{equation}
+        Q_{[a,b],\epsilon}(f) := \begin{cases}
+            S_{[a,b]}(f), &\text{if} \, |M_{[a, b]}(f) - T_{[a, b]}(f)| < \epsilon \\
+            Q_{\left[a,\frac{a+b}{2}\right],\frac{\epsilon}{2}}(f) + Q_{\left[\frac{a+b}{2},b\right],\frac{\epsilon}{2}}(f), &\text{else}
+        \end{cases}
+    \end{equation}
+
+    with a given error bound $\epsilon \in \mathbb{R}_{>0}$, such that
+
+    \begin{equation}
+        \left| \int_{a}^{b} f(x) \, dx - Q_{[a,b],\epsilon}(f) \right| < \epsilon
+    \end{equation}
+
+    \begin{enumerate}
+        \item Show that $f_1,f_2$ and $f_3$ are globally convex, i.e. $\forall x \in \mathbb{R}: f_i''(x) \geq 0, i=1,2,3$.
+        \item Implement the adaptive quadrature scheme outlined above. Calculate
+        \begin{equation}
+            \int_{0}^{1} f_i \, dx, \quad i = 1,2,3
+        \end{equation}
+        with a precision of $\epsilon = 10^{-4}$. Validate your result for
+        $f_1$ against the analytical solution.
+    \end{enumerate}
+
+    Should you finish very quickly, you are invited to work on the 
+    optional exercises from the previous days :)
+
+\begin{solutionblock}
+\part
+Todo
+\end{solutionblock}
+
+\pagebreak
