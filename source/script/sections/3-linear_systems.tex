@@ -26,7 +26,7 @@ We will cover Gaussian elimination, LU factorization and classical iterative sch
 you can find Krylov subspace methods (Section \ref{app:krylov}) and 
 multigrid techniques (Section \ref{app:multigrid}).
 
-\subsection{Why don't typically explicitly invert matrices?}
+\subsection{Why don't we typically explicitly invert matrices?}
 One can very efficiently invert matrices numerically. Indeed, matrix multiplication and 
 inversion are equivalently hard problems in terms of asymptotic runtime \citep[Sec. 28.2]{cormen}, 
 such that the scaling of Strassen's algorithm, $\mathcal{O}(N^{\log_2 7})$ \citep[Sec. 4.2]{cormen}, applies.
@@ -836,42 +836,7 @@ so
     \vec{x}^{(0)} = \left( \begin{array}{c} 0 \\ 0 \\ 0 \end{array} \right) \quad \rightarrow \quad \vec{x}^{(1)} = \left( \begin{array}{c} \frac{1}{10} b_0 + \frac{1}{10}\cdot 5 x^{(0)}_2 \\ \frac{1}{10} b_1 + \frac{1}{10}\cdot \left( 5 x^{(0)}_1 + 5 x^{(0)}_3 \right) \\ \frac{1}{5} b_1 + \frac{1}{5} \cdot 5 x^{0}_2 \end{array} \right)
 \end{equation}
 
-\subsubsection{Gauss-Seidel iteration | better splitting method\skipthis}
-\idea{In each step $\vec{x}^{(n)} \rightarrow \vec{x}^{(n + 1)}$ ($\vec{x} \in \mathbb{R}^N$)
-consists of $N$ scalar updates. If we do these $N$ scalar updates iteratively (not in parallel)
-we can use the results from previous updates.}
-\subsubsubsection{Motivational Example}
-For instance in the example above
-\begin{equation}
-    \vec{x}^{(0)} = \left( \begin{array}{c} 0 \\ 0 \\ 0 \end{array} \right) \quad \rightarrow \quad \vec{x}^{(1)} = \left( \begin{array}{c} \frac{1}{10} b_0 + \frac{1}{10}\cdot 5 x^{(0)}_2 \\ \frac{1}{10} b_1 + \frac{1}{10}\cdot \left( 5 x^{(1)}_1 + 5 x^{(0)}_3 \right) \\ \frac{1}{5} b_1 + \frac{1}{5} \cdot 5 x^{1}_2 \end{array} \right)
-\end{equation}
-
-\subsubsubsection{Gauss-Seidel update}
-Let us devise a different fix-point equation
-\begin{equation}
-    (\mat{D}-\mat{L}) \vec{x} = \mat{U} \vec{x} + \vec{b} \rightarrow \vec{x} = (\mat{D}- \mat{L})^{-1} \mat{U} \vec{x} + (\mat{D} - \mat{L})^{-1} \vec{b}
-\end{equation}
-from which we follow the fix-point iteration
-\begin{equation}
-    \vec{x}^{(n+1)} = (\mat{D} - \mat{L})^{-1} \mat{U} \vec{x}^{(n)} + (\mat{D} - \mat{L})^{-1} \vec{b}
-\end{equation}
-\problem{We cannot easily compute $(\mat{D} - \mat{L})^{-1}$.}
-Therefore, multiply with $(\mat{D} - \mat{L})$.
-\begin{equation}
-    (\mat{D} - \mat{L}) \vec{x}^{(n+1)} = \mat{U} \vec{x}^{(n)} + \vec{b} \quad \rightarrow \quad \vec{x}^{(n+1)} = \mat{D}^{-1} \mat{L} \vec{x}^{(n+1)} + \mat{D}^{-1} \mat{U} \vec{x}^{(n)} + \mat{D}^{-1} \vec{b}
-\end{equation}
-\yellowbox{\textbf{But isn't this implicit now with $\vec{x}^{(n+1)}$ on both sides?}: $\mat{L}$ is a lower diagonal matrix (diagonal and everything above zero), so in $\mat{L} \vec{x}^{(n+1)}$ we always only need values we have already calculated if we solve consecutively ($\rightarrow$ \textcolor{red1}{problem for parallelization}).
-This is illustrated in fig. \ref{fig:lower_sel}.}
-
-\begin{figure}[H]
-    \centering
-    \includesvg[width=0.5\textwidth]{figures/lower_sel.svg}
-    \caption{As of $\mat{L} \vec{x}^{(n+1)}$ to calculate $x^{(n+1)}_i$ we only need $x^{(n+1)}_0, \dots, x^{(n+1)}_{i-1}$ which we have already calculated.}
-    \label{fig:lower_sel}
-\end{figure}
-
-\greenbox{\textbf{Advantage of Gauss-Seidel: } Convergence is sped up (often by a factor of 2) compared to Jacobi iteration. Convergence is guaranteed if $\mat{A}$ is strictly diagonally dominant $\left|A_{i i}\right| > \sum_{j \neq i}\left|A_{i j}\right| \quad \forall i$ or symmetric and positive definite.}
-
-For Krylov subspace methods, refer to Section \ref{app:krylov} in the appendix.
+For Gauss-Seidel iteration, refer to Section \ref{app:gauss_seidel}.
+For Krylov subspace methods, refer to Section \ref{app:krylov}.
 
 \pagebreak
