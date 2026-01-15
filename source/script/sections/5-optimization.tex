@@ -513,6 +513,52 @@ yields the Gauss-Newton method
 \greenbox{Gauss-Newton always goes into descent directions as $ \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k)$ is
 positive definite.}
 
-\bluebox{Also consider Levenberg-Marquardt (see \cite[Ch. 10]{wright99}).}
+\yellowbox{Of course $\mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k)$ must be non-singular for
+Gauss-Newton.}
+
+\subsubsubsection{Levenberg-Marquardt optimization}
+
+In the Levenberg-Marquadt method
+
+\begin{equation}
+    \vec{\theta}_{k+1} = \vec{\theta}_k - \left( \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) + \alpha(\vec{\theta}_k) \mat{1} \right)^{-1} \mat{J}_\vec{r}(\vec{\theta}_k)^T \vec{r}(\vec{\theta}_k)
+\end{equation}
+
+the $\alpha(\vec{\theta}_k) \mat{1}$ term ensures that $ \mat{J}_\vec{r}(\vec{\theta}_k)^T \mat{J}_\vec{r}(\vec{\theta}_k) + \alpha(\vec{\theta}_k) \mat{1}$
+is positive definite (thus invertible) and the iterative updates are well-defined.
+
+\subsubsubsection{Trust-region view}
+
+Given our objective
+
+\begin{equation}
+    \vec{\theta}^* = \argmin_{\vec{\theta}}  \frac{1}{2} ||\vec{r}(\vec{\theta})||_2^2
+\end{equation}
+
+a different way to derive Gauss-Newton is based on the local approximation
+
+\begin{equation}
+    m_k^{GN}(\vec{p}) = \frac{1}{2} ||\vec{r}(\vec{\theta}) +  \mat{J}_\vec{r}(\vec{\theta}) \vec{p}||^2, \quad \vec{p}_k = \argmin_\vec{p} m_k^{GN}(\vec{p}), \quad \vec{\theta}_{k+1} = \vec{\theta}_k + \vec{p}_k
+\end{equation}
+
+In this view Levenberg-Marquardt corresponds to the regularization (compare Lasso regression)
+
+\begin{equation}
+    m_k^{LM}(\vec{p}) = \frac{1}{2} ||\vec{r}(\vec{\theta}) +  \mat{J}_\vec{r}(\vec{\theta}) \vec{p}||^2 + \frac{\alpha(\vec{\theta}_k)}{2} ||\vec{p}||^2
+\end{equation}
+
+where for a given $\alpha(\vec{\theta}_k)$ in
+
+\begin{equation}
+    \vec{p}_k = \argmin_\vec{p} \frac{1}{2} ||\vec{r}(\vec{\theta}) +  \mat{J}_\vec{r}(\vec{\theta}) \vec{p}||^2 + \frac{\alpha(\vec{\theta}_k)}{2} ||\vec{p}||^2
+\end{equation}
+
+there exists a $\Delta_k$ such that the optimization is equivalent to
+
+\begin{equation}
+    \vec{p}_k = \argmin_\vec{p} m_k^{GN}(\vec{p}), \quad \text{subject to} ||\vec{p}||<\Delta_k
+\end{equation}
+
+so a search in a \textit{trust-region} with radius $\Delta_k$.
 
 \pagebreak
