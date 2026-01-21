@@ -51,7 +51,10 @@ numerical integration schemes come up:
     \begin{equation}
         \int_{x_i}^{x_{i+1}} f(x) \, dx = \underbrace{(x_{i+1} - x_i) \, \left(\frac{f(x_i) + f(x_{i+1})}{2}\right)}_{=:T_i} + \mathcal{O}((x_{i+1} - x_i)^3)
     \end{equation}
-    \item \textbf{Simpson's rule}: We interpolate $f(x)$ through $\left(x_{i}, f(x_{i})\right), \left(\frac{x_{i} + x_{i+1}}{2}, f\left(\frac{x_{i} + x_{i+1}}{2}\right)\right), \left(x_{i+1}, f(x_{i+1})\right)$
+    \item \textbf{Simpson's rule}: We interpolate $f(x)$ through
+    \begin{equation}
+        \left(x_{i}, f(x_{i})\right), \left(\frac{x_{i} + x_{i+1}}{2}, f\left(\frac{x_{i} + x_{i+1}}{2}\right)\right), \left(x_{i+1}, f(x_{i+1})\right)
+    \end{equation}
     with a polynomial
     \begin{equation}
         f(x) \approx a(x-x_i)^2 + b(x-x_i) + c \quad \text{for} \quad x \in [x_i, x_{i+1}]
@@ -115,7 +118,12 @@ Likewise, for the trapezoidal rule, we can find
 \greenbox{\textbf{Idea:} We can combine $M_i$ and $T_i$ to cancel the third order error terms.}
 
 \begin{equation}
-    S_i = S_{[x_i, x_{i+1}]}(f) := \frac{2M+T}{3} = \frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right) = \int_{x_i}^{x_{i+1}} f(x) \, dx + \mathcal{O}(\Delta x^4)
+    \begin{aligned}
+        S_i &= S_{[x_i, x_{i+1}]}(f) \\
+            &:= \frac{2M+T}{3} \\
+            & = \frac{x_{i+1} - x_i}{6} \, \left(f(x_i) + 4 f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})\right) \\
+            &= \int_{x_i}^{x_{i+1}} f(x) \, dx + \mathcal{O}(\Delta x^4)
+    \end{aligned}
 \end{equation}
 
 \textbf{We have just re-derived Simpson's rule!} But we previously stated the error term $\mathcal{O}(\Delta x^5)$.

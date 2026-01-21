@@ -189,7 +189,7 @@ steepest descent becomes, see Fig. \ref{fig:steepest_descent}.}
 \begin{figure}[H]
     \centering
     \includesvg[width=0.9\textwidth]{figures/steepest_descent.svg}
-    \caption{Steepest descent for soling a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
+    \caption{Steepest descent for solving a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
     \label{fig:steepest_descent}
 \end{figure}
 
@@ -200,7 +200,7 @@ steepest descent becomes, see Fig. \ref{fig:steepest_descent}.}
 \begin{figure}[H]
     \centering
     \includesvg[width=0.9\textwidth]{figures/conjugate_gradients.svg}
-    \caption{Conjugate gradient method for soling a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
+    \caption{Conjugate gradient method for solving a linear system $\mat{A}\vec{x} = \vec{b}$ with positive definite matrix $\mat{A}$.}
     \label{fig:conjugate_gradient}
 \end{figure}
 
@@ -234,7 +234,7 @@ How can we smartly (smarter than in the simple scheme above) choose $\vec{x}^{(n
     \item so that the residual has minimum norm for $\vec{x}^{(n)} \in \mathcal{K}_n$ (GMRES)
     \item ...
 \end{itemize}
-\note{The best basis for the Krylov subspace $\mathcal{K}_r$ is orthonormal and can be computed using Arnoldi's method (essentialy Gram-Schmidt).
+\note{The best basis for the Krylov subspace $\mathcal{K}_r$ is orthonormal and can be computed using Arnoldi's method (essentially Gram-Schmidt).
 Since $\vec{r}^{(n)} \perp \mathcal{K}_n$ it will be a scaled version of the last orthonormal base vector, one needs to get from $\mathcal{K}_n$ to $\mathcal{K}_{n+1}$}
 
 \subsubsection{Conjugate gradients method}
@@ -987,7 +987,7 @@ the \textit{true} fixed-points, has better error scaling behavior (roughly $4$ o
 magnitude per $10$ iterations). By design the reverse-mode automatic differentiation
 has a memory overhead compared to the implicit differentiation (scaling with the number of iterations)
 while the linear solve (or fixed-point iteration if one follows Eq. \ref{eq:vjp_fixed_point}) 
-in the implicit differentiation is a computational overhead compared to the backmode automatic
+in the implicit differentiation is a computational overhead compared to the backward mode automatic
 differentiation (not scaling with the iterations but the number of parameters). We leave
 more in-depth profiling to future work.
 
@@ -1458,7 +1458,7 @@ higher the dimension, the more evenly pairs of random points are spread with res
 
 \begin{figure}[!htb]
  \centering
- \includesvg[width=0.8\textwidth]{figures/curse.svg}\hfill
+ \includesvg[width=0.8\textwidth]{figures/distance_hist.svg}\hfill
  \caption{In higher dimensions, pairwise distances between random points show a sharper distribution around the mean distance
  (a more even distribution in space)}
  \label{fig:curse}
@@ -1531,7 +1531,7 @@ Estimates based on the standard Monte Carlo estimator and the antithetic estimat
 from the uniform will be inefficient.}
 \greenbox{\textbf{Importance sampling idea:} Preferably choose points where the integrand is large. This is done by sampling
 from a distribution $f(x)$ similarly shaped as $g(x)$ but from which we can easily sample (e.g. by direct inversion\footnote{
-Note that for the inverse transform we need the inverted CDF, so we need to integrate the PDF. So choosing $f(x)$ itself
+Note that for the inverse transform we need the inverse CDF, so we need to integrate the PDF. So choosing $f(x)$ itself
 as $g(x)$ is non-sense as we would need to integrate $f(x)$ to obtain the CDF.} or the rejection method).}
 
 The higher the variance of the output of the function $g(x)$ over the domain of integration, the higher

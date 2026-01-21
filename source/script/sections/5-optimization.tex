@@ -83,7 +83,7 @@ This is illustrated in Fig. \ref{fig:newton_raphson}.
 
 \begin{figure}[!htb]
     \centering
-    \includesvg[width=0.7\textwidth]{figures/newton_raphson.svg}
+    \includesvg[width=0.7\textwidth]{figures/newton.svg}
     \caption{Illustration of the Newton-Raphson method.}
     \label{fig:newton_raphson}
 \end{figure}
@@ -93,7 +93,7 @@ around a root $x^\star$ with nonzero derivative at $x^\star$,
 then there exists a neighborhood around $x^\star$ where Newton's 
 iteration converges to $x^\star$ for all starting values.}
 
-\subsubsubsection{Quadratic Convergence of Newton's method}
+\subsubsubsection{Quadratic convergence of Newton's method}
 
 Consider $x_k$ is an approximation to $x^\star$ with error
 
@@ -241,7 +241,7 @@ then $\vec{\theta}^*$ is a strict local minimizer of $L$.}
 \begin{equation}
     \forall \vec{x},\vec{y} \in \mathbb{R}^p, \forall \alpha \in [0,1]: L(\alpha \vec{x} + (1-\alpha)\vec{y}) \leq \alpha L(\vec{x}) + (1-\alpha) L(\vec{y})
 \end{equation}
-(for a twice differentiable function its convex if and only if its Hessian is positiv semidefinite) then any stationary point of $L$, i.e. $\vec{\nabla}L(\vec{\theta}^*) = \vec{0}$, is a \textbf{global minimizer}
+(for a twice differentiable function its convex if and only if its Hessian is positive semidefinite) then any stationary point of $L$, i.e. $\vec{\nabla}L(\vec{\theta}^*) = \vec{0}$, is a \textbf{global minimizer}
 of $L$.}
 
 This is the mathematical foundation of optimization schemes searching for stationary points.
@@ -353,7 +353,7 @@ which brings us back to Newton's method as derived above
 \end{equation}
 
 \yellowbox{\textbf{Note:} When $\mat{H}_L(\vec{\theta}_k)$ is not positive definite,
-the Hessian might not be invertable, and even if the Hessian is invertable, the search direction
+the Hessian might not be invertible, and even if the Hessian is invertible, the search direction
 might not satisfy the descent condition, $\vec{p}_k^T \vec{\nabla} L(\vec{\theta}_k) < 0$.}
 
 \bluebox{Generally, any search direction
@@ -371,7 +371,7 @@ as the inverse of a positive definite matrix is also positive definite.
 \subsubsubsection{Advantages of Newton optimization}
 \begin{itemize}
     \item In the convex / concave setting the usage of curvature information
-    by Newton iteration leads to faster convergation than gradient descent, as
+    by Newton iteration leads to faster convergence than gradient descent, as
     illustrated in Fig. \ref{fig:newton_vs_gd}.
     \item step-size is automatically adaptive
     \begin{itemize}
@@ -382,27 +382,18 @@ as the inverse of a positive definite matrix is also positive definite.
 
 \begin{figure}[!htb]
     \centering
-    \includesvg[width=0.4\textwidth]{figures/newton_vs_gd.svg}
-    \caption{Newton optimization (\textcolor{red1}{red}), gradient descent (\textcolor{green1}{green}).}
+    \includesvg[width=0.7\textwidth]{figures/newton_vs_gd.svg}
+    \caption{Comparison of Newton optimization and gradient descent. For the example of the non-convex function,
+    Newton optimization finds a sattle point (zero gradient, indefinite Hessian).}
     \label{fig:newton_vs_gd}
 \end{figure}
 
 \subsubsubsection{Disadvantages of Newton optimization}
 \begin{itemize}
     \item strictly only applies to convex / concave functions
-    \item at the inflection point of a non-convex function, the Hessian is indefinite
-    so in the 1D case $\partial_\theta^2 L = 0$ and Newton optimization breaks down
-    \item it searches critical points, not minima, in 1D if $\partial_\theta^2 L < 0$ and $\partial_{\theta} L > 0$,
-    we go uphill, see Fig. \ref{fig:newton_crit}.
+    \item it searches critical points, not minima
     \item the inversion and calculation of the Hessian can be too costly $\rightarrow$ consider quasi-Newton methods like the Broyden–Fletcher–Goldfarb–Shanno algorithm
 \end{itemize}
-
-\begin{figure}[!htb]
-    \centering
-    \includesvg[width=0.6\textwidth]{figures/newton_crit.svg}
-    \caption{Newton optimization breaks down at the inflection point and goes uphill right of it.}
-    \label{fig:newton_crit}
-\end{figure}
 
 \subsubsection{Nonlinear least-squares optimization: Gauss-Newton}
 

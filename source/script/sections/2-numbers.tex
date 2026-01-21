@@ -133,69 +133,67 @@ More deviously, $-1 < 0U$ will evaluate to false, as all integers in a compariso
 %  \label{fig:endian}
 % \end{figure}
 
-\subsubsection{Properties and Caveats of Integer Arithmetic}
+\subsubsection{Properties and caveats of integer arithmetic}
 Typical problems in integer arithmetic are overflow, integer division, the modulo operation and implicit type conversion.
 \redbox{\textbf{Overflow:} The respective integer ranges have finite ranges, overflow in arithmetic operations is cut-off. We must choose a type
 with sufficient range - mind that choosing types with too large of a footprint (e.g. always long) wastes storage and compute.\par
-\textit{Example I:} In \mintinline{C}{char c = 100 * 4; // range -128 to 127} the result is $-112$ as $400$ in bits is $0001 1001 0000$ where a cut-off to one byte means $1001 0000$ so $-2^7+2^4 = -128 + 16 = -112$.\par
-\textit{Example II:} For \mintinline{C}{int a = -1 * pow(2,31); int b = 10;} we have $a<b$ but not $a-b<0$ (for char the behavior is a bit different as up to int there is
-implicit type conversion.)
+\textit{Example:} In \mintinline{C}{char c = 100 * 4; // range -128 to 127} the result is $-112$ as $400$ in bits is $0001 1001 0000$ where a cut-off to one byte means $1001 0000$ so $-2^7+2^4 = -128 + 16 = -112$.\par
 }
 
 \redbox{\textbf{Integer division:} All decimal places are truncated, so 
 $$5/3 = 1; -5/3 = -1; 5/-3 = -1$$
 }
 
-\redbox{\textbf{Modulo operation:} The modulus in C is defined as $n\%m = n - (n/m)m$ so 
-$$5\%3 = 2; -5\%3 = -2; 5\%-3 = -2$$
-}
+% \redbox{\textbf{Modulo operation:} The modulus in C is defined as $n\%m = n - (n/m)m$ so 
+% $$5\%3 = 2; -5\%3 = -2; 5\%-3 = -2$$
+% }
 
-\redbox{\textbf{Implicit type conversion:} In C, the type can implicitly be converted up to unsigned int, which can avoid overflow, as illustrated in table \ref{tab:type_conversion}.
-}
-\begin{table}[!htb]
-    \centering
-    \begin{tabular}{p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}}
-        \textcolor{green1}{implicit type conversion up to int can be helpful} & \textcolor{red1}{mind its only up to int} & \textcolor{green1}{explicit type consversion} \\
-        \hline
-        \begin{minipage}[t]{0.3\textwidth}
-        \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
-    char a,b;
-    a = 100;
-    b = 4;
-    int c = a * b; // 400
-        \end{minted}
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.3\textwidth}
-        \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
-    int a = 2e9;
-    int b = 3;
-    long long c = a * b;
-    printf("%llu\n", c); // 1705032704
-        \end{minted}
-        As $2^{32} - 1 \approx 4\cdot 10^9 < 6 \cdot 10^9 < 2^{33} - 1$ (unsigned ranges) we overflow to the 33rd-bit, which is cut-off,
-        giving the unsigned result of $6 \cdot 10^9 - 2^{32} = 1705032704$.
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.3\textwidth}
-        \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
-    int a = 2e9;
-    int b = 3;
-    long long c = ((long long) a) * ((long long) b);
-    printf("%llu\n", c); // 6000000000            
-        \end{minted}
-        \end{minipage}
-    \end{tabular}
-    \caption{Type conversion and its caveats}
-    \label{tab:type_conversion}
-\end{table}
+% \redbox{\textbf{Implicit type conversion:} In C, the type can implicitly be converted up to unsigned int, which can avoid overflow, as illustrated in table \ref{tab:type_conversion}.
+% }
+% \begin{table}[!htb]
+%     \centering
+%     \begin{tabular}{p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}}
+%         \textcolor{green1}{implicit type conversion up to int can be helpful} & \textcolor{red1}{mind it's only up to int} & \textcolor{green1}{explicit type conversion} \\
+%         \hline
+%         \begin{minipage}[t]{0.3\textwidth}
+%         \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
+%     char a,b;
+%     a = 100;
+%     b = 4;
+%     int c = a * b; // 400
+%         \end{minted}
+%         \end{minipage}
+%         &
+%         \begin{minipage}[t]{0.3\textwidth}
+%         \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
+%     int a = 2e9;
+%     int b = 3;
+%     long long c = a * b;
+%     printf("%llu\n", c); // 1705032704
+%         \end{minted}
+%         As $2^{32} - 1 \approx 4\cdot 10^9 < 6 \cdot 10^9 < 2^{33} - 1$ (unsigned ranges) we overflow to the 33rd-bit, which is cut-off,
+%         giving the unsigned result of $6 \cdot 10^9 - 2^{32} = 1705032704$.
+%         \end{minipage}
+%         &
+%         \begin{minipage}[t]{0.3\textwidth}
+%         \begin{minted}[frame=single, obeytabs=true, tabsize=1, breaklines, numbersep=-10pt, gobble=2]{C}
+%     int a = 2e9;
+%     int b = 3;
+%     long long c = ((long long) a) * ((long long) b);
+%     printf("%llu\n", c); // 6000000000            
+%         \end{minted}
+%         \end{minipage}
+%     \end{tabular}
+%     \caption{Type conversion and its caveats}
+%     \label{tab:type_conversion}
+% \end{table}
 
 \subsubsection{Can there be integer-overflow in python?}
 Note that in python3, integers are implemented as “long” integer objects of arbitrary size, overflows are
 impossible (at the cost of speed; mind that e.g. numpy is based on C code).
 
 \subsection{Floating Point Arithmetic}
-In the following, we will encode rational numbers in the form $V = x \cdot 2^y$, with $x,y \in \mathbb{Z}$. Similar to the decimal notation
+In the following, we will encode numbers in the form $V = x \cdot 2^y$, with $x,y \in \mathbb{Z}$. Similar to the decimal notation
 \begin{equation}
     d_m d_{m-1} \dots d_0 . d_{-1} d_{-2} \dots d_{-p} = \sum_{i=-p}^m d_i 10^i
 \end{equation}
@@ -213,7 +211,7 @@ Note that in this notation (in the form $V = x \cdot 2^y$) we cannot exactly rep
 \begin{equation}
     0.1_{10} = 1.10011[0011]\dots_2 \cdot 2^{-4}
 \end{equation}
-\yellowbox{\textbf{Disastrous historic example:} In the first Gulf War (more specifically on 25th February 1991), a Patriot missile defense battery failed to intercept an incoming Iraqi Scud missile, because it used an internal clock counting up in tenths of a second represented by a 23-bit sequence. Future missile positions are predicted by extrapolating from past position with constant velocity. The Patriot system mixed both this inaccurate internal clock and a more accurate one, leading to the failed interception and 28 deaths among soldiers.}
+\yellowbox{\textbf{Historic example:} In the first Gulf War (more specifically on 25th February 1991), a Patriot missile defense battery failed to intercept an incoming Iraqi Scud missile, because it used an internal clock counting up in tenths of a second represented by a 23-bit sequence. Future missile positions are predicted by extrapolating from past position with constant velocity. The Patriot system mixed both this inaccurate internal clock and a more accurate one, leading to the failed interception and 28 deaths among soldiers.}
 
 \subsubsection{An intuition for limited precision in fixed-size scientific notation}
 Consider we want to design a fixed-size representation of real numbers, let's say we can store six decimal digits and two signs.
@@ -236,7 +234,7 @@ we can resolve in the mantissa is $0.001$ - \textbf{our precision is limited and
 
 Let us now go from my naive example to a proper floating point representation.
 
-\subsubsection{IEEE 754 Floating Point Standard}
+\subsubsection{IEEE 754 floating point standard}
 Based on the representation in scientific notation, we can store a floating point number in a bit-vector with
 \begin{itemize}
     \item a sign bit $s$
@@ -263,26 +261,26 @@ where based on the exponent we differentiate between
         V = (-1)^s \cdot \frac{M}{2^p} \cdot 2^{-b + 1},  \quad \text{for } M = 0, V = \pm 0 \text{ depending on } s
     \end{equation}
     The denormalized numbers start just below the normalized ones (by the factor $2^{-b + 1}$ with $+1$ as we do not have the implicit leading $1$ here) and now no normalization (implicit starting $1$-bit) is assumed. This 
-    allows to approach zero with gradually decreasing precision (and even spacing) (smaller numbers occupy fewer digits as of the leading zeros) and ensures that for $x\ne y$, $x-y$ is non-zero, so $\frac{1}{x-y}$ is safe for $x \ne y$.
+    allows to approach zero with gradually decreasing precision (and even spacing) (smaller numbers occupy fewer digits as of the leading zeros) and reduces the risk of underflow.
     \item \textbf{$\pm \infty$ for $E = 255$ and $M = 0$}
     \item \textbf{NaN (Not a Number) for $E = 255$ and $M \ne 0$}
 \end{itemize}
 
 \greenbox{\textbf{Why is the exponent stored in a biased way, not two's complement?:} In a two's complement representation of the exponent to compare two numbers, we have to compare the exponents and mantissas separately and the exponent-comparison is a bit more complicated than comparing biased representations. In the biased exponent representation we can just compare the bitvectors of exponent followed by mantissa interpreted as integers (also mind the sign).}
 
-The cases are illustrated in Fig. \ref{fig:float_cases}, with a specific example in Fig. \ref{fig:523float}.
+A specific example of a floating point representation is given in Fig. \ref{fig:523float}.
+
+% \begin{figure}[!htb]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{figures/float_cases.png}\hfill
+%     \caption{Cases of the IEEE 754 Floating Point Standard.}
+%     \label{fig:float_cases}
+% \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/float_cases.png}\hfill
-    \caption{Cases of the IEEE 754 Floating Point Standard.}
-    \label{fig:float_cases}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/523float.png}\hfill
-    \caption{523 can be written as $1.000001011_2 \cdot 2^9$ so $e=9, E = e + 127 = 136$. As of the normalization, the leading $1$ in the mantissa is implicit. The number is given as a single precision float in big endian.}
+    \includesvg[width=1.0\textwidth]{figures/523float.svg}\hfill
+    \caption{$523$ can be written as $1.000001011_2 \cdot 2^9$ so $e=9, E = e + 127 = 136$. As of the normalization, the leading $1$ in the mantissa is implicit. The number is given as a single precision float in big endian.}
     \label{fig:523float}
 \end{figure}
 
@@ -301,7 +299,7 @@ and the largest normalized number being
     V_{\text{norm,max}} = (1 + \frac{2^p - 1}{2^p}) \cdot 2^{E_{\text{max}} - b} \explain{\approx}{single p.} 3.4 \cdot 10^{38}
 \end{equation}
 
-\subsubsection{Machine Precision is finite}
+\subsubsection{Machine precision is finite}
 The smallest increment in the mantissa, in $1 + \frac{M}{2^p}$, is the \textbf{machine precision}
 \begin{equation}
     \epsilon_{\text{mach}} = \frac{1}{2^p} \explain{\approx}{single p.} 1.2 \cdot 10^{-7}
@@ -326,7 +324,7 @@ Given $x$ is in the range of representable floating point numbers, then the floa
 \citep[Theorem 2.2]{higham02}. The modified formulation
 
 \begin{equation}
-    fl(x) = \frac{1}{1+\delta}, \quad |\delta| \leq \epsilon_{\text{mach}}
+    fl(x) = \frac{x}{1+\delta}, \quad |\delta| \leq \epsilon_{\text{mach}}
 \end{equation}
 
 also holds \citep[Theorem 2.2]{higham02}. For multiple floating point operations
@@ -339,17 +337,17 @@ then
     \prod_{i=1}^{l} (1+\delta_i)^{\rho_i} = 1 + \theta_l, \quad |\theta_l| \leq \frac{l \epsilon_{\text{mach}}}{1 - l \epsilon_{\text{mach}}} =: \gamma_l
 \end{equation}
 
-\subsubsection{Rounding and Pitfalls of Floating Point Arithmetic}
+\subsubsection{Rounding and pitfalls of floating point arithmetic}
 In the IEEE standard, results of addition, subtraction, multiplication and division must equal to
 one where the arithmetic operations are assumed to be exact and then there is rounding to the nearest
 representable number (computation is done at higher (typically double or higher) precision). Therefore (mind the section before)
 \begin{equation}
-    \text{ralative error } \frac{|x-\hat{x}|}{|x|} \leq \epsilon_{\text{mach}}, \quad \text{number } x, \text{ number on machine } \hat{x}
+    \text{relative error } \frac{|x-\hat{x}|}{|x|} \leq \epsilon_{\text{mach}}, \quad \text{number } x, \text{ number on machine } \hat{x}
 \end{equation}
 with the common pitfalls
 \begin{itemize}
     \item \textcolor{red1}{\textbf{Limitation of machine precision:}} $a+b=a$ typically for $|b| < \epsilon_{\text{mach}} |a|$, i.e. when $b$ cannot be resolved by the mantissa of $a$, e.g. $(1+0.5\epsilon) - 0.5\epsilon$ in floating point arithmetic yields $0.9999999999999999$ not $1$.
-    \item \textcolor{red1}{\textbf{Associativity is not guarantueed:}} $(a+b)+c \explain{\ne}{i.A.} a+(b+c)$, e.g. $(2.3 + 1e20) - 1e20$ yields $0.0$ but $2.3 + (1e20 - 1e20)$ yields $2.3$
+    \item \textcolor{red1}{\textbf{Associativity is not guaranteed:}} $(a+b)+c \explain{\ne}{i.A.} a+(b+c)$, e.g. $(2.3 + 1e20) - 1e20$ yields $0.0$ but $2.3 + (1e20 - 1e20)$ yields $2.3$
     \item \textcolor{red1}{\textbf{Problems of representability:}} As e.g. $0.1$ is not exactly representable in base $\beta = 2$, $x/10 \ne 0.1 \cdot x$ in general while $x/2.0 = 0.5 \cdot x$ is exact. The compiler may automatically choose the multiplication variant as multiplication is faster than division.
     \item \textcolor{red1}{\textbf{Cancellation:}} For $x = a - b$ subtractive cancellation causes relative errors already present in $\hat{a}$ and $\hat{b}$ to be (relatively) amplified, when $a$ and $b$ are of similar size. Significant digits are lost and the relative error explodes. Consider e.g. $a = 1.75682, b = 1.75471$ with $\hat{a} = 1.76$ and $\hat{b} = 1.75$. While $\hat{a},\hat{b}$ have small relative errors (3 digits precision\footnote{$\hat{x}$ is said to approximate $x$ to the r-th digit, if the absolute error is at most $\frac{1}{2}$ in the r-th digit, so 
     \begin{equation} \text{largest integer s so that } 10^s < |x|, \quad |x-\hat{x}| < 1/2 \cdot 10^{s-r+1} \end{equation}} Note that here $0.123$ ans $0.127$ agree in two significant digits, where one intuitively might say this should be rather $1$.), $a-b = 0.00211$ and $\hat{a} - \hat{b} = 0.01$ has a large relative error (no precise digit).
@@ -359,10 +357,10 @@ where we should
 \begin{itemize}
     \item \textcolor{green1}{\textbf{Rewrite calculations so that errors do not amplify:}} For $x = 10^8, y = 10^5, z = - 1 - 10^5$ we have $xy+xz=-1.0066\cdot10^8$ (problem in resolving the $-1$ in $xz$) but $x(y+z) = -1.0\cdot10^8$.
     \item \textcolor{green1}{\textbf{Compare floats based on a maximum relative error:}} Instead of $x == y$ we should use e.g. $|x-y| \leq \epsilon_{\text{mach}} \cdot \max(|x|,|y|)$.
-    \item \textcolor{green1}{\textbf{As avoid overflow to inf and nan:}} E.g. in \mintinline{C}{float x = 1e20; float y = x * x; float z = y / x} $z$ will be inf. 
+    \item \textcolor{green1}{\textbf{Avoid overflow to inf and nan:}} E.g. in \mintinline{C}{float x = 1e20; float y = x * x; float z = y / x} $z$ will be inf. 
 \end{itemize}
 
-\subsubsection{Rewriting Expressions to Avoid Cancellation I}
+\subsubsection{Rewriting expressions to avoid cancellation I}
 Consider $f(x) = \frac{1-\cos x}{x^2}$. For $x_e = 10^{-4}$, we have (when we represent 6 figures)
 \begin{equation}
     c := \cos x_e, \quad \hat{c} = 0.999999, \quad 1-\hat{c} = 10^{-6}, \quad \text{while } 1-c \approx 5\cdot 10^{-9}
@@ -384,7 +382,7 @@ A comparison of both versions in python can be found in Fig. \ref{fig:cancellati
     \label{fig:cancellation_ex}
 \end{figure}
 
-\subsubsection{Rewriting Expressions to Avoid Cancellation II}
+\subsubsection{Rewriting expressions to avoid cancellation II}
 Consider the following expressions for the sample variance of $\{x_i\}_{i=1}^N$
 \begin{equation}
     \begin{multlined}
@@ -393,7 +391,7 @@ Consider the following expressions for the sample variance of $\{x_i\}_{i=1}^N$
 \end{equation}
 While for the one-pass formula, we can calculate all necessary sums in one pass through the data, it suffers heavily from cancellation: For $\{10000,10001,10002\}$, the two-pass formula in single precision correctly gives $1.0$ while the one-pass formula yields $0.0$ (cancellation) (there are better one-pass formulas though).
 
-\subsubsection{Accumulation of Round-off Errors}
+\subsubsection{Accumulation of round-off errors}
 Consider the sum
 \begin{equation}
     \sum_{k=1}^\infty k^{-2} = \frac{\pi^2}{6}
@@ -408,7 +406,7 @@ sum up from small to large. Summing up in single precision for $N=10^7$ terms, o
 \end{equation}
 As expected the big-to-small summation is too small.
 
-\subsubsection{Higher Precision}
+\subsubsection{Higher precision}
 The above pitfalls are less severe in higher precision. For instance in double precision ($64$-bit)
 \begin{equation}
     \begin{multlined}

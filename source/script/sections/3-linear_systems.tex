@@ -27,7 +27,7 @@ you can find Krylov subspace methods (Section \ref{app:krylov}) and
 multigrid techniques (Section \ref{app:multigrid}).
 
 \subsection{Why don't we typically explicitly invert matrices?}
-One can very efficiently invert matrices numerically. Indeed, matrix multiplication and 
+One can efficiently invert matrices numerically. Indeed, matrix multiplication and 
 inversion are equivalently hard problems in terms of asymptotic runtime \citep[Sec. 28.2]{cormen}, 
 such that the scaling of Strassen's algorithm, $\mathcal{O}(N^{\log_2 7})$ \citep[Sec. 4.2]{cormen}, applies.
 
@@ -97,7 +97,7 @@ and written as a linear system
    \mat{X}^T \mat{X} \vec{\beta} = \mat{X}^T \vec{y}^{\text{data}}
 \end{equation}
 
-\subsection{Direct solvers: Gaussian Elimination and LU Factorization}
+\subsection{Direct solvers: Gaussian elimination and LU factorization}
 
 \subsubsection{Introduction on an example}
 
@@ -568,7 +568,7 @@ Note that
     \mat{M}_{k}^{-1} = \mat{1} + \vec{m}_k \vec{e}_k^T
 \end{equation}
 
-You can proof this by showing $\mat{M}_{k}^{-1} \mat{M}_{k} = \mat{1}$. You will need to use 
+You can prove this by showing $\mat{M}_{k}^{-1} \mat{M}_{k} = \mat{1}$. You will need to use 
 $(\vec{m}_k \vec{e}_k^T)(\vec{m}_k \vec{e}_k^T) = \mat{0}$ as $(\vec{m}_k)_{i \leq k} = 0$.
 
 This naturally leads to the matrix factorization
@@ -822,7 +822,7 @@ so the convergence criterion follows.
 
 \problem{The convergence is usually slow, better use Gauss-Seidel iteration.}
 
-\subsubsubsection{Example Jacobi Step}
+\subsubsubsection{Example Jacobi step}
 Consider
 \begin{equation}
     \mat{A} \vec{x} = \begin{pmatrix} 10 & -5 & 0 \\ -5 & 10 & -5 \\ 0 & -5 & 5 \end{pmatrix} \left( \begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array} \right) = \vec{b} = \left( \begin{array}{c} 0 \\ 0 \\ 15 \end{array} \right)
