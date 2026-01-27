@@ -21,8 +21,8 @@ practical implementations in Python.
 1. Digital Representation of Numbers ([👷 hands-on notebook](https://colab.research.google.com/drive/1QQeLIq7YAyoSrm8ZWBEiDcJoCXZKoAVZ?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet1/loux/sheet1.pdf))
 2. Solving Linear Systems ([👷 hands-on notebook](https://colab.research.google.com/drive/1UJOwQ_jL4so5pKxZTOOj1CpKKQ7r4Zd_?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet2/loux/sheet2.pdf))
 3. Numerical Derivatives and Interpolation ([👷 hands-on notebook](https://colab.research.google.com/drive/1IJogFGfYlugjE9Wd81C8LFT3XXOxfY0M?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet3/loux/sheet3.pdf))
-4. Optimization ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/sheet4.pdf))
-5. Numerical Integration and Recap ([📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
+4. Optimization ([👷 hands-on notebook](https://colab.research.google.com/drive/1AzTNnEIoVucg3wdlXNmgJt1UoqozqAEe?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/sheet4.pdf))
+5. Numerical Integration and Recap ([👷 hands-on notebook](https://colab.research.google.com/drive/1K530zl9Wu1xK_B0QhULYhruQGtuQxy99?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
 
 The second part of the course (Fundamentals of 
 Numerical Programming II) will cover numerical
