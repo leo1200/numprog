@@ -1,8 +1,8 @@
-# Fundamentals of Numerical Programming I
+# Fundamentals of Numerical Programming
 
 This is the lecture material for the first 
-week of the AIMS-IWR Summer School 
-"Numerical Programming" course.
+week of the AIMS-IWR "Introductions to Modeling, Numerics 
+and Optimization for Differential Equations" course.
 
 The course covers both theoretical foundations and 
 practical implementations in Python.
