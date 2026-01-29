@@ -24,8 +24,7 @@ practical implementations in Python.
 4. Optimization ([👷 hands-on notebook](https://colab.research.google.com/drive/1AzTNnEIoVucg3wdlXNmgJt1UoqozqAEe?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet4/loux/sheet4.pdf))
 5. Numerical Integration and Recap ([👷 hands-on notebook](https://colab.research.google.com/drive/1K530zl9Wu1xK_B0QhULYhruQGtuQxy99?usp=sharing), [📝 exercise sheet](https://github.com/leo1200/numprog/raw/main/source/sheets/sheet5/loux/sheet5.pdf))
 
-The second part of the course (Fundamentals of 
-Numerical Programming II) will cover numerical
+The second part of the course will cover numerical
 techniques for ordinary differential equations.
 
 ## Python Environment
