@@ -108,10 +108,13 @@ here the \textbf{second order central difference} formula.
 We can also derive approximations for \textbf{higher-order derivatives}
 
 \begin{equation}
-    \left. \begin{matrix}
-        f_{i+1} = f_{i} + \Delta x \, f'_i + \frac{1}{2} f''_i \Delta x^2 + \mathcal{O}(\Delta x^3) \\
-        f_{i-1} = f_{i} - \Delta x \, f'_i + \frac{1}{2} f''_i \Delta x^2 + \mathcal{O}(\Delta x^3)
-    \end{matrix} \right\} \rightarrow f''_i = \frac{f_{i+1} - 2 f_{i}  + f_{i-1}}{\Delta x^2} + \mathcal{O}(\Delta x)
+    \begin{gathered}
+        \left. \begin{matrix}
+            f_{i+1} = f_{i} + \Delta x \, f'_i + \frac{1}{2} f''_i \Delta x^2 + \frac{1}{6} f'''_i \Delta x^3 + \mathcal{O}(\Delta x^4) \\
+            f_{i-1} = f_{i} - \Delta x \, f'_i + \frac{1}{2} f''_i \Delta x^2 - \frac{1}{6} f'''_i \Delta x^3 + \mathcal{O}(\Delta x^4)
+        \end{matrix} \right\} \\
+        \rightarrow f''_i = \frac{f_{i+1} - 2 f_{i}  + f_{i-1}}{\Delta x^2} + \mathcal{O}(\Delta x^2)
+    \end{gathered}
 \end{equation}
 
 \subsubsection{Truncation vs. floating point errors}
