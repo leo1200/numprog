@@ -373,7 +373,8 @@ To avoid cancellation we can rewrite using $\cos x = \cos^2 \frac{x}{2} - \sin^2
 \begin{equation}
     f(x) = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}} \right)^2
 \end{equation}
-A comparison of both versions in python can be found in Fig. \ref{fig:cancellation_ex}, at some point (roughly below $10^{-8})$, $\cos x$ is too close to $1$ to be resolved by the mantissa, so the total result is $0$, above that the magnified error is visible.
+A comparison of both versions in python can be found in Fig. \ref{fig:cancellation_ex}, at some point (roughly below $10^{-8})$, $\cos x$ is too close to $1$ to be resolved 
+by the mantissa (consider $\cos x = 1 - \frac{x^2}{2} + ...$, for $x \sim 10^{-8}$, the $x^2$ term falls below what machine precision can resolve), so the total result is $0$, above that the magnified error is visible.
 
 \begin{figure}[!htb]
     \centering
