@@ -14,7 +14,7 @@ practical implementations in Python.
 
 > [!NOTE]
 > For each topic there is a hands-on notebook and an exercise sheet. The hands-on notebooks
-> are meant to be worked through during the afternoon sessions, while the exercise sheets
+> are meant to be worked through during the class, while the exercise sheets
 > are meant to deepen your understanding in the aftermath of the course (some tasks overlap). 
 > After finishing the notebooks you can start with the exercise sheets.
 
