@@ -8,7 +8,8 @@ The course covers both theoretical foundations and
 practical implementations in Python.
 
 > [!TIP]
-> You can directly jump into the lecture notes [here](https://github.com/leo1200/numprog/raw/main/source/script/loux/lecture_notes.pdf).
+> You can directly jump into the lecture notes [here](https://github.com/leo1200/numprog/raw/main/source/script/loux/lecture_notes.pdf). The short exam can be found [here](https://github.com/leo1200/numprog/raw/main/source/exam/loux/exam_solution.pdf).
+
 
 ## Course Overview
 
